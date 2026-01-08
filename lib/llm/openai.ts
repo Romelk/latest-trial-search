@@ -86,14 +86,14 @@ Keep it concise. Only include fields that are clearly mentioned.`;
 }
 
 export async function generateProductReasons(
-  products: Array<{ id: string; title: string; brand: string; category: string; price: number }>,
+  products: Array<{ id: string; title: string; brand: string; category: string; price: number; role?: string }>,
   query: string,
   userAnswer?: string | null
 ): Promise<string[][]> {
   if (!openai) {
     // Fallback to local reasons
-    return products.map(() => [
-      "Matches your search criteria",
+    return products.map((p) => [
+      p.role ? `Perfect ${p.role} for this look` : "Matches your search criteria",
       "Good value for money",
       "Popular choice",
     ]);
@@ -102,10 +102,13 @@ export async function generateProductReasons(
   try {
     const productList = products
       .slice(0, 24)
-      .map((p, idx) => `${idx + 1}. ${p.title} (${p.brand}) - ₹${p.price}`)
+      .map((p, idx) => {
+        const roleInfo = p.role ? ` [Role: ${p.role}]` : "";
+        return `${idx + 1}. ${p.title} (${p.brand}) - $${p.price}${roleInfo}`;
+      })
       .join("\n");
 
-    const prompt = `You are a shopping assistant. For each product below, provide exactly 3 short reasons (one line each) why it matches the user's search.
+    const prompt = `You are a shopping assistant. For each product below, provide exactly 3 short reasons (one line each) why it matches the user's search and fits the complete look.
 
 Query: "${query}"
 ${userAnswer ? `User's answer: "${userAnswer}"` : ""}
@@ -113,10 +116,12 @@ ${userAnswer ? `User's answer: "${userAnswer}"` : ""}
 Products:
 ${productList}
 
+${products.some((p) => p.role) ? "Note: Products have roles (primary, top, bottom, footwear, addOn) - consider how each item fits its role in the complete outfit." : ""}
+
 Return ONLY a JSON array of arrays. Each inner array has exactly 3 strings (reasons).
 Format: [["reason1", "reason2", "reason3"], ["reason1", "reason2", "reason3"], ...]
 
-Keep reasons concise (max 15 words each).`;
+Keep reasons concise (max 15 words each). Do not mention reviews.`;
 
     const response = await openai.chat.completions.create({
       model: "gpt-4o-mini",
@@ -136,17 +141,41 @@ Keep reasons concise (max 15 words each).`;
       throw new Error("No response from OpenAI");
     }
 
-    const jsonMatch = content.match(/\[[\s\S]*\]/);
-    if (jsonMatch) {
-      const reasons = JSON.parse(jsonMatch[0]) as string[][];
+    // Try to extract JSON from markdown code blocks first
+    let jsonText = content;
+    const codeBlockMatch = content.match(/```(?:json)?\s*(\[[\s\S]*?\])\s*```/);
+    if (codeBlockMatch) {
+      jsonText = codeBlockMatch[1];
+    } else {
+      // Try to find JSON array in content
+      const jsonMatch = content.match(/\[[\s\S]*\]/);
+      if (jsonMatch) {
+        jsonText = jsonMatch[0];
+      }
+    }
+
+    // Clean up JSON text - remove trailing commas, fix common issues
+    jsonText = jsonText
+      .replace(/,\s*\]/g, ']') // Remove trailing commas before closing bracket
+      .replace(/,\s*\}/g, '}') // Remove trailing commas before closing brace
+      .trim();
+
+    try {
+      const reasons = JSON.parse(jsonText) as string[][];
+      // Validate it's an array of arrays
+      if (!Array.isArray(reasons) || !reasons.every((r) => Array.isArray(r))) {
+        throw new Error("Invalid format: not an array of arrays");
+      }
       // Ensure we have reasons for all products
       while (reasons.length < products.length) {
         reasons.push(["Matches your search", "Good quality", "Great value"]);
       }
       return reasons.slice(0, products.length);
+    } catch (parseError) {
+      console.error("JSON parse error:", parseError);
+      console.error("Attempted to parse:", jsonText.substring(0, 200));
+      throw new Error("Invalid JSON response");
     }
-
-    throw new Error("Invalid JSON response");
   } catch (error) {
     console.error("OpenAI error:", error);
     return products.map(() => [

@@ -18,17 +18,73 @@ export type SearchResult = {
 };
 
 /**
+ * Infer audience from query using light heuristics
+ */
+export function inferAudience(query: string): "men" | "women" | "unisex" | null {
+  const lowerQuery = query.toLowerCase();
+
+  // Men indicators
+  const menPatterns = [
+    /\bmen\b/,
+    /\bmens\b/,
+    /\bfor my husband\b/,
+    /\bfor my boyfriend\b/,
+    /\bfor him\b/,
+  ];
+  for (const pattern of menPatterns) {
+    if (pattern.test(lowerQuery)) {
+      return "men";
+    }
+  }
+
+  // Women indicators
+  const womenPatterns = [
+    /\bwomen\b/,
+    /\bwomens\b/,
+    /\bdress\b/,
+    /\bdresses\b/,
+    /\bheels\b/,
+    /\bfor my wife\b/,
+    /\bfor my girlfriend\b/,
+    /\bfor her\b/,
+  ];
+  for (const pattern of womenPatterns) {
+    if (pattern.test(lowerQuery)) {
+      return "women";
+    }
+  }
+
+  // Unisex only for accessory categories
+  const unisexAccessories = [
+    /\bbackpack\b/,
+    /\bbackpacks\b/,
+    /\bbeanie\b/,
+    /\bbeanies\b/,
+    /\bgloves\b/,
+    /\bsunglasses\b/,
+  ];
+  for (const pattern of unisexAccessories) {
+    if (pattern.test(lowerQuery)) {
+      return "unisex";
+    }
+  }
+
+  return null;
+}
+
+/**
  * Extract constraints from search query using heuristics
  */
 export function extractConstraints(query: string): SearchConstraints {
   const constraints: SearchConstraints = {};
   const lowerQuery = query.toLowerCase();
 
-  // Budget extraction
+  // Budget extraction (USD) - handle various formats
   const budgetPatterns = [
-    /(?:under|below|less than|max|maximum|upto|up to)\s*(?:₹|rs\.?|inr)?\s*(\d+)/i,
-    /(?:₹|rs\.?|inr)\s*(\d+)\s*(?:and|or)\s*(?:below|under|less)/i,
-    /(?:₹|rs\.?|inr)\s*(\d+)\s*(?:max|maximum)/i,
+    /(?:under|below|less than|max|maximum|upto|up to)\s*(?:\$|usd|dollars?)?\s*(\d+)/i,
+    /(?:\$|usd|dollars?)\s*(\d+)\s*(?:and|or)\s*(?:below|under|less)/i,
+    /(?:\$|usd|dollars?)\s*(\d+)\s*(?:max|maximum)/i,
+    /(?:\$|usd|dollars?)\s*(\d+)/i, // Catch "$300" format
   ];
 
   for (const pattern of budgetPatterns) {
@@ -66,7 +122,14 @@ export function extractConstraints(query: string): SearchConstraints {
     }
   }
 
-  // Color extraction
+  // Color exclusion extraction (check first for "no black", "exclude black", etc.)
+  const excludeColorPatterns = [
+    /no\s+(\w+)/i,
+    /exclude\s+(\w+)/i,
+    /without\s+(\w+)/i,
+    /not\s+(\w+)/i,
+  ];
+  
   const colors = [
     "black",
     "white",
@@ -86,11 +149,25 @@ export function extractConstraints(query: string): SearchConstraints {
     "olive",
   ];
 
-  for (const color of colors) {
-    if (lowerQuery.includes(color)) {
-      constraints.color =
-        color === "grey" ? "Gray" : color.charAt(0).toUpperCase() + color.slice(1);
+  let foundExclude = false;
+  for (const pattern of excludeColorPatterns) {
+    const match = lowerQuery.match(pattern);
+    if (match && colors.includes(match[1].toLowerCase())) {
+      constraints.colorExclude =
+        match[1].toLowerCase() === "grey" ? "Gray" : match[1].charAt(0).toUpperCase() + match[1].slice(1).toLowerCase();
+      foundExclude = true;
       break;
+    }
+  }
+
+  // Color inclusion extraction (only if no exclusion found)
+  if (!foundExclude) {
+    for (const color of colors) {
+      if (lowerQuery.includes(color)) {
+        constraints.color =
+          color === "grey" ? "Gray" : color.charAt(0).toUpperCase() + color.slice(1);
+        break;
+      }
     }
   }
 
@@ -232,6 +309,26 @@ function calculateScore(
     .join(" ")
     .toLowerCase();
 
+  // Scenario matching boost - check if query mentions scenario keywords
+  const scenarioMatches: Record<string, string[]> = {
+    "summer_wedding": ["summer", "wedding", "outdoor", "festive"],
+    "nyc_dinner": ["nyc", "new york", "dinner", "evening", "work"],
+    "biz_travel": ["business", "travel", "trip", "airport"],
+    "chi_winter": ["chicago", "winter", "cold", "snow"],
+    "campus": ["campus", "college", "university", "school"],
+  };
+  
+  if (product.scenarioId && scenarioMatches[product.scenarioId]) {
+    const scenarioKeywords = scenarioMatches[product.scenarioId];
+    const queryLower = tokens.join(" ").toLowerCase();
+    for (const keyword of scenarioKeywords) {
+      if (queryLower.includes(keyword)) {
+        score += 15; // Strong boost for scenario match
+        break;
+      }
+    }
+  }
+
   for (const token of tokens) {
     // Title matches (highest weight)
     if (product.title.toLowerCase().includes(token)) {
@@ -270,6 +367,17 @@ function calculateScore(
     // Description matches (lower weight)
     if (product.description.toLowerCase().includes(token)) {
       score += 2;
+    }
+    
+    // ScenarioId matching (boost products from matching scenario)
+    if (token === "summer" && product.scenarioId === "summer_wedding") {
+      score += 8;
+    }
+    if (token === "wedding" && product.scenarioId === "summer_wedding") {
+      score += 8;
+    }
+    if (token === "outdoor" && product.scenarioId === "summer_wedding") {
+      score += 6;
     }
   }
 
@@ -351,7 +459,7 @@ export function getConstraintChips(constraints: SearchConstraints): string[] {
   const chips: string[] = [];
 
   if (constraints.budgetMax) {
-    chips.push(`Under ₹${constraints.budgetMax}`);
+    chips.push(`Under $${constraints.budgetMax}`);
   }
   if (constraints.category) {
     chips.push(constraints.category);

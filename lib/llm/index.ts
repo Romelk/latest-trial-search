@@ -23,7 +23,7 @@ export async function generateShoppingBrief(
 
 export async function generateProductReasons(
   provider: "openai" | "anthropic",
-  products: Array<{ id: string; title: string; brand: string; category: string; price: number }>,
+  products: Array<{ id: string; title: string; brand: string; category: string; price: number; role?: string }>,
   query: string,
   userAnswer?: string | null
 ): Promise<string[][]> {

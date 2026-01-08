@@ -7,8 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "generate-catalog": "tsx scripts/generate-catalog.ts",
-    "smoke": "tsx scripts/smoke.ts"
+    "generate-catalog": "tsx scripts/generateCatalog.ts",
+    "check": "tsx scripts/check.ts",
+    "smoke": "tsx scripts/smoke.ts",
+    "bundle-smoke": "tsx scripts/bundleSmoke.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.71.2",

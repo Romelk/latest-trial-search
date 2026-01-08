@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { loadCatalog } from "@/lib/catalog";
-import { searchProducts, extractConstraints } from "@/lib/search";
+import { searchProducts, extractConstraints, inferAudience } from "@/lib/search";
 import { generateShoppingBrief, generateProductReasons } from "@/lib/llm";
 import { generateConstraintDelta } from "@/lib/llm/constraint-delta";
 
@@ -9,19 +9,50 @@ type Intent = "CLEAR" | "AMBIGUOUS" | "GOAL";
 function detectIntent(query: string): Intent {
   const lowerQuery = query.toLowerCase().trim();
 
-  // GOAL: includes context like occasion, event, "I need", "help me", "for my"
+  // GOAL: includes context like occasion, event, "I need", "help me", "for my", "I have", "I want"
   const goalPatterns = [
     /i need/i,
     /help me/i,
     /for my/i,
     /looking for/i,
     /want to/i,
+    /i want/i,  // "I want something" pattern
     /trying to/i,
     /need to/i,
+    /i have/i,  // "I have a date night" pattern
+    /i'm going/i,
+    /i'm attending/i,
+    /attending/i,
+    /going to/i,
   ];
 
   for (const pattern of goalPatterns) {
     if (pattern.test(query)) {
+      return "GOAL";
+    }
+  }
+
+  // GOAL: includes context words about events/occasions (date night, wedding, dinner, party, weekend, etc.)
+  const contextWords = [
+    "date night",
+    "wedding",
+    "dinner",
+    "party",
+    "event",
+    "occasion",
+    "weekend",
+    "evening",
+    "night out",
+    "meeting",
+    "interview",
+    "celebration",
+    "vacation",
+    "travel",
+    "trip",
+  ];
+
+  for (const context of contextWords) {
+    if (lowerQuery.includes(context)) {
       return "GOAL";
     }
   }
@@ -54,7 +85,7 @@ function detectIntent(query: string): Intent {
 
 export async function POST(request: NextRequest) {
   try {
-    const { query, provider = "openai", userAnswer, session, followUp, constraintsOverride } = await request.json();
+    const { query, provider = "openai", userAnswer, session, followUp, constraintsOverride, audience } = await request.json();
 
     if (!query || typeof query !== "string") {
       return NextResponse.json(
@@ -85,12 +116,19 @@ export async function POST(request: NextRequest) {
         colorExclude: delta.colorExclude || existingConstraints.colorExclude,
       };
 
+      // Get audience from session or use provided
+      const currentAudience = session.audience || audience || null;
+
       // Re-run search with merged constraints - first get candidates
       const searchResults = searchProducts(catalog, session.originalQuery, 100);
       
-      // Apply merged constraints to filter results
+      // Apply merged constraints and audience filter to filter results
       const filteredProducts = searchResults
         .filter((r) => {
+          // Apply audience filter if present
+          if (currentAudience && r.product.audience !== currentAudience) {
+            return false;
+          }
           // Apply budget filter (check for null/undefined explicitly)
           if (mergedConstraints.budgetMax !== null && mergedConstraints.budgetMax !== undefined) {
             if (r.product.price > mergedConstraints.budgetMax) {
@@ -192,7 +230,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({
         intent: "CLEAR", // Follow-ups are always CLEAR
         assistantQuestion: null,
-        session: { ...session, asked: true },
+        session: { ...session, asked: true, audience: currentAudience },
+        audience: currentAudience,
         constraints: {
           budgetMax: mergedConstraints.budgetMax ?? null,
           category: mergedConstraints.category ?? null,
@@ -208,29 +247,91 @@ export async function POST(request: NextRequest) {
     // Original search flow
     const intent = detectIntent(query);
 
-    // Determine if we should ask a question
-    let assistantQuestion: string | null = null;
-    let newSession = session || { originalQuery: query, asked: false };
+    // Infer or get audience
+    let currentAudience: "men" | "women" | "unisex" | null = null;
+    
+    // If audience is provided in request (from UI button click), use it
+    if (audience && (audience === "men" || audience === "women" || audience === "unisex")) {
+      currentAudience = audience;
+    } else if (session?.audience) {
+      // Use audience from existing session
+      currentAudience = session.audience;
+    } else if (userAnswer && (userAnswer.toLowerCase().includes("men") || userAnswer.toLowerCase().includes("women") || userAnswer.toLowerCase().includes("unisex"))) {
+      // Parse audience from user answer
+      const lowerAnswer = userAnswer.toLowerCase();
+      if (lowerAnswer.includes("men")) {
+        currentAudience = "men";
+      } else if (lowerAnswer.includes("women")) {
+        currentAudience = "women";
+      } else if (lowerAnswer.includes("unisex")) {
+        currentAudience = "unisex";
+      }
+    } else {
+      // Try to infer from query
+      currentAudience = inferAudience(query);
+    }
 
-    if (
-      (intent === "GOAL" || intent === "AMBIGUOUS") &&
-      !userAnswer &&
-      !newSession.asked
-    ) {
-      assistantQuestion = "Do you want it more relaxed or more formal?";
-      // Keep asked as false until user answers
+    // Determine if we should ask audience question
+    let assistantQuestion: string | null = null;
+    let newSession = session || { originalQuery: query, asked: false, audience: null };
+
+    // Ask audience question if audience is null and we haven't asked yet
+    if (!currentAudience && !newSession.asked) {
+      assistantQuestion = "Who is this for: Men, Women, or Unisex?";
       newSession.asked = false;
-    } else if (userAnswer) {
-      // Mark as asked after user provides an answer
+      newSession.audience = null;
+    } else if (userAnswer && !currentAudience) {
+      // If user provided answer but we still don't have audience, try to parse it
+      const lowerAnswer = userAnswer.toLowerCase();
+      if (lowerAnswer.includes("men")) {
+        currentAudience = "men";
+      } else if (lowerAnswer.includes("women")) {
+        currentAudience = "women";
+      } else if (lowerAnswer.includes("unisex")) {
+        currentAudience = "unisex";
+      }
+      if (currentAudience) {
+        newSession.audience = currentAudience;
+        newSession.asked = true;
+      }
+    } else if (currentAudience) {
+      // We have audience, mark session as set
+      newSession.audience = currentAudience;
       newSession.asked = true;
     }
 
-    // Get local search results (top 30 candidates)
-    const searchResults = searchProducts(catalog, query, 30);
+    // Filter catalog by audience if present
+    let filteredCatalog = catalog;
+    if (currentAudience) {
+      filteredCatalog = catalog.filter((p) => p.audience === currentAudience);
+    }
 
-    // If we have a user answer or session is already asked, use LLM to refine
+    // Extract constraints from query first
     let constraints = extractConstraints(query);
-    let finalProducts = searchResults.map((r) => r.product);
+    
+    // Get local search results (top 30 candidates) from filtered catalog
+    // searchProducts already applies constraints internally, but we pass the query
+    const searchResults = searchProducts(filteredCatalog, query, 100); // Get more candidates
+    
+    // Apply additional filters that might not be in searchProducts
+    let filteredResults = searchResults
+      .filter((r) => {
+        // Apply budget filter explicitly (double-check)
+        if (constraints.budgetMax !== null && constraints.budgetMax !== undefined) {
+          if (r.product.price > constraints.budgetMax) {
+            return false;
+          }
+        }
+        // Apply color exclude explicitly (double-check)
+        if (constraints.colorExclude) {
+          if (r.product.color.toLowerCase() === constraints.colorExclude.toLowerCase()) {
+            return false;
+          }
+        }
+        return true;
+      });
+    
+    let finalProducts = filteredResults.map((r) => r.product);
 
     if (userAnswer || newSession.asked) {
       // Generate shopping brief from LLM
@@ -282,13 +383,19 @@ export async function POST(request: NextRequest) {
       imageUrl: product.imageUrl,
       category: product.category,
       color: product.color,
+      scenarioId: product.scenarioId,
       reasons: reasons[idx] || ["Matches your search", "Good quality", "Great value"],
     }));
+
+    // Extract scenarioId from first result (if available)
+    const detectedScenarioId = topProducts[0]?.scenarioId || null;
 
     return NextResponse.json({
       intent,
       assistantQuestion,
       session: assistantQuestion || newSession.asked ? newSession : null,
+      audience: currentAudience,
+      scenarioId: detectedScenarioId,
       constraints: {
         budgetMax: constraints.budgetMax ?? null,
         category: constraints.category ?? null,

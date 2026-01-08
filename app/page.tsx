@@ -36,6 +36,7 @@ type Product = {
   imageUrl: string;
   category: string;
   color: string;
+  scenarioId?: string;
   reasons?: string[];
 };
 
@@ -49,6 +50,7 @@ type AssistantMessage = {
 type SearchSession = {
   originalQuery: string;
   asked: boolean;
+  audience: "men" | "women" | "unisex" | null;
 };
 
 type CartItem = {
@@ -60,6 +62,7 @@ type CartItem = {
   category: string;
   color: string;
   why: string;
+  role?: string;
 };
 
 type Cart = {
@@ -92,6 +95,7 @@ export default function Home() {
   const [isLoadingInsight, setIsLoadingInsight] = useState(false);
   const [compareVerdict, setCompareVerdict] = useState<any>(null);
   const [isLoadingVerdict, setIsLoadingVerdict] = useState(false);
+  const [scenarioId, setScenarioId] = useState<string | null>(null);
 
   // Handle follow-up refinement
   const handleFollowUp = async (followUpText: string) => {
@@ -133,7 +137,7 @@ export default function Home() {
 
       // Update shopping brief
       const briefParts: string[] = [];
-      if (newConstraints.budgetMax) briefParts.push(`Budget: ₹${newConstraints.budgetMax}`);
+      if (newConstraints.budgetMax) briefParts.push(`Budget: $${newConstraints.budgetMax}`);
       if (newConstraints.category) briefParts.push(newConstraints.category);
       if (newConstraints.color) briefParts.push(newConstraints.color);
       if (newConstraints.colorExclude) briefParts.push(`Exclude ${newConstraints.colorExclude}`);
@@ -152,7 +156,7 @@ export default function Home() {
   };
 
   // Search using API
-  const handleSearch = async (userAnswer?: string | null, updatedConstraints?: Record<string, string | number | null>) => {
+  const handleSearch = async (userAnswer?: string | null, updatedConstraints?: Record<string, string | number | null>, audienceOverride?: "men" | "women" | "unisex" | null) => {
     const searchQuery = session?.originalQuery || query;
     if (!searchQuery.trim() && !session) return;
 
@@ -180,6 +184,7 @@ export default function Home() {
           provider: provider === "openai" ? "openai" : "anthropic",
           userAnswer: userAnswer || null,
           session: session || null,
+          audience: audienceOverride || null,
         }),
       });
 
@@ -192,6 +197,7 @@ export default function Home() {
       setConstraints(data.constraints || {});
       setAssistantQuestion(data.assistantQuestion || null);
       setSession(data.session || null);
+      setScenarioId(data.scenarioId || null);
       
       // Debug: Log when question is set
       if (data.assistantQuestion) {
@@ -211,7 +217,7 @@ export default function Home() {
 
       // Extract shopping brief from constraints
       const briefParts: string[] = [];
-      if (data.constraints.budgetMax) briefParts.push(`Budget: ₹${data.constraints.budgetMax}`);
+      if (data.constraints.budgetMax) briefParts.push(`Budget: $${data.constraints.budgetMax}`);
       if (data.constraints.category) briefParts.push(data.constraints.category);
       if (data.constraints.color) briefParts.push(data.constraints.color);
       if (data.constraints.occasion) briefParts.push(data.constraints.occasion);
@@ -273,8 +279,19 @@ export default function Home() {
       setAssistantMessages((prev) => [...prev, userMessage]);
       setIsAssistantTyping(true);
 
-      // Search with answer
-      await handleSearch(text);
+      // Check if answer is an audience selection
+      const lowerText = text.toLowerCase();
+      let audienceOverride: "men" | "women" | "unisex" | null = null;
+      if (lowerText.includes("men")) {
+        audienceOverride = "men";
+      } else if (lowerText.includes("women")) {
+        audienceOverride = "women";
+      } else if (lowerText.includes("unisex")) {
+        audienceOverride = "unisex";
+      }
+
+      // Search with answer and audience if detected
+      await handleSearch(text, undefined, audienceOverride);
     } else if (session && results.length > 0) {
       // Otherwise, treat as follow-up refinement
       const userMessage: AssistantMessage = {
@@ -457,6 +474,8 @@ export default function Home() {
         body: JSON.stringify({
           query: session?.originalQuery || query,
           provider: provider === "openai" ? "openai" : "anthropic",
+          audience: session?.audience || null,
+          scenarioId: scenarioId || (results.length > 0 && results[0].scenarioId ? results[0].scenarioId : null),
         }),
       });
 
@@ -466,17 +485,17 @@ export default function Home() {
 
       const data = await response.json();
       setCarts(data.carts || []);
-      toast.success("Carts built successfully!");
+      toast.success("Bundles built successfully!");
     } catch (error) {
       console.error("Cart build error:", error);
-      toast.error("Failed to build carts. Please try again.");
+      toast.error("Failed to build bundles. Please try again.");
     } finally {
       setIsBuildingCarts(false);
     }
   };
 
   const handleCopySummary = (cart: Cart) => {
-    const summary = `${cart.name} Cart (₹${cart.items.reduce((sum, item) => sum + item.price, 0).toLocaleString()})\n\n${cart.items.map((item, idx) => `${idx + 1}. ${item.title} - ₹${item.price}\n   ${item.why}`).join("\n\n")}\n\n${cart.notes.join("\n")}`;
+    const summary = `${cart.name} Bundle ($${cart.items.reduce((sum, item) => sum + item.price, 0).toLocaleString()})\n\n${cart.items.map((item, idx) => `${idx + 1}. ${item.title} - $${item.price}\n   ${item.why}`).join("\n\n")}\n\n${cart.notes.join("\n")}`;
     navigator.clipboard.writeText(summary);
     toast.success("Summary copied to clipboard!");
   };
@@ -570,7 +589,7 @@ export default function Home() {
               >
                 {Object.entries(constraints).map(([key, value], idx) => {
                   if (value === null) return null;
-                  const label = key === "budgetMax" ? `Under ₹${value}` : String(value);
+                  const label = key === "budgetMax" ? `Under $${value}` : String(value);
                   return (
                     <motion.div
                       key={idx}
@@ -671,7 +690,7 @@ export default function Home() {
                           {result.brand}
                         </p>
                         <p className="text-lg font-bold text-primary mb-3">
-                          ₹{result.price.toLocaleString()}
+                          ${result.price.toLocaleString()}
                         </p>
                         <div className="flex flex-wrap gap-1.5 mb-3">
                           <Badge variant="secondary" className="text-xs">
@@ -790,24 +809,56 @@ export default function Home() {
                     className="bg-muted rounded-lg p-3"
                   >
                     <p className="text-sm mb-3">{assistantQuestion}</p>
-                    <div className="space-y-2">
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        className="w-full text-xs h-8"
-                        onClick={() => handleApplyAnswer("More relaxed")}
-                      >
-                        More relaxed
-                      </Button>
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        className="w-full text-xs h-8"
-                        onClick={() => handleApplyAnswer("More formal")}
-                      >
-                        More formal
-                      </Button>
-                    </div>
+                    {assistantQuestion.includes("Who is this for") ? (
+                      <div className="grid grid-cols-3 gap-2">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="text-xs h-8"
+                          onClick={() => handleSearch(null, undefined, "men")}
+                          disabled={isLoading}
+                        >
+                          Men
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="text-xs h-8"
+                          onClick={() => handleSearch(null, undefined, "women")}
+                          disabled={isLoading}
+                        >
+                          Women
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="text-xs h-8"
+                          onClick={() => handleSearch(null, undefined, "unisex")}
+                          disabled={isLoading}
+                        >
+                          Unisex
+                        </Button>
+                      </div>
+                    ) : (
+                      <div className="space-y-2">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="w-full text-xs h-8"
+                          onClick={() => handleApplyAnswer("More relaxed")}
+                        >
+                          More relaxed
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="w-full text-xs h-8"
+                          onClick={() => handleApplyAnswer("More formal")}
+                        >
+                          More formal
+                        </Button>
+                      </div>
+                    )}
                     <p className="text-xs text-muted-foreground mt-3 text-center">
                       Or type your answer below
                     </p>
@@ -875,8 +926,9 @@ export default function Home() {
                     {[
                       "More formal",
                       "More relaxed",
-                      "Under 3000",
-                      "Under 6000",
+                      "Under $200",
+                      "Under $400",
+                      "Fast delivery",
                       "Exclude black",
                       "Show shirts",
                       "Show sneakers",
@@ -958,7 +1010,7 @@ export default function Home() {
                         Building...
                       </>
                     ) : (
-                      "Build 3 Carts"
+                      "Build 3 Bundles"
                     )}
                   </Button>
                 </div>
@@ -972,7 +1024,7 @@ export default function Home() {
       <Dialog open={cartsDialogOpen} onOpenChange={setCartsDialogOpen}>
         <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle className="text-2xl">Your Shopping Carts</DialogTitle>
+            <DialogTitle className="text-2xl">Your Shopping Bundles</DialogTitle>
           </DialogHeader>
 
           {carts.length > 0 ? (
@@ -990,9 +1042,9 @@ export default function Home() {
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
                       <div>
-                        <h3 className="text-lg font-semibold">{cart.name} Cart</h3>
+                        <h3 className="text-lg font-semibold">{cart.name} Bundle</h3>
                         <p className="text-sm text-muted-foreground">
-                          Total: ₹{cart.items.reduce((sum, item) => sum + item.price, 0).toLocaleString()}
+                          Total: ${cart.items.reduce((sum, item) => sum + item.price, 0).toLocaleString()}
                         </p>
                       </div>
                       <Button
@@ -1032,8 +1084,13 @@ export default function Home() {
                                 {item.brand}
                               </p>
                               <p className="text-lg font-bold text-primary mb-3">
-                                ₹{item.price.toLocaleString()}
+                                ${item.price.toLocaleString()}
                               </p>
+                              {item.role && (
+                                <p className="text-xs text-muted-foreground mb-2">
+                                  Role: <span className="font-medium capitalize">{item.role}</span>
+                                </p>
+                              )}
                               <div className="pt-3 border-t">
                                 <p className="text-xs font-medium mb-1 text-muted-foreground">
                                   Why this fits:
@@ -1047,7 +1104,7 @@ export default function Home() {
                     </div>
 
                     <Card className="p-4 bg-muted/50">
-                      <h4 className="font-semibold text-sm mb-2">Cart Notes</h4>
+                      <h4 className="font-semibold text-sm mb-2">Bundle Notes</h4>
                       <ul className="space-y-1">
                         {cart.notes.map((note, idx) => (
                           <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2">
@@ -1065,7 +1122,7 @@ export default function Home() {
             <div className="flex items-center justify-center py-12">
               <div className="text-center">
                 <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4 text-muted-foreground" />
-                <p className="text-muted-foreground">Building your carts...</p>
+                <p className="text-muted-foreground">Building your bundles...</p>
               </div>
             </div>
           )}
@@ -1098,7 +1155,7 @@ export default function Home() {
                 {/* Price */}
                 <div>
                   <p className="text-3xl font-bold text-primary">
-                    ₹{selectedProduct.price.toLocaleString()}
+                    ${selectedProduct.price.toLocaleString()}
                   </p>
                   <div className="flex flex-wrap gap-2 mt-2">
                     <Badge variant="secondary">{selectedProduct.category}</Badge>
@@ -1194,7 +1251,7 @@ export default function Home() {
                                 {altProduct.title}
                               </h5>
                               <p className="text-xs font-bold text-primary mb-2">
-                                ₹{altProduct.price.toLocaleString()}
+                                ${altProduct.price.toLocaleString()}
                               </p>
                               <p className="text-xs text-muted-foreground mb-2 line-clamp-2">
                                 {alt.reason}
@@ -1367,7 +1424,7 @@ export default function Home() {
                           </div>
                           <div className="flex justify-between text-sm">
                             <span className="text-muted-foreground">Price:</span>
-                            <span className="font-bold text-primary">₹{product.price.toLocaleString()}</span>
+                            <span className="font-bold text-primary">${product.price.toLocaleString()}</span>
                           </div>
                           {product.reasons && product.reasons.length > 0 && (
                             <div className="pt-2 border-t">
