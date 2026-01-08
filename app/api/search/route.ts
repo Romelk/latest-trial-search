@@ -102,7 +102,7 @@ export async function POST(request: NextRequest) {
       
       // Generate constraint delta from follow-up
       const delta = await generateConstraintDelta(
-        provider as "openai" | "anthropic",
+        provider as "openai" | "anthropic" | "gemini",
         followUp,
         existingConstraints
       );
@@ -210,7 +210,7 @@ export async function POST(request: NextRequest) {
       }));
 
       const reasons = await generateProductReasons(
-        provider as "openai" | "anthropic",
+        provider as "openai" | "anthropic" | "gemini",
         productSummaries,
         session.originalQuery,
         followUp
@@ -336,7 +336,7 @@ export async function POST(request: NextRequest) {
     if (userAnswer || newSession.asked) {
       // Generate shopping brief from LLM
       const brief = await generateShoppingBrief(
-        provider as "openai" | "anthropic",
+        provider as "openai" | "anthropic" | "gemini",
         query,
         userAnswer
       );
@@ -368,7 +368,7 @@ export async function POST(request: NextRequest) {
     }));
 
     const reasons = await generateProductReasons(
-      provider as "openai" | "anthropic",
+      provider as "openai" | "anthropic" | "gemini",
       productSummaries,
       query,
       userAnswer

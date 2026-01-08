@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
 
     // Generate insights using LLM
     const insights = await generateProductInsight(
-      provider as "openai" | "anthropic",
+      provider as "openai" | "anthropic" | "gemini",
       product,
       brief || {},
       alternatives

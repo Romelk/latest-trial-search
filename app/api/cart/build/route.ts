@@ -345,7 +345,7 @@ function scoreProductForRole(
 
 function buildCarts(
   candidates: Array<{ product: Product; score: number }>,
-  provider: "openai" | "anthropic",
+  provider: "openai" | "anthropic" | "gemini",
   query: string,
   preference: string | null | undefined,
   audience: "men" | "women" | "unisex" | null,
@@ -638,7 +638,7 @@ function buildCarts(
 
 async function generateCartNotes(
   carts: { budget: CartItem[]; balanced: CartItem[]; premium: CartItem[] },
-  provider: "openai" | "anthropic",
+  provider: "openai" | "anthropic" | "gemini",
   query: string,
   preference?: string | null
 ): Promise<{ budget: Cart; balanced: Cart; premium: Cart }> {
@@ -748,7 +748,7 @@ export async function POST(request: NextRequest) {
     // Build carts with additional filtering
     const carts = buildCarts(
       searchResults, 
-      provider as "openai" | "anthropic", 
+      provider as "openai" | "anthropic" | "gemini", 
       query, 
       preference,
       audience || null,
@@ -759,7 +759,7 @@ export async function POST(request: NextRequest) {
     // Generate notes and "why" using LLM
     const cartsWithNotes = await generateCartNotes(
       carts,
-      provider as "openai" | "anthropic",
+      provider as "openai" | "anthropic" | "gemini",
       query,
       preference
     );

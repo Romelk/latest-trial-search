@@ -1,4 +1,5 @@
 import type { Product } from "../catalog";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 export type ProductInsight = {
   fitSummary: string;
@@ -26,13 +27,13 @@ async function generateProductInsightOpenAI(
       .join(", ");
 
     const alternativesText = alternatives
-      .map((a) => `${a.id}: ${a.title} (${a.brand}) - ₹${a.price}`)
+      .map((a) => `${a.id}: ${a.title} (${a.brand}) - $${a.price}`)
       .join("\n");
 
     const prompt = `You are a shopping assistant. Provide insights for this product:
 
 Product: ${product.title} by ${product.brand}
-Price: ₹${product.price}
+Price: $${product.price}
 Category: ${product.category}
 Color: ${product.color}
 Style: ${product.style}
@@ -115,13 +116,13 @@ async function generateProductInsightAnthropic(
       .join(", ");
 
     const alternativesText = alternatives
-      .map((a) => `${a.id}: ${a.title} (${a.brand}) - ₹${a.price}`)
+      .map((a) => `${a.id}: ${a.title} (${a.brand}) - $${a.price}`)
       .join("\n");
 
     const prompt = `You are a shopping assistant. Provide insights for this product:
 
 Product: ${product.title} by ${product.brand}
-Price: ₹${product.price}
+Price: $${product.price}
 Category: ${product.category}
 Color: ${product.color}
 Style: ${product.style}
@@ -193,7 +194,7 @@ function generateProductInsightLocal(
   const fitSummary = `${product.category} in ${product.color} fits your needs.`;
   
   const tradeoffs = [
-    `Price: ₹${product.price}`,
+    `Price: $${product.price}`,
     `Style: ${product.style}`,
     `Occasions: ${product.occasionTags.slice(0, 2).join(", ")}`,
   ];
@@ -207,7 +208,7 @@ function generateProductInsightLocal(
   const alternativesList = alternatives.slice(0, 2).map((alt) => ({
     id: alt.id,
     reason: alt.price < product.price
-      ? `Lower price at ₹${alt.price}`
+      ? `Lower price at $${alt.price}`
       : `Different style: ${alt.style}`,
   }));
 
@@ -219,8 +220,90 @@ function generateProductInsightLocal(
   };
 }
 
+async function generateProductInsightGemini(
+  product: Product,
+  brief: Record<string, any>,
+  alternatives: Product[]
+): Promise<ProductInsight> {
+  if (!process.env.GOOGLE_API_KEY) {
+    return generateProductInsightLocal(product, brief, alternatives);
+  }
+
+  try {
+    const { GoogleGenerativeAI } = await import("@google/generative-ai");
+    const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
+    const model = genAI.getGenerativeModel({ 
+      model: "gemini-2.0-flash-exp" 
+    });
+
+    const briefText = Object.entries(brief)
+      .filter(([_, v]) => v !== null && v !== undefined)
+      .map(([k, v]) => `${k}: ${v}`)
+      .join(", ");
+
+    const alternativesText = alternatives
+      .map((a) => `${a.id}: ${a.title} (${a.brand}) - $${a.price}`)
+      .join("\n");
+
+    const prompt = `Product: ${product.title} by ${product.brand}
+Price: $${product.price}
+Category: ${product.category}
+Color: ${product.color}
+Style: ${product.style}
+Occasion tags: ${product.occasionTags.join(", ")}
+Description: ${product.description}
+
+User's brief: ${briefText || "None specified"}
+
+Alternatives available:
+${alternativesText}
+
+Return JSON:
+{
+  "fitSummary": "one sentence explaining how this product fits the brief",
+  "tradeoffs": ["short tradeoff 1", "short tradeoff 2", "short tradeoff 3"],
+  "styling": ["styling tip 1", "styling tip 2", "styling tip 3"],
+  "alternatives": [
+    {"id": "productId1", "reason": "why alternative 1 might be better"},
+    {"id": "productId2", "reason": "why alternative 2 might be better"}
+  ]
+}
+
+Rules:
+- Keep all text short (max 15 words per item)
+- Only use product attributes and brief, no fake reviews
+- Alternatives must be from the provided list
+- Be honest about tradeoffs`;
+
+    const result = await model.generateContent({
+      contents: [{ role: "user", parts: [{ text: prompt }] }],
+      generationConfig: {
+        temperature: 0.5,
+        maxOutputTokens: 400,
+        responseMimeType: "application/json",
+      },
+    });
+
+    const response = await result.response;
+    const text = response.text();
+    const jsonMatch = text.match(/\{[\s\S]*\}/);
+    if (jsonMatch) {
+      const insight = JSON.parse(jsonMatch[0]) as ProductInsight;
+      insight.alternatives = insight.alternatives
+        .filter((alt) => alternatives.some((a) => a.id === alt.id))
+        .slice(0, 2);
+      return insight;
+    }
+
+    return generateProductInsightLocal(product, brief, alternatives);
+  } catch (error) {
+    console.error("Gemini product insight error:", error);
+    return generateProductInsightLocal(product, brief, alternatives);
+  }
+}
+
 export async function generateProductInsight(
-  provider: "openai" | "anthropic",
+  provider: "openai" | "anthropic" | "gemini",
   product: Product,
   brief: Record<string, any>,
   alternatives: Product[]
@@ -228,6 +311,9 @@ export async function generateProductInsight(
   if (provider === "openai") {
     return generateProductInsightOpenAI(product, brief, alternatives);
   }
-  return generateProductInsightAnthropic(product, brief, alternatives);
+  if (provider === "anthropic") {
+    return generateProductInsightAnthropic(product, brief, alternatives);
+  }
+  return generateProductInsightGemini(product, brief, alternatives);
 }
 

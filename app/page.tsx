@@ -2,6 +2,11 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { Search, Sparkles, X, Loader2, Pin, PinOff, Copy, Send } from "lucide-react";
+import RestaurantIcon from "@mui/icons-material/Restaurant";
+import LocalFloristIcon from "@mui/icons-material/LocalFlorist";
+import FlightIcon from "@mui/icons-material/Flight";
+import AcUnitIcon from "@mui/icons-material/AcUnit";
+import SchoolIcon from "@mui/icons-material/School";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,31 +21,31 @@ const SCENARIOS = [
     id: "nyc_dinner",
     name: "NYC Work Dinner",
     description: "Smart casual for evening events",
-    icon: "🍽️",
+    icon: RestaurantIcon,
   },
   {
     id: "summer_wedding",
     name: "Summer Wedding",
     description: "Festive outdoor celebrations",
-    icon: "💐",
+    icon: LocalFloristIcon,
   },
   {
     id: "biz_travel",
     name: "Business Travel",
     description: "Capsule wardrobe for trips",
-    icon: "✈️",
+    icon: FlightIcon,
   },
   {
     id: "chi_winter",
     name: "Chicago Winter",
     description: "Functional office-ready",
-    icon: "❄️",
+    icon: AcUnitIcon,
   },
   {
     id: "campus",
     name: "Campus Essentials",
     description: "Back-to-school basics",
-    icon: "🎓",
+    icon: SchoolIcon,
   },
 ];
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -53,7 +58,7 @@ import {
 } from "@/components/ui/sheet";
 import { Separator } from "@/components/ui/separator";
 
-type Provider = "openai" | "anthropic";
+type Provider = "openai" | "anthropic" | "gemini";
 type Product = {
   id: string;
   title: string;
@@ -139,7 +144,7 @@ export default function Home() {
         },
         body: JSON.stringify({
           query: session.originalQuery,
-          provider: provider === "openai" ? "openai" : "anthropic",
+          provider: provider as "openai" | "anthropic" | "gemini",
           session: session,
           followUp: followUpText.trim(),
         }),
@@ -208,7 +213,7 @@ export default function Home() {
         },
         body: JSON.stringify({
           query: searchQuery,
-          provider: provider === "openai" ? "openai" : "anthropic",
+          provider: provider as "openai" | "anthropic" | "gemini",
           userAnswer: userAnswer || null,
           session: session || null,
           audience: audienceOverride || null,
@@ -416,7 +421,7 @@ export default function Home() {
         },
         body: JSON.stringify({
           productId: product.id,
-          provider: provider === "openai" ? "openai" : "anthropic",
+          provider: provider as "openai" | "anthropic" | "gemini",
           brief: constraints,
           candidateIds,
         }),
@@ -448,7 +453,7 @@ export default function Home() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          provider: provider === "openai" ? "openai" : "anthropic",
+          provider: provider as "openai" | "anthropic" | "gemini",
           brief: constraints,
           a: productA,
           b: productB,
@@ -505,7 +510,7 @@ export default function Home() {
         },
         body: JSON.stringify({
           query: session?.originalQuery || query,
-          provider: provider === "openai" ? "openai" : "anthropic",
+          provider: provider as "openai" | "anthropic" | "gemini",
           audience: session?.audience || null,
           scenarioId: scenarioId || (results.length > 0 && results[0].scenarioId ? results[0].scenarioId : null),
         }),
@@ -578,6 +583,7 @@ export default function Home() {
                 <TabsList>
                   <TabsTrigger value="openai">OpenAI</TabsTrigger>
                   <TabsTrigger value="anthropic">Claude</TabsTrigger>
+                  <TabsTrigger value="gemini">Gemini</TabsTrigger>
                 </TabsList>
               </Tabs>
             )}
@@ -790,8 +796,8 @@ export default function Home() {
                           onClick={() => handleScenarioClick(scenario.id)}
                         >
                           <CardContent className="p-8 flex flex-col items-center text-center h-full min-h-[220px] justify-center">
-                            <div className="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                              {scenario.icon}
+                            <div className="mb-4 group-hover:scale-110 transition-transform duration-300 text-primary">
+                              {scenario.icon && <scenario.icon sx={{ fontSize: 48 }} />}
                             </div>
                             <h4 className="font-semibold text-xl mb-3 group-hover:text-primary transition-colors">
                               {scenario.name}
@@ -805,34 +811,34 @@ export default function Home() {
                     ))}
                   </div>
                   {/* Row 2: 2 tiles centered */}
-                  <div className="flex justify-center">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[calc(66.666%+1.5rem)]">
-                      {SCENARIOS.slice(3, 5).map((scenario, idx) => (
-                        <motion.div
-                          key={scenario.id}
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: (idx + 3) * 0.1 }}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="hidden md:block"></div>
+                    {SCENARIOS.slice(3, 5).map((scenario, idx) => (
+                      <motion.div
+                        key={scenario.id}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: (idx + 3) * 0.1 }}
+                      >
+                        <Card
+                          className="h-full cursor-pointer hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/50 group bg-gradient-to-br from-white to-slate-50/50"
+                          onClick={() => handleScenarioClick(scenario.id)}
                         >
-                          <Card
-                            className="h-full cursor-pointer hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/50 group bg-gradient-to-br from-white to-slate-50/50"
-                            onClick={() => handleScenarioClick(scenario.id)}
-                          >
-                            <CardContent className="p-8 flex flex-col items-center text-center h-full min-h-[220px] justify-center">
-                              <div className="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                                {scenario.icon}
-                              </div>
-                              <h4 className="font-semibold text-xl mb-3 group-hover:text-primary transition-colors">
-                                {scenario.name}
-                              </h4>
-                              <p className="text-sm text-muted-foreground leading-relaxed">
-                                {scenario.description}
-                              </p>
-                            </CardContent>
-                          </Card>
-                        </motion.div>
-                      ))}
-                    </div>
+                          <CardContent className="p-8 flex flex-col items-center text-center h-full min-h-[220px] justify-center">
+                            <div className="mb-4 group-hover:scale-110 transition-transform duration-300 text-primary">
+                              {scenario.icon && <scenario.icon sx={{ fontSize: 48 }} />}
+                            </div>
+                            <h4 className="font-semibold text-xl mb-3 group-hover:text-primary transition-colors">
+                              {scenario.name}
+                            </h4>
+                            <p className="text-sm text-muted-foreground leading-relaxed">
+                              {scenario.description}
+                            </p>
+                          </CardContent>
+                        </Card>
+                      </motion.div>
+                    ))}
+                    <div className="hidden md:block"></div>
                   </div>
                 </div>
               </motion.div>

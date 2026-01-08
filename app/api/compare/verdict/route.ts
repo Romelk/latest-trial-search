@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
 
     // Generate verdict using LLM
     const verdict = await generateCompareVerdict(
-      provider as "openai" | "anthropic",
+      provider as "openai" | "anthropic" | "gemini",
       a,
       b,
       brief || {}

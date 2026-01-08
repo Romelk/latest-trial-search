@@ -26,14 +26,14 @@ async function generateCompareVerdictOpenAI(
     const prompt = `Compare two products for a user:
 
 Product A: ${productA.title} by ${productA.brand}
-- Price: ₹${productA.price}
+- Price: $${productA.price}
 - Category: ${productA.category}
 - Color: ${productA.color}
 - Style: ${productA.style}
 - Occasions: ${productA.occasionTags?.join(", ") || "N/A"}
 
 Product B: ${productB.title} by ${productB.brand}
-- Price: ₹${productB.price}
+- Price: $${productB.price}
 - Category: ${productB.category}
 - Color: ${productB.color}
 - Style: ${productB.style}
@@ -106,14 +106,14 @@ async function generateCompareVerdictAnthropic(
     const prompt = `Compare two products for a user:
 
 Product A: ${productA.title} by ${productA.brand}
-- Price: ₹${productA.price}
+- Price: $${productA.price}
 - Category: ${productA.category}
 - Color: ${productA.color}
 - Style: ${productA.style}
 - Occasions: ${productA.occasionTags?.join(", ") || "N/A"}
 
 Product B: ${productB.title} by ${productB.brand}
-- Price: ₹${productB.price}
+- Price: $${productB.price}
 - Category: ${productB.category}
 - Color: ${productB.color}
 - Style: ${productB.style}
@@ -178,13 +178,13 @@ function generateCompareVerdictLocal(
   const verdict = `Choose ${cheaper} for budget, ${moreFormal || "A"} for formal occasions.`;
 
   const bulletsA = [
-    `Price: ₹${productA.price}`,
+    `Price: $${productA.price}`,
     `Style: ${productA.style}`,
     `Color: ${productA.color}`,
   ];
 
   const bulletsB = [
-    `Price: ₹${productB.price}`,
+    `Price: $${productB.price}`,
     `Style: ${productB.style}`,
     `Color: ${productB.color}`,
   ];
@@ -207,8 +207,84 @@ function generateCompareVerdictLocal(
   };
 }
 
+async function generateCompareVerdictGemini(
+  productA: any,
+  productB: any,
+  brief: Record<string, any>
+): Promise<CompareVerdict> {
+  if (!process.env.GOOGLE_API_KEY) {
+    return generateCompareVerdictLocal(productA, productB, brief);
+  }
+
+  try {
+    const { GoogleGenerativeAI } = await import("@google/generative-ai");
+    const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
+    const model = genAI.getGenerativeModel({ 
+      model: "gemini-2.0-flash-exp" 
+    });
+
+    const briefText = Object.entries(brief)
+      .filter(([_, v]) => v !== null && v !== undefined)
+      .map(([k, v]) => `${k}: ${v}`)
+      .join(", ");
+
+    const prompt = `Compare two products:
+
+Product A: ${productA.title} by ${productA.brand}
+- Price: $${productA.price}
+- Category: ${productA.category}
+- Color: ${productA.color}
+- Style: ${productA.style}
+- Occasions: ${productA.occasionTags?.join(", ") || "N/A"}
+
+Product B: ${productB.title} by ${productB.brand}
+- Price: $${productB.price}
+- Category: ${productB.category}
+- Color: ${productB.color}
+- Style: ${productB.style}
+- Occasions: ${productB.occasionTags?.join(", ") || "N/A"}
+
+User's brief: ${briefText || "None specified"}
+
+Return JSON:
+{
+  "verdict": "short verdict: Choose A if..., choose B if...",
+  "bulletsA": ["advantage 1", "advantage 2", "advantage 3"],
+  "bulletsB": ["advantage 1", "advantage 2", "advantage 3"],
+  "tags": ["Best for budget", "Best for formal", "Best for comfort"]
+}
+
+Rules:
+- Keep verdict under 30 words
+- Bullets max 10 words each
+- Tags should reflect brief priorities
+- Be decisive and grounded in attributes`;
+
+    const result = await model.generateContent({
+      contents: [{ role: "user", parts: [{ text: prompt }] }],
+      generationConfig: {
+        temperature: 0.5,
+        maxOutputTokens: 300,
+        responseMimeType: "application/json",
+      },
+    });
+
+    const response = await result.response;
+    const text = response.text();
+    const jsonMatch = text.match(/\{[\s\S]*\}/);
+    if (jsonMatch) {
+      return JSON.parse(jsonMatch[0]) as CompareVerdict;
+    }
+
+    return generateCompareVerdictLocal(productA, productB, brief);
+  } catch (error) {
+    console.error("Gemini compare verdict error:", error);
+    return generateCompareVerdictLocal(productA, productB, brief);
+  }
+}
+
 export async function generateCompareVerdict(
-  provider: "openai" | "anthropic",
+  provider: "openai" | "anthropic" | "gemini",
   productA: any,
   productB: any,
   brief: Record<string, any>
@@ -216,6 +292,9 @@ export async function generateCompareVerdict(
   if (provider === "openai") {
     return generateCompareVerdictOpenAI(productA, productB, brief);
   }
-  return generateCompareVerdictAnthropic(productA, productB, brief);
+  if (provider === "anthropic") {
+    return generateCompareVerdictAnthropic(productA, productB, brief);
+  }
+  return generateCompareVerdictGemini(productA, productB, brief);
 }
 

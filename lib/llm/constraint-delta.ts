@@ -1,5 +1,6 @@
 import * as openai from "./openai";
 import * as anthropic from "./anthropic";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 export type ConstraintDelta = {
   budgetMax?: number | null;
@@ -156,7 +157,7 @@ function parseConstraintDeltaLocal(followUp: string): ConstraintDelta {
   const lower = followUp.toLowerCase();
 
   // Budget
-  const budgetMatch = lower.match(/(?:under|below|less than|upto|up to)\s*(?:₹|rs\.?|inr)?\s*(\d+)/);
+  const budgetMatch = lower.match(/(?:under|below|less than|upto|up to)\s*(?:\$|usd|dollars?)?\s*(\d+)/);
   if (budgetMatch) {
     delta.budgetMax = parseInt(budgetMatch[1], 10);
   }
@@ -202,14 +203,72 @@ function parseConstraintDeltaLocal(followUp: string): ConstraintDelta {
   return delta;
 }
 
+async function generateConstraintDeltaGemini(
+  followUp: string,
+  existingConstraints: Record<string, any>
+): Promise<ConstraintDelta> {
+  if (!process.env.GOOGLE_API_KEY) {
+    return parseConstraintDeltaLocal(followUp);
+  }
+
+  try {
+    const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
+    const model = genAI.getGenerativeModel({ 
+      model: "gemini-2.0-flash-exp" 
+    });
+
+    const prompt = `Extract NEW or CHANGED constraints from: "${followUp}"
+
+Current: ${JSON.stringify(existingConstraints)}
+
+Return JSON with only changed fields:
+{
+  "budgetMax": number or null,
+  "category": string or null,
+  "colorInclude": string or null,
+  "colorExclude": string or null,
+  "style": string or null,
+  "occasion": string or null,
+  "includeKeywords": string[] or null,
+  "excludeKeywords": string[] or null,
+  "sortBy": "price_asc" | "price_desc" | null
+}
+Keep minimal - only what changed.`;
+
+    const result = await model.generateContent({
+      contents: [{ role: "user", parts: [{ text: prompt }] }],
+      generationConfig: {
+        temperature: 0.3,
+        maxOutputTokens: 200,
+        responseMimeType: "application/json",
+      },
+    });
+
+    const response = await result.response;
+    const text = response.text();
+    const jsonMatch = text.match(/\{[\s\S]*\}/);
+    if (jsonMatch) {
+      return JSON.parse(jsonMatch[0]) as ConstraintDelta;
+    }
+
+    return parseConstraintDeltaLocal(followUp);
+  } catch (error) {
+    console.error("Gemini constraint delta error:", error);
+    return parseConstraintDeltaLocal(followUp);
+  }
+}
+
 export async function generateConstraintDelta(
-  provider: "openai" | "anthropic",
+  provider: "openai" | "anthropic" | "gemini",
   followUp: string,
   existingConstraints: Record<string, any>
 ): Promise<ConstraintDelta> {
   if (provider === "openai") {
     return generateConstraintDeltaOpenAI(followUp, existingConstraints);
   }
-  return generateConstraintDeltaAnthropic(followUp, existingConstraints);
+  if (provider === "anthropic") {
+    return generateConstraintDeltaAnthropic(followUp, existingConstraints);
+  }
+  return generateConstraintDeltaGemini(followUp, existingConstraints);
 }
 
