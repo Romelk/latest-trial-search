@@ -124,7 +124,7 @@ Keep reasons concise (max 15 words each). Do not mention reviews.`;
 
     const response = await anthropic.messages.create({
       model: "claude-3-5-sonnet-20241022",
-      max_tokens: 800,
+      max_tokens: 4000,
       temperature: 0.5,
       messages: [
         {
@@ -161,20 +161,90 @@ Keep reasons concise (max 15 words each). Do not mention reviews.`;
       .trim();
 
     try {
+      // Check if JSON appears truncated (incomplete string at the end)
+      const trimmedJson = jsonText.trim();
+      
+      // Better truncation handling: find last complete array element
+      if (trimmedJson && !trimmedJson.endsWith(']')) {
+        // Find all complete array elements: ["str1","str2","str3"]
+        const completeElements: string[] = [];
+        const elementPattern = /\["([^"]*)","([^"]*)","([^"]*)"\]/g;
+        let match;
+        while ((match = elementPattern.exec(trimmedJson)) !== null) {
+          completeElements.push(match[0]);
+        }
+        
+        if (completeElements.length > 0) {
+          // Reconstruct JSON from complete elements only
+          jsonText = '[' + completeElements.join(',') + ']';
+        } else {
+          // Fallback: find last complete element
+          const lastBracketIndex = trimmedJson.lastIndexOf(']');
+          if (lastBracketIndex > 0) {
+            const beforeLastBracket = trimmedJson.substring(0, lastBracketIndex);
+            const lastOpeningBracket = beforeLastBracket.lastIndexOf('[');
+            if (lastOpeningBracket >= 0) {
+              const element = trimmedJson.substring(lastOpeningBracket, lastBracketIndex + 1);
+              const stringCount = (element.match(/","/g) || []).length;
+              if (stringCount >= 2) {
+                const beforeElement = trimmedJson.substring(0, lastOpeningBracket);
+                jsonText = beforeElement.replace(/,\s*$/, '') + element + ']';
+              } else {
+                jsonText = beforeLastBracket.replace(/,\s*$/, '') + ']';
+              }
+            }
+          }
+        }
+      }
+
+      // Final safety check
+      if (!jsonText.trim().endsWith(']')) {
+        const lastCompleteIndex = jsonText.lastIndexOf('"]');
+        if (lastCompleteIndex > 0) {
+          const beforeIncomplete = jsonText.substring(0, lastCompleteIndex + 2);
+          const lastArrayStart = beforeIncomplete.lastIndexOf('[');
+          if (lastArrayStart >= 0) {
+            jsonText = beforeIncomplete.substring(0, lastArrayStart).replace(/,\s*$/, '') + beforeIncomplete.substring(lastArrayStart) + ']';
+          }
+        } else {
+          jsonText = jsonText.replace(/[^\]]*$/, ']');
+        }
+      }
+
       const reasons = JSON.parse(jsonText) as string[][];
       // Validate it's an array of arrays
       if (!Array.isArray(reasons) || !reasons.every((r) => Array.isArray(r))) {
         throw new Error("Invalid format: not an array of arrays");
       }
+      
+      // Ensure all inner arrays have exactly 3 strings
+      const validReasons = reasons.map(r => {
+        if (Array.isArray(r) && r.length > 0) {
+          return r.slice(0, 3).filter(s => typeof s === 'string' && s.length > 0);
+        }
+        return ["Matches your search", "Good quality", "Great value"];
+      }).map(r => {
+        while (r.length < 3) {
+          r.push("Good value");
+        }
+        return r.slice(0, 3);
+      });
+
       // Ensure we have reasons for all products
-      while (reasons.length < products.length) {
-        reasons.push(["Matches your search", "Good quality", "Great value"]);
+      while (validReasons.length < products.length) {
+        validReasons.push(["Matches your search", "Good quality", "Great value"]);
       }
-      return reasons.slice(0, products.length);
+      return validReasons.slice(0, products.length);
     } catch (parseError) {
       console.error("JSON parse error:", parseError);
-      console.error("Attempted to parse:", jsonText.substring(0, 200));
-      throw new Error("Invalid JSON response");
+      console.error("Attempted to parse:", jsonText.substring(0, 500));
+      // Return fallback reasons instead of throwing
+      console.warn("Falling back to default reasons due to JSON parse error");
+      return products.map(() => [
+        "Matches your search criteria",
+        "Good value for money",
+        "Popular choice",
+      ]);
     }
   } catch (error) {
     console.error("Anthropic error:", error);

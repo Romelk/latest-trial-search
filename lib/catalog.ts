@@ -426,7 +426,7 @@ function generateProductForScenario(
     title,
     brand,
     price,
-    imageUrl: `https://picsum.photos/seed/${productId}/600/800`,
+    imageUrl: `/api/images/${productId}`,
     category,
     color,
     size: hasSizeFit ? size : undefined,
@@ -470,7 +470,17 @@ export function generateCatalog(): Product[] {
   return products;
 }
 
+// In-memory cache for the catalog
+let catalogCache: Product[] | null = null;
+let catalogCacheTime: number = 0;
+const CACHE_TTL = 5 * 60 * 1000; // 5 minutes cache
+
 export function loadCatalog(): Product[] {
+  // Return cached catalog if still valid
+  if (catalogCache && Date.now() - catalogCacheTime < CACHE_TTL) {
+    return catalogCache;
+  }
+
   const catalogPath = join(process.cwd(), "data", "catalog.json");
   
   if (!existsSync(catalogPath)) {
@@ -478,19 +488,31 @@ export function loadCatalog(): Product[] {
     const products = generateCatalog();
     writeFileSync(catalogPath, JSON.stringify(products, null, 2), "utf-8");
     console.log(`Generated catalog with ${products.length} products across ${SCENARIOS.length} scenarios and 3 audiences`);
+    catalogCache = products;
+    catalogCacheTime = Date.now();
     return products;
   }
 
   try {
     const fileContent = readFileSync(catalogPath, "utf-8");
     const products = JSON.parse(fileContent) as Product[];
+    catalogCache = products;
+    catalogCacheTime = Date.now();
     return products;
   } catch (error) {
     console.error("Error loading catalog:", error);
     // Fallback to generating
     const products = generateCatalog();
     writeFileSync(catalogPath, JSON.stringify(products, null, 2), "utf-8");
+    catalogCache = products;
+    catalogCacheTime = Date.now();
     return products;
   }
+}
+
+// Function to clear cache (useful for testing or when catalog is updated)
+export function clearCatalogCache() {
+  catalogCache = null;
+  catalogCacheTime = 0;
 }
 

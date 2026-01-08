@@ -351,7 +351,7 @@ export async function POST(request: NextRequest) {
       };
 
       // Re-search with merged constraints
-      const refinedResults = searchProducts(catalog, query, 30);
+      const refinedResults = searchProducts(catalog, query, 24);
       finalProducts = refinedResults.map((r) => r.product);
     }
 

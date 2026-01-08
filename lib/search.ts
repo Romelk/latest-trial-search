@@ -106,19 +106,28 @@ export function extractConstraints(query: string): SearchConstraints {
     "dresses",
     "sneakers",
     "loafers",
+    "derbies",
+    "heels",
+    "flats",
     "handbags",
     "watches",
   ];
 
-  for (const category of categories) {
-    if (lowerQuery.includes(category)) {
-      // Map to proper category name
-      const properCategory =
-        category === "t-shirts" || category === "t shirts"
-          ? "T-Shirts"
-          : category.charAt(0).toUpperCase() + category.slice(1);
-      constraints.category = properCategory;
-      break;
+  // Special handling for "shoes" - it's a general term for footwear
+  if (lowerQuery.includes("shoe")) {
+    // Map "shoes" to a special keyword that will match all footwear categories
+    constraints.includeKeywords = ["Sneakers", "Loafers", "Derbies", "Heels", "Flats"];
+  } else {
+    for (const category of categories) {
+      if (lowerQuery.includes(category)) {
+        // Map to proper category name
+        const properCategory =
+          category === "t-shirts" || category === "t shirts"
+            ? "T-Shirts"
+            : category.charAt(0).toUpperCase() + category.slice(1);
+        constraints.category = properCategory;
+        break;
+      }
     }
   }
 
@@ -248,53 +257,8 @@ function calculateScore(
 ): number {
   let score = 0;
 
-  // Hard filter: budget
-  if (constraints.budgetMax && product.price > constraints.budgetMax) {
-    return -1; // Exclude from results
-  }
-
-  // Hard filter: category
-  if (constraints.category && product.category !== constraints.category) {
-    return -1;
-  }
-
-  // Hard filter: color include
-  if (constraints.color && product.color !== constraints.color) {
-    return -1;
-  }
-
-  // Hard filter: color exclude
-  if (constraints.colorExclude && product.color.toLowerCase() === constraints.colorExclude.toLowerCase()) {
-    return -1;
-  }
-
-  // Hard filter: exclude keywords
-  if (constraints.excludeKeywords && constraints.excludeKeywords.length > 0) {
-    const productText = [
-      product.title,
-      product.description,
-      product.category,
-      product.color,
-    ].join(" ").toLowerCase();
-    if (constraints.excludeKeywords.some((keyword) => productText.includes(keyword.toLowerCase()))) {
-      return -1;
-    }
-  }
-
-  // Hard filter: occasion
-  if (
-    constraints.occasion &&
-    !product.occasionTags.some(
-      (tag) => tag.toLowerCase() === constraints.occasion!.toLowerCase()
-    )
-  ) {
-    return -1;
-  }
-
-  // Hard filter: style
-  if (constraints.style && product.style !== constraints.style) {
-    return -1;
-  }
+  // Note: Hard filters are now handled by preFilter() for better performance
+  // This function only does scoring, so products passed here already match hard constraints
 
   // Soft scoring: token matches
   const productText = [
@@ -413,6 +377,72 @@ function calculateScore(
 }
 
 /**
+ * Quick pre-filter based on hard constraints (before expensive scoring)
+ */
+function preFilter(product: Product, constraints: SearchConstraints): boolean {
+  // Budget filter
+  if (constraints.budgetMax && product.price > constraints.budgetMax) {
+    return false;
+  }
+
+  // Category filter
+  if (constraints.category && product.category !== constraints.category) {
+    return false;
+  }
+
+  // Color include filter
+  if (constraints.color && product.color !== constraints.color) {
+    return false;
+  }
+
+  // Color exclude filter
+  if (constraints.colorExclude && product.color.toLowerCase() === constraints.colorExclude.toLowerCase()) {
+    return false;
+  }
+
+  // Include keywords filter (e.g., for "shoes" -> footwear categories)
+  if (constraints.includeKeywords && constraints.includeKeywords.length > 0) {
+    const productCategory = product.category.toLowerCase();
+    const matches = constraints.includeKeywords.some((keyword) => 
+      productCategory === keyword.toLowerCase()
+    );
+    if (!matches) {
+      return false;
+    }
+  }
+
+  // Exclude keywords filter
+  if (constraints.excludeKeywords && constraints.excludeKeywords.length > 0) {
+    const productText = [
+      product.title,
+      product.description,
+      product.category,
+      product.color,
+    ].join(" ").toLowerCase();
+    if (constraints.excludeKeywords.some((keyword) => productText.includes(keyword.toLowerCase()))) {
+      return false;
+    }
+  }
+
+  // Occasion filter
+  if (
+    constraints.occasion &&
+    !product.occasionTags.some(
+      (tag) => tag.toLowerCase() === constraints.occasion!.toLowerCase()
+    )
+  ) {
+    return false;
+  }
+
+  // Style filter
+  if (constraints.style && product.style !== constraints.style) {
+    return false;
+  }
+
+  return true;
+}
+
+/**
  * Search products with scoring and filtering
  */
 export function searchProducts(
@@ -427,13 +457,16 @@ export function searchProducts(
   const tokens = tokenizeQuery(query);
   const constraints = extractConstraints(query);
 
-  // Score all products
-  let scored: SearchResult[] = products
+  // Step 1: Quick pre-filter to reduce the number of products we need to score
+  const preFiltered = products.filter((product) => preFilter(product, constraints));
+
+  // Step 2: Score only the pre-filtered products
+  let scored: SearchResult[] = preFiltered
     .map((product) => ({
       product,
       score: calculateScore(product, tokens, constraints),
     }))
-    .filter((result) => result.score >= 0) // Remove filtered out products
+    .filter((result) => result.score >= 0) // Remove any that failed scoring
     .sort((a, b) => b.score - a.score); // Sort by score descending
 
   // Apply sorting if specified

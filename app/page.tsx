@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { Search, Sparkles, ChevronDown, X, Loader2, Pin, PinOff, Copy, Send } from "lucide-react";
+import { Search, Sparkles, X, Loader2, Pin, PinOff, Copy, Send } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,14 +9,40 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Skeleton } from "@/components/ui/skeleton";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { toast } from "sonner";
-import demoQueries from "@/data/demo-queries.json";
+// Scenarios for the tile grid
+const SCENARIOS = [
+  {
+    id: "nyc_dinner",
+    name: "NYC Work Dinner",
+    description: "Smart casual for evening events",
+    icon: "🍽️",
+  },
+  {
+    id: "summer_wedding",
+    name: "Summer Wedding",
+    description: "Festive outdoor celebrations",
+    icon: "💐",
+  },
+  {
+    id: "biz_travel",
+    name: "Business Travel",
+    description: "Capsule wardrobe for trips",
+    icon: "✈️",
+  },
+  {
+    id: "chi_winter",
+    name: "Chicago Winter",
+    description: "Functional office-ready",
+    icon: "❄️",
+  },
+  {
+    id: "campus",
+    name: "Campus Essentials",
+    description: "Back-to-school basics",
+    icon: "🎓",
+  },
+];
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import {
   Sheet,
@@ -96,6 +122,7 @@ export default function Home() {
   const [compareVerdict, setCompareVerdict] = useState<any>(null);
   const [isLoadingVerdict, setIsLoadingVerdict] = useState(false);
   const [scenarioId, setScenarioId] = useState<string | null>(null);
+  const [assistantOpen, setAssistantOpen] = useState(false);
 
   // Handle follow-up refinement
   const handleFollowUp = async (followUpText: string) => {
@@ -198,6 +225,11 @@ export default function Home() {
       setAssistantQuestion(data.assistantQuestion || null);
       setSession(data.session || null);
       setScenarioId(data.scenarioId || null);
+      
+      // Auto-open assistant if there's a question or results
+      if (data.assistantQuestion || (data.results && data.results.length > 0)) {
+        setAssistantOpen(true);
+      }
       
       // Debug: Log when question is set
       if (data.assistantQuestion) {
@@ -500,8 +532,31 @@ export default function Home() {
     toast.success("Summary copied to clipboard!");
   };
 
-  const insertDemoQuery = (demoQuery: string) => {
-    setQuery(demoQuery);
+  const handleScenarioClick = (scenarioId: string) => {
+    const scenarioQueries: Record<string, string> = {
+      nyc_dinner: "I have a work dinner in NYC. I need something smart casual and polished.",
+      summer_wedding: "I'm attending a summer outdoor wedding. I want something breathable and photo friendly.",
+      biz_travel: "I'm traveling for business. I need a capsule wardrobe that's wrinkle-free and versatile.",
+      chi_winter: "I need winter office wear for Chicago. Something warm but professional.",
+      campus: "I need back-to-school essentials. Comfortable and casual for campus life.",
+    };
+    const query = scenarioQueries[scenarioId] || "";
+    setQuery(query);
+    setTimeout(() => handleSearch(), 100);
+  };
+
+  const handleHomeClick = () => {
+    setQuery("");
+    setResults([]);
+    setConstraints({});
+    setAssistantMessages([]);
+    setSession(null);
+    setAssistantQuestion(null);
+    setShoppingBrief(null);
+    setReplyText("");
+    setOriginalQuery("");
+    setScenarioId(null);
+    setAssistantOpen(false);
   };
 
   return (
@@ -510,16 +565,22 @@ export default function Home() {
       <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-3">
           <div className="flex items-center justify-between gap-4">
-            <div className="flex items-center gap-2">
-              <Sparkles className="h-5 w-5 text-primary" />
-              <h1 className="text-xl font-bold tracking-tight">Premium Search</h1>
-            </div>
-            <Tabs value={provider} onValueChange={(v) => setProvider(v as Provider)}>
-              <TabsList>
-                <TabsTrigger value="openai">OpenAI</TabsTrigger>
-                <TabsTrigger value="anthropic">Claude</TabsTrigger>
-              </TabsList>
-            </Tabs>
+            <button
+              onClick={handleHomeClick}
+              className="flex items-center gap-3 hover:opacity-80 transition-opacity cursor-pointer"
+            >
+              <Sparkles className="h-7 w-7 text-primary" />
+              <h1 className="text-2xl font-bold tracking-tight">Premium Search</h1>
+            </button>
+            {/* Provider toggle - only show on home page (no results) */}
+            {results.length === 0 && !isLoading && (
+              <Tabs value={provider} onValueChange={(v) => setProvider(v as Provider)}>
+                <TabsList>
+                  <TabsTrigger value="openai">OpenAI</TabsTrigger>
+                  <TabsTrigger value="anthropic">Claude</TabsTrigger>
+                </TabsList>
+              </Tabs>
+            )}
           </div>
         </div>
       </header>
@@ -543,25 +604,6 @@ export default function Home() {
                 className="pl-12 h-12 text-base shadow-sm border-2 focus:border-primary/50"
               />
             </div>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="h-12 px-4">
-                  Examples
-                  <ChevronDown className="ml-2 h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-64">
-                {demoQueries.map((demoQuery, idx) => (
-                  <DropdownMenuItem
-                    key={idx}
-                    onClick={() => insertDemoQuery(demoQuery)}
-                    className="cursor-pointer"
-                  >
-                    {demoQuery}
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
             <Button
               onClick={() => handleSearch()}
               disabled={isLoading}
@@ -629,7 +671,7 @@ export default function Home() {
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
                 {[...Array(8)].map((_, i) => (
                   <Card key={i} className="overflow-hidden border">
-                    <Skeleton className="h-48 w-full" />
+                    <Skeleton className="h-64 w-full" />
                     <CardContent className="p-4">
                       <Skeleton className="h-5 w-3/4 mb-2" />
                       <Skeleton className="h-4 w-1/2 mb-2" />
@@ -642,7 +684,7 @@ export default function Home() {
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4"
+                className={`grid grid-cols-1 sm:grid-cols-2 gap-4 ${assistantOpen ? 'xl:grid-cols-3' : 'xl:grid-cols-4'}`}
               >
                 {results.map((result, idx) => (
                   <motion.div
@@ -658,13 +700,17 @@ export default function Home() {
                         handleLoadProductInsight(result);
                       }}
                     >
-                      <div className="relative h-48 bg-muted overflow-hidden">
+                      <div className="relative h-64 bg-gradient-to-b from-muted/50 to-muted overflow-hidden flex items-center justify-center p-4">
                         <img
                           src={result.imageUrl}
                           alt={result.title}
-                          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                          className="max-w-full max-h-full object-contain transition-transform duration-300 group-hover:scale-105"
                           onError={(e) => {
-                            (e.target as HTMLImageElement).src = `https://picsum.photos/seed/${result.id}/600/800`;
+                            // Fallback to picsum if local image fails
+                            const img = e.target as HTMLImageElement;
+                            if (!img.src.includes('picsum.photos')) {
+                              img.src = `https://picsum.photos/seed/${result.id}/600/800`;
+                            }
                           }}
                         />
                         <button
@@ -724,53 +770,107 @@ export default function Home() {
                 animate={{ opacity: 1 }}
                 className="py-12"
               >
-                <div className="text-center max-w-md mx-auto">
-                  <Search className="h-16 w-16 mx-auto mb-6 text-muted-foreground opacity-40" />
-                  <h3 className="text-xl font-semibold mb-2">Start your search</h3>
-                  <p className="text-muted-foreground mb-6">Try one of these examples:</p>
-                  <div className="space-y-2">
-                    {demoQueries.slice(0, 3).map((demoQuery, idx) => (
+                <div className="text-center mb-8">
+                  <Search className="h-16 w-16 mx-auto mb-4 text-muted-foreground opacity-40" />
+                  <h3 className="text-2xl font-semibold mb-2">Start your search</h3>
+                  <p className="text-muted-foreground">Choose a scenario to get started</p>
+                </div>
+                <div className="max-w-6xl mx-auto">
+                  {/* Row 1: 3 tiles */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                    {SCENARIOS.slice(0, 3).map((scenario, idx) => (
                       <motion.div
-                        key={idx}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
+                        key={scenario.id}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: idx * 0.1 }}
                       >
-                        <Button
-                          variant="outline"
-                          className="w-full justify-start text-left h-auto py-3 px-4 hover:bg-accent cursor-pointer"
-                          onClick={() => {
-                            setQuery(demoQuery);
-                            setTimeout(() => handleSearch(), 100);
-                          }}
+                        <Card
+                          className="h-full cursor-pointer hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/50 group bg-gradient-to-br from-white to-slate-50/50"
+                          onClick={() => handleScenarioClick(scenario.id)}
                         >
-                          <Search className="h-4 w-4 mr-2 text-muted-foreground" />
-                          <span className="flex-1">{demoQuery}</span>
-                        </Button>
+                          <CardContent className="p-8 flex flex-col items-center text-center h-full min-h-[220px] justify-center">
+                            <div className="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">
+                              {scenario.icon}
+                            </div>
+                            <h4 className="font-semibold text-xl mb-3 group-hover:text-primary transition-colors">
+                              {scenario.name}
+                            </h4>
+                            <p className="text-sm text-muted-foreground leading-relaxed">
+                              {scenario.description}
+                            </p>
+                          </CardContent>
+                        </Card>
                       </motion.div>
                     ))}
+                  </div>
+                  {/* Row 2: 2 tiles centered */}
+                  <div className="flex justify-center">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[calc(66.666%+1.5rem)]">
+                      {SCENARIOS.slice(3, 5).map((scenario, idx) => (
+                        <motion.div
+                          key={scenario.id}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: (idx + 3) * 0.1 }}
+                        >
+                          <Card
+                            className="h-full cursor-pointer hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/50 group bg-gradient-to-br from-white to-slate-50/50"
+                            onClick={() => handleScenarioClick(scenario.id)}
+                          >
+                            <CardContent className="p-8 flex flex-col items-center text-center h-full min-h-[220px] justify-center">
+                              <div className="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">
+                                {scenario.icon}
+                              </div>
+                              <h4 className="font-semibold text-xl mb-3 group-hover:text-primary transition-colors">
+                                {scenario.name}
+                              </h4>
+                              <p className="text-sm text-muted-foreground leading-relaxed">
+                                {scenario.description}
+                              </p>
+                            </CardContent>
+                          </Card>
+                        </motion.div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </motion.div>
             )}
           </div>
 
-          {/* Assistant Panel */}
-          <div className="lg:sticky lg:top-[145px] lg:h-[calc(100vh-145px)] order-first lg:order-last">
-            <Card className="h-full flex flex-col shadow-lg border">
-              <div className="p-4 border-b">
-                <div className="flex items-center gap-2">
-                  <Sparkles className="h-4 w-4 text-primary" />
-                  <h2 className="font-semibold text-base">Assistant</h2>
-                  {session?.asked && (
-                    <Badge variant="outline" className="ml-auto text-xs">
-                      Asked
-                    </Badge>
-                  )}
-                </div>
-              </div>
+          {/* Assistant Panel - Shows in 4th column position */}
+          <AnimatePresence>
+            {assistantOpen && (
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+                transition={{ duration: 0.3 }}
+                className="lg:sticky lg:top-[145px] lg:h-[calc(100vh-145px)] order-first lg:order-last"
+              >
+                <Card className="h-full flex flex-col shadow-lg border">
+                  <div className="p-4 border-b flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <Sparkles className="h-4 w-4 text-primary" />
+                      <h2 className="font-semibold text-base">Assistant</h2>
+                      {session?.asked && (
+                        <Badge variant="outline" className="ml-2 text-xs">
+                          Asked
+                        </Badge>
+                      )}
+                    </div>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => setAssistantOpen(false)}
+                      className="h-8 w-8"
+                    >
+                      <X className="h-4 w-4" />
+                    </Button>
+                  </div>
 
-              <div className="flex-1 overflow-y-auto p-4 space-y-3">
+                  <div className="flex-1 overflow-y-auto p-4 space-y-3 min-h-0">
                 {assistantMessages.length === 0 && !isAssistantTyping && !shoppingBrief && (
                   <div className="text-center text-muted-foreground py-8">
                     <Sparkles className="h-10 w-10 mx-auto mb-3 opacity-40" />
@@ -799,6 +899,11 @@ export default function Home() {
                   >
                     Showing {results.length} results
                   </motion.div>
+                )}
+
+                {/* Separator Line */}
+                {(results.length > 0 || shoppingBrief || assistantQuestion) && (
+                  <Separator className="my-2" />
                 )}
 
                 {/* Question (only when needed) */}
@@ -951,74 +1056,97 @@ export default function Home() {
                 </div>
               )}
 
-              {/* Reply Input - Always show after first search */}
-              {(assistantQuestion && !session?.asked) || (results.length > 0 && session) ? (
-                <div className="p-4 border-t bg-background">
-                  {assistantQuestion && !session?.asked && (
-                    <div className="text-xs font-medium text-muted-foreground mb-2">
-                      Reply to assistant:
+                  {/* Reply Input - Always show after first search, always visible at bottom */}
+                  {(assistantQuestion && !session?.asked) || (results.length > 0 && session) ? (
+                    <div className="p-4 border-t bg-background">
+                      {assistantQuestion && !session?.asked && (
+                        <div className="text-xs font-medium text-muted-foreground mb-2">
+                          Reply to assistant:
+                        </div>
+                      )}
+                      <div className="flex gap-2">
+                        <Input
+                          type="text"
+                          placeholder={
+                            assistantQuestion && !session?.asked
+                              ? "Answer the question"
+                              : "Refine results, e.g. exclude black, under 4000"
+                          }
+                          value={replyText}
+                          onChange={(e) => setReplyText(e.target.value)}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter" && !e.shiftKey) {
+                              e.preventDefault();
+                              handleSendReply();
+                            }
+                          }}
+                          disabled={isLoading}
+                          className="flex-1"
+                          autoFocus={!!(assistantQuestion && !session?.asked)}
+                        />
+                        <Button
+                          onClick={handleSendReply}
+                          disabled={isLoading || !replyText.trim()}
+                          size="default"
+                          className="shrink-0"
+                        >
+                          {isLoading ? (
+                            <Loader2 className="h-4 w-4 animate-spin" />
+                          ) : (
+                            <Send className="h-4 w-4" />
+                          )}
+                        </Button>
+                      </div>
+                    </div>
+                  ) : null}
+
+                  {results.length > 0 && !assistantQuestion && (
+                    <div className="p-4 border-t">
+                      <Button
+                        onClick={handleBuildCarts}
+                        className="w-full"
+                        variant="default"
+                        disabled={isBuildingCarts}
+                        size="sm"
+                      >
+                        {isBuildingCarts ? (
+                          <>
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            Building...
+                          </>
+                        ) : (
+                          "Build 3 Bundles"
+                        )}
+                      </Button>
                     </div>
                   )}
-                  <div className="flex gap-2">
-                    <Input
-                      type="text"
-                      placeholder={
-                        assistantQuestion && !session?.asked
-                          ? "Answer the question"
-                          : "Refine results, e.g. exclude black, under 4000"
-                      }
-                      value={replyText}
-                      onChange={(e) => setReplyText(e.target.value)}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter" && !e.shiftKey) {
-                          e.preventDefault();
-                          handleSendReply();
-                        }
-                      }}
-                      disabled={isLoading}
-                      className="flex-1"
-                      autoFocus={!!(assistantQuestion && !session?.asked)}
-                    />
-                    <Button
-                      onClick={handleSendReply}
-                      disabled={isLoading || !replyText.trim()}
-                      size="default"
-                      className="shrink-0"
-                    >
-                      {isLoading ? (
-                        <Loader2 className="h-4 w-4 animate-spin" />
-                      ) : (
-                        <Send className="h-4 w-4" />
-                      )}
-                    </Button>
-                  </div>
-                </div>
-              ) : null}
-
-              {results.length > 0 && !assistantQuestion && (
-                <div className="p-4 border-t">
-                  <Button
-                    onClick={handleBuildCarts}
-                    className="w-full"
-                    variant="default"
-                    disabled={isBuildingCarts}
-                    size="sm"
-                  >
-                    {isBuildingCarts ? (
-                      <>
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        Building...
-                      </>
-                    ) : (
-                      "Build 3 Bundles"
-                    )}
-                  </Button>
-                </div>
-              )}
-            </Card>
-          </div>
+                </Card>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </main>
+
+      {/* Floating Assistant Chat Button - Shows when closed on desktop */}
+      {!assistantOpen && (
+        <motion.div
+          initial={false}
+          animate={{
+            scale: 1,
+            opacity: 1,
+          }}
+          transition={{ duration: 0.2 }}
+          className="fixed bottom-6 right-6 z-50 hidden lg:block"
+        >
+          <Button
+            onClick={() => setAssistantOpen(true)}
+            size="lg"
+            className="h-14 w-14 rounded-full shadow-2xl bg-primary hover:bg-primary/90"
+          >
+            <Sparkles className="h-6 w-6" />
+          </Button>
+        </motion.div>
+      )}
 
       {/* Cart Building Dialog */}
       <Dialog open={cartsDialogOpen} onOpenChange={setCartsDialogOpen}>
@@ -1066,11 +1194,11 @@ export default function Home() {
                           transition={{ delay: idx * 0.1 }}
                         >
                           <Card className="overflow-hidden h-full">
-                            <div className="relative h-48 bg-muted overflow-hidden">
+                            <div className="relative h-48 bg-gradient-to-b from-muted/50 to-muted overflow-hidden flex items-center justify-center p-4">
                               <img
                                 src={item.imageUrl}
                                 alt={item.title}
-                                className="w-full h-full object-cover"
+                                className="max-w-full max-h-full object-contain"
                                 onError={(e) => {
                                   (e.target as HTMLImageElement).src = `https://picsum.photos/seed/${item.id}/600/800`;
                                 }}
@@ -1141,11 +1269,11 @@ export default function Home() {
 
               <div className="mt-6 space-y-6">
                 {/* Large Image */}
-                <div className="relative h-96 bg-muted rounded-lg overflow-hidden">
+                <div className="relative h-96 bg-gradient-to-b from-muted/50 to-muted rounded-lg overflow-hidden flex items-center justify-center p-6">
                   <img
                     src={selectedProduct.imageUrl}
                     alt={selectedProduct.title}
-                    className="w-full h-full object-cover"
+                    className="max-w-full max-h-full object-contain"
                     onError={(e) => {
                       (e.target as HTMLImageElement).src = `https://picsum.photos/seed/${selectedProduct.id}/600/800`;
                     }}
@@ -1236,11 +1364,11 @@ export default function Home() {
                         if (!altProduct) return null;
                         return (
                           <Card key={alt.id} className="overflow-hidden border">
-                            <div className="relative h-32 bg-muted overflow-hidden">
+                            <div className="relative h-32 bg-gradient-to-b from-muted/50 to-muted overflow-hidden flex items-center justify-center p-2">
                               <img
                                 src={altProduct.imageUrl}
                                 alt={altProduct.title}
-                                className="w-full h-full object-cover"
+                                className="max-w-full max-h-full object-contain"
                                 onError={(e) => {
                                   (e.target as HTMLImageElement).src = `https://picsum.photos/seed/${altProduct.id}/600/800`;
                                 }}
@@ -1395,11 +1523,11 @@ export default function Home() {
                         >
                           <X className="h-4 w-4" />
                         </button>
-                        <div className="relative h-64 bg-muted rounded-lg overflow-hidden">
+                        <div className="relative h-64 bg-gradient-to-b from-muted/50 to-muted rounded-lg overflow-hidden flex items-center justify-center p-4">
                           <img
                             src={product.imageUrl}
                             alt={product.title}
-                            className="w-full h-full object-cover"
+                            className="max-w-full max-h-full object-contain"
                             onError={(e) => {
                               (e.target as HTMLImageElement).src = `https://picsum.photos/seed/${product.id}/600/800`;
                             }}
