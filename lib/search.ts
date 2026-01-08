@@ -1,0 +1,383 @@
+import type { Product } from "./catalog";
+
+export type SearchConstraints = {
+  budgetMax?: number;
+  category?: string;
+  color?: string;
+  colorExclude?: string;
+  occasion?: string;
+  gender?: string;
+  style?: string;
+  includeKeywords?: string[];
+  excludeKeywords?: string[];
+};
+
+export type SearchResult = {
+  product: Product;
+  score: number;
+};
+
+/**
+ * Extract constraints from search query using heuristics
+ */
+export function extractConstraints(query: string): SearchConstraints {
+  const constraints: SearchConstraints = {};
+  const lowerQuery = query.toLowerCase();
+
+  // Budget extraction
+  const budgetPatterns = [
+    /(?:under|below|less than|max|maximum|upto|up to)\s*(?:₹|rs\.?|inr)?\s*(\d+)/i,
+    /(?:₹|rs\.?|inr)\s*(\d+)\s*(?:and|or)\s*(?:below|under|less)/i,
+    /(?:₹|rs\.?|inr)\s*(\d+)\s*(?:max|maximum)/i,
+  ];
+
+  for (const pattern of budgetPatterns) {
+    const match = query.match(pattern);
+    if (match) {
+      constraints.budgetMax = parseInt(match[1], 10);
+      break;
+    }
+  }
+
+  // Category extraction
+  const categories = [
+    "shirts",
+    "trousers",
+    "jeans",
+    "t-shirts",
+    "t shirts",
+    "blazers",
+    "dresses",
+    "sneakers",
+    "loafers",
+    "handbags",
+    "watches",
+  ];
+
+  for (const category of categories) {
+    if (lowerQuery.includes(category)) {
+      // Map to proper category name
+      const properCategory =
+        category === "t-shirts" || category === "t shirts"
+          ? "T-Shirts"
+          : category.charAt(0).toUpperCase() + category.slice(1);
+      constraints.category = properCategory;
+      break;
+    }
+  }
+
+  // Color extraction
+  const colors = [
+    "black",
+    "white",
+    "navy",
+    "gray",
+    "grey",
+    "beige",
+    "brown",
+    "blue",
+    "red",
+    "green",
+    "pink",
+    "purple",
+    "yellow",
+    "orange",
+    "maroon",
+    "olive",
+  ];
+
+  for (const color of colors) {
+    if (lowerQuery.includes(color)) {
+      constraints.color =
+        color === "grey" ? "Gray" : color.charAt(0).toUpperCase() + color.slice(1);
+      break;
+    }
+  }
+
+  // Occasion extraction
+  const occasions = [
+    "casual",
+    "formal",
+    "party",
+    "work",
+    "wedding",
+    "sports",
+    "travel",
+    "evening",
+    "beach",
+    "office",
+  ];
+
+  for (const occasion of occasions) {
+    if (lowerQuery.includes(occasion)) {
+      constraints.occasion =
+        occasion.charAt(0).toUpperCase() + occasion.slice(1);
+      break;
+    }
+  }
+
+  // Gender extraction (simple heuristic)
+  if (lowerQuery.includes("men") || lowerQuery.includes("male") || lowerQuery.includes("gents")) {
+    constraints.gender = "Men";
+  } else if (
+    lowerQuery.includes("women") ||
+    lowerQuery.includes("female") ||
+    lowerQuery.includes("ladies")
+  ) {
+    constraints.gender = "Women";
+  }
+
+  // Style extraction
+  const styles = [
+    "minimalist",
+    "vintage",
+    "contemporary",
+    "bohemian",
+    "classic",
+    "streetwear",
+    "elegant",
+    "sporty",
+  ];
+
+  for (const style of styles) {
+    if (lowerQuery.includes(style)) {
+      constraints.style =
+        style.charAt(0).toUpperCase() + style.slice(1);
+      break;
+    }
+  }
+
+  return constraints;
+}
+
+/**
+ * Tokenize query into search terms
+ */
+function tokenizeQuery(query: string): string[] {
+  return query
+    .toLowerCase()
+    .split(/\s+/)
+    .filter((token) => token.length > 2) // Filter out very short tokens
+    .filter((token) => !/^(the|and|or|for|with|under|below|max)$/i.test(token)); // Filter common words
+}
+
+/**
+ * Calculate relevance score for a product based on query tokens
+ */
+function calculateScore(
+  product: Product,
+  tokens: string[],
+  constraints: SearchConstraints
+): number {
+  let score = 0;
+
+  // Hard filter: budget
+  if (constraints.budgetMax && product.price > constraints.budgetMax) {
+    return -1; // Exclude from results
+  }
+
+  // Hard filter: category
+  if (constraints.category && product.category !== constraints.category) {
+    return -1;
+  }
+
+  // Hard filter: color include
+  if (constraints.color && product.color !== constraints.color) {
+    return -1;
+  }
+
+  // Hard filter: color exclude
+  if (constraints.colorExclude && product.color.toLowerCase() === constraints.colorExclude.toLowerCase()) {
+    return -1;
+  }
+
+  // Hard filter: exclude keywords
+  if (constraints.excludeKeywords && constraints.excludeKeywords.length > 0) {
+    const productText = [
+      product.title,
+      product.description,
+      product.category,
+      product.color,
+    ].join(" ").toLowerCase();
+    if (constraints.excludeKeywords.some((keyword) => productText.includes(keyword.toLowerCase()))) {
+      return -1;
+    }
+  }
+
+  // Hard filter: occasion
+  if (
+    constraints.occasion &&
+    !product.occasionTags.some(
+      (tag) => tag.toLowerCase() === constraints.occasion!.toLowerCase()
+    )
+  ) {
+    return -1;
+  }
+
+  // Hard filter: style
+  if (constraints.style && product.style !== constraints.style) {
+    return -1;
+  }
+
+  // Soft scoring: token matches
+  const productText = [
+    product.title,
+    product.brand,
+    product.category,
+    product.color,
+    product.style,
+    product.description,
+    ...product.occasionTags,
+  ]
+    .join(" ")
+    .toLowerCase();
+
+  for (const token of tokens) {
+    // Title matches (highest weight)
+    if (product.title.toLowerCase().includes(token)) {
+      score += 10;
+    }
+
+    // Brand matches
+    if (product.brand.toLowerCase().includes(token)) {
+      score += 8;
+    }
+
+    // Category matches
+    if (product.category.toLowerCase().includes(token)) {
+      score += 7;
+    }
+
+    // Color matches
+    if (product.color.toLowerCase().includes(token)) {
+      score += 6;
+    }
+
+    // Style matches
+    if (product.style.toLowerCase().includes(token)) {
+      score += 5;
+    }
+
+    // Occasion tag matches
+    if (
+      product.occasionTags.some((tag) =>
+        tag.toLowerCase().includes(token)
+      )
+    ) {
+      score += 4;
+    }
+
+    // Description matches (lower weight)
+    if (product.description.toLowerCase().includes(token)) {
+      score += 2;
+    }
+  }
+
+  // Boost score for products that match extracted constraints
+  if (constraints.category && product.category === constraints.category) {
+    score += 5;
+  }
+  if (constraints.color && product.color === constraints.color) {
+    score += 4;
+  }
+  if (
+    constraints.occasion &&
+    product.occasionTags.some(
+      (tag) => tag.toLowerCase() === constraints.occasion!.toLowerCase()
+    )
+  ) {
+    score += 3;
+  }
+  if (constraints.style && product.style === constraints.style) {
+    score += 3;
+  }
+
+  // Price proximity bonus (if budget constraint exists)
+  if (constraints.budgetMax) {
+    const priceDiff = constraints.budgetMax - product.price;
+    if (priceDiff > 0) {
+      // Bonus for products well under budget
+      score += Math.min(priceDiff / 100, 5);
+    }
+  }
+
+  return score;
+}
+
+/**
+ * Search products with scoring and filtering
+ */
+export function searchProducts(
+  products: Product[],
+  query: string,
+  limit: number = 24
+): SearchResult[] {
+  if (!query.trim()) {
+    return [];
+  }
+
+  const tokens = tokenizeQuery(query);
+  const constraints = extractConstraints(query);
+
+  // Score all products
+  let scored: SearchResult[] = products
+    .map((product) => ({
+      product,
+      score: calculateScore(product, tokens, constraints),
+    }))
+    .filter((result) => result.score >= 0) // Remove filtered out products
+    .sort((a, b) => b.score - a.score); // Sort by score descending
+
+  // Apply sorting if specified
+  if ((constraints as any).sortBy === "price_asc") {
+    scored = scored.sort((a, b) => {
+      if (a.score !== b.score) return b.score - a.score; // Keep score as primary
+      return a.product.price - b.product.price;
+    });
+  } else if ((constraints as any).sortBy === "price_desc") {
+    scored = scored.sort((a, b) => {
+      if (a.score !== b.score) return b.score - a.score; // Keep score as primary
+      return b.product.price - a.product.price;
+    });
+  }
+
+  return scored.slice(0, limit); // Take top N
+}
+
+/**
+ * Get constraint chips for UI display
+ */
+export function getConstraintChips(constraints: SearchConstraints): string[] {
+  const chips: string[] = [];
+
+  if (constraints.budgetMax) {
+    chips.push(`Under ₹${constraints.budgetMax}`);
+  }
+  if (constraints.category) {
+    chips.push(constraints.category);
+  }
+  if (constraints.color) {
+    chips.push(constraints.color);
+  }
+  if (constraints.colorExclude) {
+    chips.push(`Exclude ${constraints.colorExclude}`);
+  }
+  if (constraints.occasion) {
+    chips.push(constraints.occasion);
+  }
+  if (constraints.style) {
+    chips.push(constraints.style);
+  }
+  if (constraints.gender) {
+    chips.push(constraints.gender);
+  }
+  if (constraints.includeKeywords && constraints.includeKeywords.length > 0) {
+    chips.push(...constraints.includeKeywords.map((k) => `Only ${k}`));
+  }
+  if (constraints.excludeKeywords && constraints.excludeKeywords.length > 0) {
+    chips.push(...constraints.excludeKeywords.map((k) => `No ${k}`));
+  }
+
+  return chips;
+}
+

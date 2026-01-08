@@ -1,0 +1,6642 @@
+[
+  {
+    "id": "prod-0001",
+    "title": "White Trousers by StyleCraft",
+    "brand": "StyleCraft",
+    "price": 836,
+    "imageUrl": "https://picsum.photos/seed/1/600/800",
+    "category": "Trousers",
+    "color": "White",
+    "size": "S",
+    "fit": "Regular",
+    "occasionTags": [
+      "Formal",
+      "Casual"
+    ],
+    "style": "Vintage",
+    "description": "Stylish trousers featuring vintage design. Made with quality materials."
+  },
+  {
+    "id": "prod-0002",
+    "title": "StyleCraft Contemporary Jeans",
+    "brand": "StyleCraft",
+    "price": 873,
+    "imageUrl": "https://picsum.photos/seed/2/600/800",
+    "category": "Jeans",
+    "color": "Navy",
+    "size": "M",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Casual",
+      "Formal",
+      "Beach"
+    ],
+    "style": "Contemporary",
+    "description": "Comfortable relaxed fit jeans in navy. Ideal for casual and formal and beach wear."
+  },
+  {
+    "id": "prod-0003",
+    "title": "Oversized Fit T-Shirts - StyleCraft",
+    "brand": "StyleCraft",
+    "price": 910,
+    "imageUrl": "https://picsum.photos/seed/3/600/800",
+    "category": "T-Shirts",
+    "color": "Gray",
+    "size": "L",
+    "fit": "Oversized",
+    "occasionTags": [
+      "Formal"
+    ],
+    "style": "Bohemian",
+    "description": "Elegant t-shirts by StyleCraft. Bohemian style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0004",
+    "title": "StyleCraft Blazers Classic Collection",
+    "brand": "StyleCraft",
+    "price": 947,
+    "imageUrl": "https://picsum.photos/seed/4/600/800",
+    "category": "Blazers",
+    "color": "Beige",
+    "size": "XL",
+    "fit": "Fitted",
+    "occasionTags": [
+      "Work",
+      "Wedding"
+    ],
+    "style": "Classic",
+    "description": "High-quality blazers in beige. Perfect fit for work settings."
+  },
+  {
+    "id": "prod-0005",
+    "title": "Brown Slim Dresses",
+    "brand": "StyleCraft",
+    "price": 984,
+    "imageUrl": "https://picsum.photos/seed/5/600/800",
+    "category": "Dresses",
+    "color": "Brown",
+    "size": "XXL",
+    "fit": "Slim",
+    "occasionTags": [
+      "Travel",
+      "Wedding",
+      "Office"
+    ],
+    "style": "Streetwear",
+    "description": "Premium brown dresses from StyleCraft. Perfect for travel occasions."
+  },
+  {
+    "id": "prod-0006",
+    "title": "StyleCraft Premium Sneakers",
+    "brand": "StyleCraft",
+    "price": 1021,
+    "imageUrl": "https://picsum.photos/seed/6/600/800",
+    "category": "Sneakers",
+    "color": "Blue",
+    "size": "XS",
+    "fit": "Regular",
+    "occasionTags": [
+      "Office"
+    ],
+    "style": "Elegant",
+    "description": "Stylish sneakers featuring elegant design. Made with quality materials."
+  },
+  {
+    "id": "prod-0007",
+    "title": "Sporty Loafers - StyleCraft",
+    "brand": "StyleCraft",
+    "price": 1058,
+    "imageUrl": "https://picsum.photos/seed/7/600/800",
+    "category": "Loafers",
+    "color": "Red",
+    "size": "S",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Travel",
+      "Sports"
+    ],
+    "style": "Sporty",
+    "description": "Comfortable relaxed fit loafers in red. Ideal for travel and sports wear."
+  },
+  {
+    "id": "prod-0008",
+    "title": "StyleCraft Handbags - Green",
+    "brand": "StyleCraft",
+    "price": 1095,
+    "imageUrl": "https://picsum.photos/seed/8/600/800",
+    "category": "Handbags",
+    "color": "Green",
+    "occasionTags": [
+      "Office",
+      "Casual",
+      "Formal"
+    ],
+    "style": "Casual",
+    "description": "Elegant handbags by StyleCraft. Casual style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0009",
+    "title": "Pink Watches by StyleCraft",
+    "brand": "StyleCraft",
+    "price": 1132,
+    "imageUrl": "https://picsum.photos/seed/9/600/800",
+    "category": "Watches",
+    "color": "Pink",
+    "occasionTags": [
+      "Work"
+    ],
+    "style": "Formal",
+    "description": "High-quality watches in pink. Perfect fit for work settings."
+  },
+  {
+    "id": "prod-0010",
+    "title": "StyleCraft Minimalist Shirts",
+    "brand": "StyleCraft",
+    "price": 1169,
+    "imageUrl": "https://picsum.photos/seed/10/600/800",
+    "category": "Shirts",
+    "color": "Purple",
+    "size": "XL",
+    "fit": "Slim",
+    "occasionTags": [
+      "Casual",
+      "Party"
+    ],
+    "style": "Minimalist",
+    "description": "Premium purple shirts from StyleCraft. Perfect for casual occasions."
+  },
+  {
+    "id": "prod-0011",
+    "title": "Regular Fit Trousers - StyleCraft",
+    "brand": "StyleCraft",
+    "price": 1206,
+    "imageUrl": "https://picsum.photos/seed/11/600/800",
+    "category": "Trousers",
+    "color": "Yellow",
+    "size": "XXL",
+    "fit": "Regular",
+    "occasionTags": [
+      "Evening",
+      "Travel",
+      "Party"
+    ],
+    "style": "Vintage",
+    "description": "Stylish trousers featuring vintage design. Made with quality materials."
+  },
+  {
+    "id": "prod-0012",
+    "title": "StyleCraft Jeans Contemporary Collection",
+    "brand": "StyleCraft",
+    "price": 1243,
+    "imageUrl": "https://picsum.photos/seed/12/600/800",
+    "category": "Jeans",
+    "color": "Orange",
+    "size": "XS",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Casual"
+    ],
+    "style": "Contemporary",
+    "description": "Comfortable relaxed fit jeans in orange. Ideal for casual wear."
+  },
+  {
+    "id": "prod-0013",
+    "title": "Maroon Oversized T-Shirts",
+    "brand": "StyleCraft",
+    "price": 1280,
+    "imageUrl": "https://picsum.photos/seed/13/600/800",
+    "category": "T-Shirts",
+    "color": "Maroon",
+    "size": "S",
+    "fit": "Oversized",
+    "occasionTags": [
+      "Sports",
+      "Office"
+    ],
+    "style": "Bohemian",
+    "description": "Elegant t-shirts by StyleCraft. Bohemian style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0014",
+    "title": "StyleCraft Premium Blazers",
+    "brand": "StyleCraft",
+    "price": 1317,
+    "imageUrl": "https://picsum.photos/seed/14/600/800",
+    "category": "Blazers",
+    "color": "Olive",
+    "size": "M",
+    "fit": "Fitted",
+    "occasionTags": [
+      "Party",
+      "Formal",
+      "Office"
+    ],
+    "style": "Classic",
+    "description": "High-quality blazers in olive. Perfect fit for party settings."
+  },
+  {
+    "id": "prod-0015",
+    "title": "Streetwear Dresses - StyleCraft",
+    "brand": "StyleCraft",
+    "price": 1354,
+    "imageUrl": "https://picsum.photos/seed/15/600/800",
+    "category": "Dresses",
+    "color": "Black",
+    "size": "L",
+    "fit": "Slim",
+    "occasionTags": [
+      "Office"
+    ],
+    "style": "Streetwear",
+    "description": "Premium black dresses from StyleCraft. Perfect for office occasions."
+  },
+  {
+    "id": "prod-0016",
+    "title": "StyleCraft Sneakers - White",
+    "brand": "StyleCraft",
+    "price": 1391,
+    "imageUrl": "https://picsum.photos/seed/16/600/800",
+    "category": "Sneakers",
+    "color": "White",
+    "size": "XL",
+    "fit": "Regular",
+    "occasionTags": [
+      "Sports",
+      "Work"
+    ],
+    "style": "Elegant",
+    "description": "Stylish sneakers featuring elegant design. Made with quality materials."
+  },
+  {
+    "id": "prod-0017",
+    "title": "Navy Loafers by StyleCraft",
+    "brand": "StyleCraft",
+    "price": 1428,
+    "imageUrl": "https://picsum.photos/seed/17/600/800",
+    "category": "Loafers",
+    "color": "Navy",
+    "size": "XXL",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Travel",
+      "Formal",
+      "Party"
+    ],
+    "style": "Sporty",
+    "description": "Comfortable relaxed fit loafers in navy. Ideal for travel and formal and party wear."
+  },
+  {
+    "id": "prod-0018",
+    "title": "StyleCraft Casual Handbags",
+    "brand": "StyleCraft",
+    "price": 1465,
+    "imageUrl": "https://picsum.photos/seed/18/600/800",
+    "category": "Handbags",
+    "color": "Gray",
+    "occasionTags": [
+      "Casual"
+    ],
+    "style": "Casual",
+    "description": "Elegant handbags by StyleCraft. Casual style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0019",
+    "title": "Fitted Fit Watches - StyleCraft",
+    "brand": "StyleCraft",
+    "price": 1502,
+    "imageUrl": "https://picsum.photos/seed/19/600/800",
+    "category": "Watches",
+    "color": "Beige",
+    "occasionTags": [
+      "Casual",
+      "Work"
+    ],
+    "style": "Formal",
+    "description": "High-quality watches in beige. Perfect fit for casual settings."
+  },
+  {
+    "id": "prod-0020",
+    "title": "StyleCraft Shirts Minimalist Collection",
+    "brand": "StyleCraft",
+    "price": 1539,
+    "imageUrl": "https://picsum.photos/seed/20/600/800",
+    "category": "Shirts",
+    "color": "Brown",
+    "size": "M",
+    "fit": "Slim",
+    "occasionTags": [
+      "Sports",
+      "Evening",
+      "Wedding"
+    ],
+    "style": "Minimalist",
+    "description": "Premium brown shirts from StyleCraft. Perfect for sports occasions."
+  },
+  {
+    "id": "prod-0021",
+    "title": "Blue Regular Trousers",
+    "brand": "StyleCraft",
+    "price": 1576,
+    "imageUrl": "https://picsum.photos/seed/21/600/800",
+    "category": "Trousers",
+    "color": "Blue",
+    "size": "L",
+    "fit": "Regular",
+    "occasionTags": [
+      "Work"
+    ],
+    "style": "Vintage",
+    "description": "Stylish trousers featuring vintage design. Made with quality materials."
+  },
+  {
+    "id": "prod-0022",
+    "title": "StyleCraft Premium Jeans",
+    "brand": "StyleCraft",
+    "price": 1613,
+    "imageUrl": "https://picsum.photos/seed/22/600/800",
+    "category": "Jeans",
+    "color": "Red",
+    "size": "XL",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Work",
+      "Beach"
+    ],
+    "style": "Contemporary",
+    "description": "Comfortable relaxed fit jeans in red. Ideal for work and beach wear."
+  },
+  {
+    "id": "prod-0023",
+    "title": "Bohemian T-Shirts - StyleCraft",
+    "brand": "StyleCraft",
+    "price": 1650,
+    "imageUrl": "https://picsum.photos/seed/23/600/800",
+    "category": "T-Shirts",
+    "color": "Green",
+    "size": "XXL",
+    "fit": "Oversized",
+    "occasionTags": [
+      "Work",
+      "Evening",
+      "Wedding"
+    ],
+    "style": "Bohemian",
+    "description": "Elegant t-shirts by StyleCraft. Bohemian style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0024",
+    "title": "StyleCraft Blazers - Pink",
+    "brand": "StyleCraft",
+    "price": 1687,
+    "imageUrl": "https://picsum.photos/seed/24/600/800",
+    "category": "Blazers",
+    "color": "Pink",
+    "size": "XS",
+    "fit": "Fitted",
+    "occasionTags": [
+      "Casual"
+    ],
+    "style": "Classic",
+    "description": "High-quality blazers in pink. Perfect fit for casual settings."
+  },
+  {
+    "id": "prod-0025",
+    "title": "Purple Dresses by StyleCraft",
+    "brand": "StyleCraft",
+    "price": 1724,
+    "imageUrl": "https://picsum.photos/seed/25/600/800",
+    "category": "Dresses",
+    "color": "Purple",
+    "size": "S",
+    "fit": "Slim",
+    "occasionTags": [
+      "Office",
+      "Wedding"
+    ],
+    "style": "Streetwear",
+    "description": "Premium purple dresses from StyleCraft. Perfect for office occasions."
+  },
+  {
+    "id": "prod-0026",
+    "title": "StyleCraft Elegant Sneakers",
+    "brand": "StyleCraft",
+    "price": 1761,
+    "imageUrl": "https://picsum.photos/seed/26/600/800",
+    "category": "Sneakers",
+    "color": "Yellow",
+    "size": "M",
+    "fit": "Regular",
+    "occasionTags": [
+      "Party",
+      "Work",
+      "Casual"
+    ],
+    "style": "Elegant",
+    "description": "Stylish sneakers featuring elegant design. Made with quality materials."
+  },
+  {
+    "id": "prod-0027",
+    "title": "Relaxed Fit Loafers - StyleCraft",
+    "brand": "StyleCraft",
+    "price": 1798,
+    "imageUrl": "https://picsum.photos/seed/27/600/800",
+    "category": "Loafers",
+    "color": "Orange",
+    "size": "L",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Party"
+    ],
+    "style": "Sporty",
+    "description": "Comfortable relaxed fit loafers in orange. Ideal for party wear."
+  },
+  {
+    "id": "prod-0028",
+    "title": "StyleCraft Handbags Casual Collection",
+    "brand": "StyleCraft",
+    "price": 1835,
+    "imageUrl": "https://picsum.photos/seed/28/600/800",
+    "category": "Handbags",
+    "color": "Maroon",
+    "occasionTags": [
+      "Evening",
+      "Party"
+    ],
+    "style": "Casual",
+    "description": "Elegant handbags by StyleCraft. Casual style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0029",
+    "title": "Olive Fitted Watches",
+    "brand": "StyleCraft",
+    "price": 1872,
+    "imageUrl": "https://picsum.photos/seed/29/600/800",
+    "category": "Watches",
+    "color": "Olive",
+    "occasionTags": [
+      "Wedding",
+      "Office",
+      "Party"
+    ],
+    "style": "Formal",
+    "description": "High-quality watches in olive. Perfect fit for wedding settings."
+  },
+  {
+    "id": "prod-0030",
+    "title": "StyleCraft Premium Shirts",
+    "brand": "StyleCraft",
+    "price": 1909,
+    "imageUrl": "https://picsum.photos/seed/30/600/800",
+    "category": "Shirts",
+    "color": "Black",
+    "size": "XS",
+    "fit": "Slim",
+    "occasionTags": [
+      "Formal"
+    ],
+    "style": "Minimalist",
+    "description": "Premium black shirts from StyleCraft. Perfect for formal occasions."
+  },
+  {
+    "id": "prod-0031",
+    "title": "Vintage Trousers - StyleCraft",
+    "brand": "StyleCraft",
+    "price": 1946,
+    "imageUrl": "https://picsum.photos/seed/31/600/800",
+    "category": "Trousers",
+    "color": "White",
+    "size": "S",
+    "fit": "Regular",
+    "occasionTags": [
+      "Party",
+      "Work"
+    ],
+    "style": "Vintage",
+    "description": "Stylish trousers featuring vintage design. Made with quality materials."
+  },
+  {
+    "id": "prod-0032",
+    "title": "StyleCraft Jeans - Navy",
+    "brand": "StyleCraft",
+    "price": 1983,
+    "imageUrl": "https://picsum.photos/seed/32/600/800",
+    "category": "Jeans",
+    "color": "Navy",
+    "size": "M",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Travel",
+      "Sports",
+      "Wedding"
+    ],
+    "style": "Contemporary",
+    "description": "Comfortable relaxed fit jeans in navy. Ideal for travel and sports and wedding wear."
+  },
+  {
+    "id": "prod-0033",
+    "title": "Gray T-Shirts by StyleCraft",
+    "brand": "StyleCraft",
+    "price": 2020,
+    "imageUrl": "https://picsum.photos/seed/33/600/800",
+    "category": "T-Shirts",
+    "color": "Gray",
+    "size": "L",
+    "fit": "Oversized",
+    "occasionTags": [
+      "Party"
+    ],
+    "style": "Bohemian",
+    "description": "Elegant t-shirts by StyleCraft. Bohemian style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0034",
+    "title": "StyleCraft Classic Blazers",
+    "brand": "StyleCraft",
+    "price": 2057,
+    "imageUrl": "https://picsum.photos/seed/34/600/800",
+    "category": "Blazers",
+    "color": "Beige",
+    "size": "XL",
+    "fit": "Fitted",
+    "occasionTags": [
+      "Evening",
+      "Party"
+    ],
+    "style": "Classic",
+    "description": "High-quality blazers in beige. Perfect fit for evening settings."
+  },
+  {
+    "id": "prod-0035",
+    "title": "Slim Fit Dresses - StyleCraft",
+    "brand": "StyleCraft",
+    "price": 2094,
+    "imageUrl": "https://picsum.photos/seed/35/600/800",
+    "category": "Dresses",
+    "color": "Brown",
+    "size": "XXL",
+    "fit": "Slim",
+    "occasionTags": [
+      "Casual",
+      "Party",
+      "Work"
+    ],
+    "style": "Streetwear",
+    "description": "Premium brown dresses from StyleCraft. Perfect for casual occasions."
+  },
+  {
+    "id": "prod-0036",
+    "title": "StyleCraft Sneakers Elegant Collection",
+    "brand": "StyleCraft",
+    "price": 2131,
+    "imageUrl": "https://picsum.photos/seed/36/600/800",
+    "category": "Sneakers",
+    "color": "Blue",
+    "size": "XS",
+    "fit": "Regular",
+    "occasionTags": [
+      "Evening"
+    ],
+    "style": "Elegant",
+    "description": "Stylish sneakers featuring elegant design. Made with quality materials."
+  },
+  {
+    "id": "prod-0037",
+    "title": "Red Relaxed Loafers",
+    "brand": "StyleCraft",
+    "price": 2168,
+    "imageUrl": "https://picsum.photos/seed/37/600/800",
+    "category": "Loafers",
+    "color": "Red",
+    "size": "S",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Work",
+      "Formal"
+    ],
+    "style": "Sporty",
+    "description": "Comfortable relaxed fit loafers in red. Ideal for work and formal wear."
+  },
+  {
+    "id": "prod-0038",
+    "title": "StyleCraft Premium Handbags",
+    "brand": "StyleCraft",
+    "price": 2205,
+    "imageUrl": "https://picsum.photos/seed/38/600/800",
+    "category": "Handbags",
+    "color": "Green",
+    "occasionTags": [
+      "Wedding",
+      "Sports",
+      "Beach"
+    ],
+    "style": "Casual",
+    "description": "Elegant handbags by StyleCraft. Casual style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0039",
+    "title": "Formal Watches - StyleCraft",
+    "brand": "StyleCraft",
+    "price": 2242,
+    "imageUrl": "https://picsum.photos/seed/39/600/800",
+    "category": "Watches",
+    "color": "Pink",
+    "occasionTags": [
+      "Casual"
+    ],
+    "style": "Formal",
+    "description": "High-quality watches in pink. Perfect fit for casual settings."
+  },
+  {
+    "id": "prod-0040",
+    "title": "UrbanEdge Shirts - Purple",
+    "brand": "UrbanEdge",
+    "price": 2279,
+    "imageUrl": "https://picsum.photos/seed/40/600/800",
+    "category": "Shirts",
+    "color": "Purple",
+    "size": "XL",
+    "fit": "Slim",
+    "occasionTags": [
+      "Travel",
+      "Casual"
+    ],
+    "style": "Minimalist",
+    "description": "Premium purple shirts from UrbanEdge. Perfect for travel occasions."
+  },
+  {
+    "id": "prod-0041",
+    "title": "Yellow Trousers by UrbanEdge",
+    "brand": "UrbanEdge",
+    "price": 2316,
+    "imageUrl": "https://picsum.photos/seed/41/600/800",
+    "category": "Trousers",
+    "color": "Yellow",
+    "size": "XXL",
+    "fit": "Regular",
+    "occasionTags": [
+      "Party",
+      "Travel",
+      "Wedding"
+    ],
+    "style": "Vintage",
+    "description": "Stylish trousers featuring vintage design. Made with quality materials."
+  },
+  {
+    "id": "prod-0042",
+    "title": "UrbanEdge Contemporary Jeans",
+    "brand": "UrbanEdge",
+    "price": 2353,
+    "imageUrl": "https://picsum.photos/seed/42/600/800",
+    "category": "Jeans",
+    "color": "Orange",
+    "size": "XS",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Casual"
+    ],
+    "style": "Contemporary",
+    "description": "Comfortable relaxed fit jeans in orange. Ideal for casual wear."
+  },
+  {
+    "id": "prod-0043",
+    "title": "Oversized Fit T-Shirts - UrbanEdge",
+    "brand": "UrbanEdge",
+    "price": 2390,
+    "imageUrl": "https://picsum.photos/seed/43/600/800",
+    "category": "T-Shirts",
+    "color": "Maroon",
+    "size": "S",
+    "fit": "Oversized",
+    "occasionTags": [
+      "Evening",
+      "Work"
+    ],
+    "style": "Bohemian",
+    "description": "Elegant t-shirts by UrbanEdge. Bohemian style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0044",
+    "title": "UrbanEdge Blazers Classic Collection",
+    "brand": "UrbanEdge",
+    "price": 2427,
+    "imageUrl": "https://picsum.photos/seed/44/600/800",
+    "category": "Blazers",
+    "color": "Olive",
+    "size": "M",
+    "fit": "Fitted",
+    "occasionTags": [
+      "Wedding",
+      "Casual",
+      "Office"
+    ],
+    "style": "Classic",
+    "description": "High-quality blazers in olive. Perfect fit for wedding settings."
+  },
+  {
+    "id": "prod-0045",
+    "title": "Black Slim Dresses",
+    "brand": "UrbanEdge",
+    "price": 2464,
+    "imageUrl": "https://picsum.photos/seed/45/600/800",
+    "category": "Dresses",
+    "color": "Black",
+    "size": "L",
+    "fit": "Slim",
+    "occasionTags": [
+      "Office"
+    ],
+    "style": "Streetwear",
+    "description": "Premium black dresses from UrbanEdge. Perfect for office occasions."
+  },
+  {
+    "id": "prod-0046",
+    "title": "UrbanEdge Premium Sneakers",
+    "brand": "UrbanEdge",
+    "price": 2501,
+    "imageUrl": "https://picsum.photos/seed/46/600/800",
+    "category": "Sneakers",
+    "color": "White",
+    "size": "XL",
+    "fit": "Regular",
+    "occasionTags": [
+      "Work",
+      "Evening"
+    ],
+    "style": "Elegant",
+    "description": "Stylish sneakers featuring elegant design. Made with quality materials."
+  },
+  {
+    "id": "prod-0047",
+    "title": "Sporty Loafers - UrbanEdge",
+    "brand": "UrbanEdge",
+    "price": 2538,
+    "imageUrl": "https://picsum.photos/seed/47/600/800",
+    "category": "Loafers",
+    "color": "Navy",
+    "size": "XXL",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Beach",
+      "Travel",
+      "Party"
+    ],
+    "style": "Sporty",
+    "description": "Comfortable relaxed fit loafers in navy. Ideal for beach and travel and party wear."
+  },
+  {
+    "id": "prod-0048",
+    "title": "UrbanEdge Handbags - Gray",
+    "brand": "UrbanEdge",
+    "price": 2575,
+    "imageUrl": "https://picsum.photos/seed/48/600/800",
+    "category": "Handbags",
+    "color": "Gray",
+    "occasionTags": [
+      "Casual"
+    ],
+    "style": "Casual",
+    "description": "Elegant handbags by UrbanEdge. Casual style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0049",
+    "title": "Beige Watches by UrbanEdge",
+    "brand": "UrbanEdge",
+    "price": 2612,
+    "imageUrl": "https://picsum.photos/seed/49/600/800",
+    "category": "Watches",
+    "color": "Beige",
+    "occasionTags": [
+      "Casual",
+      "Sports"
+    ],
+    "style": "Formal",
+    "description": "High-quality watches in beige. Perfect fit for casual settings."
+  },
+  {
+    "id": "prod-0050",
+    "title": "UrbanEdge Minimalist Shirts",
+    "brand": "UrbanEdge",
+    "price": 2649,
+    "imageUrl": "https://picsum.photos/seed/50/600/800",
+    "category": "Shirts",
+    "color": "Brown",
+    "size": "M",
+    "fit": "Slim",
+    "occasionTags": [
+      "Beach",
+      "Casual",
+      "Work"
+    ],
+    "style": "Minimalist",
+    "description": "Premium brown shirts from UrbanEdge. Perfect for beach occasions."
+  },
+  {
+    "id": "prod-0051",
+    "title": "Regular Fit Trousers - UrbanEdge",
+    "brand": "UrbanEdge",
+    "price": 2686,
+    "imageUrl": "https://picsum.photos/seed/51/600/800",
+    "category": "Trousers",
+    "color": "Blue",
+    "size": "L",
+    "fit": "Regular",
+    "occasionTags": [
+      "Travel"
+    ],
+    "style": "Vintage",
+    "description": "Stylish trousers featuring vintage design. Made with quality materials."
+  },
+  {
+    "id": "prod-0052",
+    "title": "UrbanEdge Jeans Contemporary Collection",
+    "brand": "UrbanEdge",
+    "price": 2723,
+    "imageUrl": "https://picsum.photos/seed/52/600/800",
+    "category": "Jeans",
+    "color": "Red",
+    "size": "XL",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Beach",
+      "Sports"
+    ],
+    "style": "Contemporary",
+    "description": "Comfortable relaxed fit jeans in red. Ideal for beach and sports wear."
+  },
+  {
+    "id": "prod-0053",
+    "title": "Green Oversized T-Shirts",
+    "brand": "UrbanEdge",
+    "price": 2760,
+    "imageUrl": "https://picsum.photos/seed/53/600/800",
+    "category": "T-Shirts",
+    "color": "Green",
+    "size": "XXL",
+    "fit": "Oversized",
+    "occasionTags": [
+      "Office",
+      "Casual",
+      "Work"
+    ],
+    "style": "Bohemian",
+    "description": "Elegant t-shirts by UrbanEdge. Bohemian style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0054",
+    "title": "UrbanEdge Premium Blazers",
+    "brand": "UrbanEdge",
+    "price": 2797,
+    "imageUrl": "https://picsum.photos/seed/54/600/800",
+    "category": "Blazers",
+    "color": "Pink",
+    "size": "XS",
+    "fit": "Fitted",
+    "occasionTags": [
+      "Party"
+    ],
+    "style": "Classic",
+    "description": "High-quality blazers in pink. Perfect fit for party settings."
+  },
+  {
+    "id": "prod-0055",
+    "title": "Streetwear Dresses - UrbanEdge",
+    "brand": "UrbanEdge",
+    "price": 2834,
+    "imageUrl": "https://picsum.photos/seed/55/600/800",
+    "category": "Dresses",
+    "color": "Purple",
+    "size": "S",
+    "fit": "Slim",
+    "occasionTags": [
+      "Work",
+      "Wedding"
+    ],
+    "style": "Streetwear",
+    "description": "Premium purple dresses from UrbanEdge. Perfect for work occasions."
+  },
+  {
+    "id": "prod-0056",
+    "title": "UrbanEdge Sneakers - Yellow",
+    "brand": "UrbanEdge",
+    "price": 2871,
+    "imageUrl": "https://picsum.photos/seed/56/600/800",
+    "category": "Sneakers",
+    "color": "Yellow",
+    "size": "M",
+    "fit": "Regular",
+    "occasionTags": [
+      "Sports",
+      "Work",
+      "Office"
+    ],
+    "style": "Elegant",
+    "description": "Stylish sneakers featuring elegant design. Made with quality materials."
+  },
+  {
+    "id": "prod-0057",
+    "title": "Orange Loafers by UrbanEdge",
+    "brand": "UrbanEdge",
+    "price": 2908,
+    "imageUrl": "https://picsum.photos/seed/57/600/800",
+    "category": "Loafers",
+    "color": "Orange",
+    "size": "L",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Party"
+    ],
+    "style": "Sporty",
+    "description": "Comfortable relaxed fit loafers in orange. Ideal for party wear."
+  },
+  {
+    "id": "prod-0058",
+    "title": "UrbanEdge Casual Handbags",
+    "brand": "UrbanEdge",
+    "price": 2945,
+    "imageUrl": "https://picsum.photos/seed/58/600/800",
+    "category": "Handbags",
+    "color": "Maroon",
+    "occasionTags": [
+      "Wedding",
+      "Casual"
+    ],
+    "style": "Casual",
+    "description": "Elegant handbags by UrbanEdge. Casual style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0059",
+    "title": "Fitted Fit Watches - UrbanEdge",
+    "brand": "UrbanEdge",
+    "price": 2982,
+    "imageUrl": "https://picsum.photos/seed/59/600/800",
+    "category": "Watches",
+    "color": "Olive",
+    "occasionTags": [
+      "Sports",
+      "Casual",
+      "Work"
+    ],
+    "style": "Formal",
+    "description": "High-quality watches in olive. Perfect fit for sports settings."
+  },
+  {
+    "id": "prod-0060",
+    "title": "UrbanEdge Shirts Minimalist Collection",
+    "brand": "UrbanEdge",
+    "price": 3019,
+    "imageUrl": "https://picsum.photos/seed/60/600/800",
+    "category": "Shirts",
+    "color": "Black",
+    "size": "XS",
+    "fit": "Slim",
+    "occasionTags": [
+      "Wedding"
+    ],
+    "style": "Minimalist",
+    "description": "Premium black shirts from UrbanEdge. Perfect for wedding occasions."
+  },
+  {
+    "id": "prod-0061",
+    "title": "White Regular Trousers",
+    "brand": "UrbanEdge",
+    "price": 3056,
+    "imageUrl": "https://picsum.photos/seed/61/600/800",
+    "category": "Trousers",
+    "color": "White",
+    "size": "S",
+    "fit": "Regular",
+    "occasionTags": [
+      "Evening",
+      "Travel"
+    ],
+    "style": "Vintage",
+    "description": "Stylish trousers featuring vintage design. Made with quality materials."
+  },
+  {
+    "id": "prod-0062",
+    "title": "UrbanEdge Premium Jeans",
+    "brand": "UrbanEdge",
+    "price": 3093,
+    "imageUrl": "https://picsum.photos/seed/62/600/800",
+    "category": "Jeans",
+    "color": "Navy",
+    "size": "M",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Casual",
+      "Party",
+      "Travel"
+    ],
+    "style": "Contemporary",
+    "description": "Comfortable relaxed fit jeans in navy. Ideal for casual and party and travel wear."
+  },
+  {
+    "id": "prod-0063",
+    "title": "Bohemian T-Shirts - UrbanEdge",
+    "brand": "UrbanEdge",
+    "price": 3130,
+    "imageUrl": "https://picsum.photos/seed/63/600/800",
+    "category": "T-Shirts",
+    "color": "Gray",
+    "size": "L",
+    "fit": "Oversized",
+    "occasionTags": [
+      "Casual"
+    ],
+    "style": "Bohemian",
+    "description": "Elegant t-shirts by UrbanEdge. Bohemian style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0064",
+    "title": "UrbanEdge Blazers - Beige",
+    "brand": "UrbanEdge",
+    "price": 3167,
+    "imageUrl": "https://picsum.photos/seed/64/600/800",
+    "category": "Blazers",
+    "color": "Beige",
+    "size": "XL",
+    "fit": "Fitted",
+    "occasionTags": [
+      "Work",
+      "Travel"
+    ],
+    "style": "Classic",
+    "description": "High-quality blazers in beige. Perfect fit for work settings."
+  },
+  {
+    "id": "prod-0065",
+    "title": "Brown Dresses by UrbanEdge",
+    "brand": "UrbanEdge",
+    "price": 3204,
+    "imageUrl": "https://picsum.photos/seed/65/600/800",
+    "category": "Dresses",
+    "color": "Brown",
+    "size": "XXL",
+    "fit": "Slim",
+    "occasionTags": [
+      "Casual",
+      "Formal",
+      "Beach"
+    ],
+    "style": "Streetwear",
+    "description": "Premium brown dresses from UrbanEdge. Perfect for casual occasions."
+  },
+  {
+    "id": "prod-0066",
+    "title": "UrbanEdge Elegant Sneakers",
+    "brand": "UrbanEdge",
+    "price": 3241,
+    "imageUrl": "https://picsum.photos/seed/66/600/800",
+    "category": "Sneakers",
+    "color": "Blue",
+    "size": "XS",
+    "fit": "Regular",
+    "occasionTags": [
+      "Sports"
+    ],
+    "style": "Elegant",
+    "description": "Stylish sneakers featuring elegant design. Made with quality materials."
+  },
+  {
+    "id": "prod-0067",
+    "title": "Relaxed Fit Loafers - UrbanEdge",
+    "brand": "UrbanEdge",
+    "price": 3278,
+    "imageUrl": "https://picsum.photos/seed/67/600/800",
+    "category": "Loafers",
+    "color": "Red",
+    "size": "S",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Work",
+      "Travel"
+    ],
+    "style": "Sporty",
+    "description": "Comfortable relaxed fit loafers in red. Ideal for work and travel wear."
+  },
+  {
+    "id": "prod-0068",
+    "title": "UrbanEdge Handbags Casual Collection",
+    "brand": "UrbanEdge",
+    "price": 3315,
+    "imageUrl": "https://picsum.photos/seed/68/600/800",
+    "category": "Handbags",
+    "color": "Green",
+    "occasionTags": [
+      "Travel",
+      "Evening",
+      "Office"
+    ],
+    "style": "Casual",
+    "description": "Elegant handbags by UrbanEdge. Casual style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0069",
+    "title": "Pink Fitted Watches",
+    "brand": "UrbanEdge",
+    "price": 3352,
+    "imageUrl": "https://picsum.photos/seed/69/600/800",
+    "category": "Watches",
+    "color": "Pink",
+    "occasionTags": [
+      "Wedding"
+    ],
+    "style": "Formal",
+    "description": "High-quality watches in pink. Perfect fit for wedding settings."
+  },
+  {
+    "id": "prod-0070",
+    "title": "UrbanEdge Premium Shirts",
+    "brand": "UrbanEdge",
+    "price": 3389,
+    "imageUrl": "https://picsum.photos/seed/70/600/800",
+    "category": "Shirts",
+    "color": "Purple",
+    "size": "XL",
+    "fit": "Slim",
+    "occasionTags": [
+      "Beach",
+      "Travel"
+    ],
+    "style": "Minimalist",
+    "description": "Premium purple shirts from UrbanEdge. Perfect for beach occasions."
+  },
+  {
+    "id": "prod-0071",
+    "title": "Vintage Trousers - UrbanEdge",
+    "brand": "UrbanEdge",
+    "price": 3426,
+    "imageUrl": "https://picsum.photos/seed/71/600/800",
+    "category": "Trousers",
+    "color": "Yellow",
+    "size": "XXL",
+    "fit": "Regular",
+    "occasionTags": [
+      "Travel",
+      "Party",
+      "Wedding"
+    ],
+    "style": "Vintage",
+    "description": "Stylish trousers featuring vintage design. Made with quality materials."
+  },
+  {
+    "id": "prod-0072",
+    "title": "UrbanEdge Jeans - Orange",
+    "brand": "UrbanEdge",
+    "price": 3463,
+    "imageUrl": "https://picsum.photos/seed/72/600/800",
+    "category": "Jeans",
+    "color": "Orange",
+    "size": "XS",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Sports"
+    ],
+    "style": "Contemporary",
+    "description": "Comfortable relaxed fit jeans in orange. Ideal for sports wear."
+  },
+  {
+    "id": "prod-0073",
+    "title": "Maroon T-Shirts by UrbanEdge",
+    "brand": "UrbanEdge",
+    "price": 3500,
+    "imageUrl": "https://picsum.photos/seed/73/600/800",
+    "category": "T-Shirts",
+    "color": "Maroon",
+    "size": "S",
+    "fit": "Oversized",
+    "occasionTags": [
+      "Sports",
+      "Wedding"
+    ],
+    "style": "Bohemian",
+    "description": "Elegant t-shirts by UrbanEdge. Bohemian style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0074",
+    "title": "UrbanEdge Classic Blazers",
+    "brand": "UrbanEdge",
+    "price": 3537,
+    "imageUrl": "https://picsum.photos/seed/74/600/800",
+    "category": "Blazers",
+    "color": "Olive",
+    "size": "M",
+    "fit": "Fitted",
+    "occasionTags": [
+      "Casual",
+      "Formal",
+      "Party"
+    ],
+    "style": "Classic",
+    "description": "High-quality blazers in olive. Perfect fit for casual settings."
+  },
+  {
+    "id": "prod-0075",
+    "title": "Slim Fit Dresses - UrbanEdge",
+    "brand": "UrbanEdge",
+    "price": 3574,
+    "imageUrl": "https://picsum.photos/seed/75/600/800",
+    "category": "Dresses",
+    "color": "Black",
+    "size": "L",
+    "fit": "Slim",
+    "occasionTags": [
+      "Party"
+    ],
+    "style": "Streetwear",
+    "description": "Premium black dresses from UrbanEdge. Perfect for party occasions."
+  },
+  {
+    "id": "prod-0076",
+    "title": "UrbanEdge Sneakers Elegant Collection",
+    "brand": "UrbanEdge",
+    "price": 3611,
+    "imageUrl": "https://picsum.photos/seed/76/600/800",
+    "category": "Sneakers",
+    "color": "White",
+    "size": "XL",
+    "fit": "Regular",
+    "occasionTags": [
+      "Casual",
+      "Party"
+    ],
+    "style": "Elegant",
+    "description": "Stylish sneakers featuring elegant design. Made with quality materials."
+  },
+  {
+    "id": "prod-0077",
+    "title": "Navy Relaxed Loafers",
+    "brand": "UrbanEdge",
+    "price": 3648,
+    "imageUrl": "https://picsum.photos/seed/77/600/800",
+    "category": "Loafers",
+    "color": "Navy",
+    "size": "XXL",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Evening",
+      "Office",
+      "Casual"
+    ],
+    "style": "Sporty",
+    "description": "Comfortable relaxed fit loafers in navy. Ideal for evening and office and casual wear."
+  },
+  {
+    "id": "prod-0078",
+    "title": "UrbanEdge Premium Handbags",
+    "brand": "UrbanEdge",
+    "price": 3685,
+    "imageUrl": "https://picsum.photos/seed/78/600/800",
+    "category": "Handbags",
+    "color": "Gray",
+    "occasionTags": [
+      "Formal"
+    ],
+    "style": "Casual",
+    "description": "Elegant handbags by UrbanEdge. Casual style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0079",
+    "title": "Formal Watches - UrbanEdge",
+    "brand": "UrbanEdge",
+    "price": 3722,
+    "imageUrl": "https://picsum.photos/seed/79/600/800",
+    "category": "Watches",
+    "color": "Beige",
+    "occasionTags": [
+      "Work",
+      "Party"
+    ],
+    "style": "Formal",
+    "description": "High-quality watches in beige. Perfect fit for work settings."
+  },
+  {
+    "id": "prod-0080",
+    "title": "ClassicWear Shirts - Brown",
+    "brand": "ClassicWear",
+    "price": 3759,
+    "imageUrl": "https://picsum.photos/seed/80/600/800",
+    "category": "Shirts",
+    "color": "Brown",
+    "size": "M",
+    "fit": "Slim",
+    "occasionTags": [
+      "Work",
+      "Formal",
+      "Office"
+    ],
+    "style": "Minimalist",
+    "description": "Premium brown shirts from ClassicWear. Perfect for work occasions."
+  },
+  {
+    "id": "prod-0081",
+    "title": "Blue Trousers by ClassicWear",
+    "brand": "ClassicWear",
+    "price": 3796,
+    "imageUrl": "https://picsum.photos/seed/81/600/800",
+    "category": "Trousers",
+    "color": "Blue",
+    "size": "L",
+    "fit": "Regular",
+    "occasionTags": [
+      "Office"
+    ],
+    "style": "Vintage",
+    "description": "Stylish trousers featuring vintage design. Made with quality materials."
+  },
+  {
+    "id": "prod-0082",
+    "title": "ClassicWear Contemporary Jeans",
+    "brand": "ClassicWear",
+    "price": 3833,
+    "imageUrl": "https://picsum.photos/seed/82/600/800",
+    "category": "Jeans",
+    "color": "Red",
+    "size": "XL",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Wedding",
+      "Formal"
+    ],
+    "style": "Contemporary",
+    "description": "Comfortable relaxed fit jeans in red. Ideal for wedding and formal wear."
+  },
+  {
+    "id": "prod-0083",
+    "title": "Oversized Fit T-Shirts - ClassicWear",
+    "brand": "ClassicWear",
+    "price": 3870,
+    "imageUrl": "https://picsum.photos/seed/83/600/800",
+    "category": "T-Shirts",
+    "color": "Green",
+    "size": "XXL",
+    "fit": "Oversized",
+    "occasionTags": [
+      "Party",
+      "Formal",
+      "Work"
+    ],
+    "style": "Bohemian",
+    "description": "Elegant t-shirts by ClassicWear. Bohemian style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0084",
+    "title": "ClassicWear Blazers Classic Collection",
+    "brand": "ClassicWear",
+    "price": 3907,
+    "imageUrl": "https://picsum.photos/seed/84/600/800",
+    "category": "Blazers",
+    "color": "Pink",
+    "size": "XS",
+    "fit": "Fitted",
+    "occasionTags": [
+      "Evening"
+    ],
+    "style": "Classic",
+    "description": "High-quality blazers in pink. Perfect fit for evening settings."
+  },
+  {
+    "id": "prod-0085",
+    "title": "Purple Slim Dresses",
+    "brand": "ClassicWear",
+    "price": 3944,
+    "imageUrl": "https://picsum.photos/seed/85/600/800",
+    "category": "Dresses",
+    "color": "Purple",
+    "size": "S",
+    "fit": "Slim",
+    "occasionTags": [
+      "Sports",
+      "Formal"
+    ],
+    "style": "Streetwear",
+    "description": "Premium purple dresses from ClassicWear. Perfect for sports occasions."
+  },
+  {
+    "id": "prod-0086",
+    "title": "ClassicWear Premium Sneakers",
+    "brand": "ClassicWear",
+    "price": 3981,
+    "imageUrl": "https://picsum.photos/seed/86/600/800",
+    "category": "Sneakers",
+    "color": "Yellow",
+    "size": "M",
+    "fit": "Regular",
+    "occasionTags": [
+      "Casual",
+      "Wedding",
+      "Evening"
+    ],
+    "style": "Elegant",
+    "description": "Stylish sneakers featuring elegant design. Made with quality materials."
+  },
+  {
+    "id": "prod-0087",
+    "title": "Sporty Loafers - ClassicWear",
+    "brand": "ClassicWear",
+    "price": 4018,
+    "imageUrl": "https://picsum.photos/seed/87/600/800",
+    "category": "Loafers",
+    "color": "Orange",
+    "size": "L",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Formal"
+    ],
+    "style": "Sporty",
+    "description": "Comfortable relaxed fit loafers in orange. Ideal for formal wear."
+  },
+  {
+    "id": "prod-0088",
+    "title": "ClassicWear Handbags - Maroon",
+    "brand": "ClassicWear",
+    "price": 4055,
+    "imageUrl": "https://picsum.photos/seed/88/600/800",
+    "category": "Handbags",
+    "color": "Maroon",
+    "occasionTags": [
+      "Office",
+      "Wedding"
+    ],
+    "style": "Casual",
+    "description": "Elegant handbags by ClassicWear. Casual style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0089",
+    "title": "Olive Watches by ClassicWear",
+    "brand": "ClassicWear",
+    "price": 4092,
+    "imageUrl": "https://picsum.photos/seed/89/600/800",
+    "category": "Watches",
+    "color": "Olive",
+    "occasionTags": [
+      "Party",
+      "Beach",
+      "Formal"
+    ],
+    "style": "Formal",
+    "description": "High-quality watches in olive. Perfect fit for party settings."
+  },
+  {
+    "id": "prod-0090",
+    "title": "ClassicWear Minimalist Shirts",
+    "brand": "ClassicWear",
+    "price": 4129,
+    "imageUrl": "https://picsum.photos/seed/90/600/800",
+    "category": "Shirts",
+    "color": "Black",
+    "size": "XS",
+    "fit": "Slim",
+    "occasionTags": [
+      "Travel"
+    ],
+    "style": "Minimalist",
+    "description": "Premium black shirts from ClassicWear. Perfect for travel occasions."
+  },
+  {
+    "id": "prod-0091",
+    "title": "Regular Fit Trousers - ClassicWear",
+    "brand": "ClassicWear",
+    "price": 4166,
+    "imageUrl": "https://picsum.photos/seed/91/600/800",
+    "category": "Trousers",
+    "color": "White",
+    "size": "S",
+    "fit": "Regular",
+    "occasionTags": [
+      "Party",
+      "Evening"
+    ],
+    "style": "Vintage",
+    "description": "Stylish trousers featuring vintage design. Made with quality materials."
+  },
+  {
+    "id": "prod-0092",
+    "title": "ClassicWear Jeans Contemporary Collection",
+    "brand": "ClassicWear",
+    "price": 4203,
+    "imageUrl": "https://picsum.photos/seed/92/600/800",
+    "category": "Jeans",
+    "color": "Navy",
+    "size": "M",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Beach",
+      "Work",
+      "Travel"
+    ],
+    "style": "Contemporary",
+    "description": "Comfortable relaxed fit jeans in navy. Ideal for beach and work and travel wear."
+  },
+  {
+    "id": "prod-0093",
+    "title": "Gray Oversized T-Shirts",
+    "brand": "ClassicWear",
+    "price": 4240,
+    "imageUrl": "https://picsum.photos/seed/93/600/800",
+    "category": "T-Shirts",
+    "color": "Gray",
+    "size": "L",
+    "fit": "Oversized",
+    "occasionTags": [
+      "Office"
+    ],
+    "style": "Bohemian",
+    "description": "Elegant t-shirts by ClassicWear. Bohemian style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0094",
+    "title": "ClassicWear Premium Blazers",
+    "brand": "ClassicWear",
+    "price": 4277,
+    "imageUrl": "https://picsum.photos/seed/94/600/800",
+    "category": "Blazers",
+    "color": "Beige",
+    "size": "XL",
+    "fit": "Fitted",
+    "occasionTags": [
+      "Casual",
+      "Sports"
+    ],
+    "style": "Classic",
+    "description": "High-quality blazers in beige. Perfect fit for casual settings."
+  },
+  {
+    "id": "prod-0095",
+    "title": "Streetwear Dresses - ClassicWear",
+    "brand": "ClassicWear",
+    "price": 4314,
+    "imageUrl": "https://picsum.photos/seed/95/600/800",
+    "category": "Dresses",
+    "color": "Brown",
+    "size": "XXL",
+    "fit": "Slim",
+    "occasionTags": [
+      "Wedding",
+      "Office",
+      "Casual"
+    ],
+    "style": "Streetwear",
+    "description": "Premium brown dresses from ClassicWear. Perfect for wedding occasions."
+  },
+  {
+    "id": "prod-0096",
+    "title": "ClassicWear Sneakers - Blue",
+    "brand": "ClassicWear",
+    "price": 4351,
+    "imageUrl": "https://picsum.photos/seed/96/600/800",
+    "category": "Sneakers",
+    "color": "Blue",
+    "size": "XS",
+    "fit": "Regular",
+    "occasionTags": [
+      "Casual"
+    ],
+    "style": "Elegant",
+    "description": "Stylish sneakers featuring elegant design. Made with quality materials."
+  },
+  {
+    "id": "prod-0097",
+    "title": "Red Loafers by ClassicWear",
+    "brand": "ClassicWear",
+    "price": 4388,
+    "imageUrl": "https://picsum.photos/seed/97/600/800",
+    "category": "Loafers",
+    "color": "Red",
+    "size": "S",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Wedding",
+      "Sports"
+    ],
+    "style": "Sporty",
+    "description": "Comfortable relaxed fit loafers in red. Ideal for wedding and sports wear."
+  },
+  {
+    "id": "prod-0098",
+    "title": "ClassicWear Casual Handbags",
+    "brand": "ClassicWear",
+    "price": 4425,
+    "imageUrl": "https://picsum.photos/seed/98/600/800",
+    "category": "Handbags",
+    "color": "Green",
+    "occasionTags": [
+      "Casual",
+      "Wedding",
+      "Evening"
+    ],
+    "style": "Casual",
+    "description": "Elegant handbags by ClassicWear. Casual style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0099",
+    "title": "Fitted Fit Watches - ClassicWear",
+    "brand": "ClassicWear",
+    "price": 4462,
+    "imageUrl": "https://picsum.photos/seed/99/600/800",
+    "category": "Watches",
+    "color": "Pink",
+    "occasionTags": [
+      "Work"
+    ],
+    "style": "Formal",
+    "description": "High-quality watches in pink. Perfect fit for work settings."
+  },
+  {
+    "id": "prod-0100",
+    "title": "ClassicWear Shirts Minimalist Collection",
+    "brand": "ClassicWear",
+    "price": 4499,
+    "imageUrl": "https://picsum.photos/seed/100/600/800",
+    "category": "Shirts",
+    "color": "Purple",
+    "size": "XL",
+    "fit": "Slim",
+    "occasionTags": [
+      "Casual",
+      "Formal"
+    ],
+    "style": "Minimalist",
+    "description": "Premium purple shirts from ClassicWear. Perfect for casual occasions."
+  },
+  {
+    "id": "prod-0101",
+    "title": "Yellow Regular Trousers",
+    "brand": "ClassicWear",
+    "price": 4536,
+    "imageUrl": "https://picsum.photos/seed/101/600/800",
+    "category": "Trousers",
+    "color": "Yellow",
+    "size": "XXL",
+    "fit": "Regular",
+    "occasionTags": [
+      "Party",
+      "Formal",
+      "Sports"
+    ],
+    "style": "Vintage",
+    "description": "Stylish trousers featuring vintage design. Made with quality materials."
+  },
+  {
+    "id": "prod-0102",
+    "title": "ClassicWear Premium Jeans",
+    "brand": "ClassicWear",
+    "price": 4573,
+    "imageUrl": "https://picsum.photos/seed/102/600/800",
+    "category": "Jeans",
+    "color": "Orange",
+    "size": "XS",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Wedding"
+    ],
+    "style": "Contemporary",
+    "description": "Comfortable relaxed fit jeans in orange. Ideal for wedding wear."
+  },
+  {
+    "id": "prod-0103",
+    "title": "Bohemian T-Shirts - ClassicWear",
+    "brand": "ClassicWear",
+    "price": 4610,
+    "imageUrl": "https://picsum.photos/seed/103/600/800",
+    "category": "T-Shirts",
+    "color": "Maroon",
+    "size": "S",
+    "fit": "Oversized",
+    "occasionTags": [
+      "Work",
+      "Beach"
+    ],
+    "style": "Bohemian",
+    "description": "Elegant t-shirts by ClassicWear. Bohemian style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0104",
+    "title": "ClassicWear Blazers - Olive",
+    "brand": "ClassicWear",
+    "price": 4647,
+    "imageUrl": "https://picsum.photos/seed/104/600/800",
+    "category": "Blazers",
+    "color": "Olive",
+    "size": "M",
+    "fit": "Fitted",
+    "occasionTags": [
+      "Formal",
+      "Sports",
+      "Evening"
+    ],
+    "style": "Classic",
+    "description": "High-quality blazers in olive. Perfect fit for formal settings."
+  },
+  {
+    "id": "prod-0105",
+    "title": "Black Dresses by ClassicWear",
+    "brand": "ClassicWear",
+    "price": 4684,
+    "imageUrl": "https://picsum.photos/seed/105/600/800",
+    "category": "Dresses",
+    "color": "Black",
+    "size": "L",
+    "fit": "Slim",
+    "occasionTags": [
+      "Formal"
+    ],
+    "style": "Streetwear",
+    "description": "Premium black dresses from ClassicWear. Perfect for formal occasions."
+  },
+  {
+    "id": "prod-0106",
+    "title": "ClassicWear Elegant Sneakers",
+    "brand": "ClassicWear",
+    "price": 4721,
+    "imageUrl": "https://picsum.photos/seed/106/600/800",
+    "category": "Sneakers",
+    "color": "White",
+    "size": "XL",
+    "fit": "Regular",
+    "occasionTags": [
+      "Casual",
+      "Travel"
+    ],
+    "style": "Elegant",
+    "description": "Stylish sneakers featuring elegant design. Made with quality materials."
+  },
+  {
+    "id": "prod-0107",
+    "title": "Relaxed Fit Loafers - ClassicWear",
+    "brand": "ClassicWear",
+    "price": 4758,
+    "imageUrl": "https://picsum.photos/seed/107/600/800",
+    "category": "Loafers",
+    "color": "Navy",
+    "size": "XXL",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Work",
+      "Casual",
+      "Travel"
+    ],
+    "style": "Sporty",
+    "description": "Comfortable relaxed fit loafers in navy. Ideal for work and casual and travel wear."
+  },
+  {
+    "id": "prod-0108",
+    "title": "ClassicWear Handbags Casual Collection",
+    "brand": "ClassicWear",
+    "price": 4795,
+    "imageUrl": "https://picsum.photos/seed/108/600/800",
+    "category": "Handbags",
+    "color": "Gray",
+    "occasionTags": [
+      "Work"
+    ],
+    "style": "Casual",
+    "description": "Elegant handbags by ClassicWear. Casual style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0109",
+    "title": "Beige Fitted Watches",
+    "brand": "ClassicWear",
+    "price": 4832,
+    "imageUrl": "https://picsum.photos/seed/109/600/800",
+    "category": "Watches",
+    "color": "Beige",
+    "occasionTags": [
+      "Wedding",
+      "Evening"
+    ],
+    "style": "Formal",
+    "description": "High-quality watches in beige. Perfect fit for wedding settings."
+  },
+  {
+    "id": "prod-0110",
+    "title": "ClassicWear Premium Shirts",
+    "brand": "ClassicWear",
+    "price": 4869,
+    "imageUrl": "https://picsum.photos/seed/110/600/800",
+    "category": "Shirts",
+    "color": "Brown",
+    "size": "M",
+    "fit": "Slim",
+    "occasionTags": [
+      "Casual",
+      "Formal",
+      "Sports"
+    ],
+    "style": "Minimalist",
+    "description": "Premium brown shirts from ClassicWear. Perfect for casual occasions."
+  },
+  {
+    "id": "prod-0111",
+    "title": "Vintage Trousers - ClassicWear",
+    "brand": "ClassicWear",
+    "price": 4906,
+    "imageUrl": "https://picsum.photos/seed/111/600/800",
+    "category": "Trousers",
+    "color": "Blue",
+    "size": "L",
+    "fit": "Regular",
+    "occasionTags": [
+      "Work"
+    ],
+    "style": "Vintage",
+    "description": "Stylish trousers featuring vintage design. Made with quality materials."
+  },
+  {
+    "id": "prod-0112",
+    "title": "ClassicWear Jeans - Red",
+    "brand": "ClassicWear",
+    "price": 4943,
+    "imageUrl": "https://picsum.photos/seed/112/600/800",
+    "category": "Jeans",
+    "color": "Red",
+    "size": "XL",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Sports",
+      "Wedding"
+    ],
+    "style": "Contemporary",
+    "description": "Comfortable relaxed fit jeans in red. Ideal for sports and wedding wear."
+  },
+  {
+    "id": "prod-0113",
+    "title": "Green T-Shirts by ClassicWear",
+    "brand": "ClassicWear",
+    "price": 4980,
+    "imageUrl": "https://picsum.photos/seed/113/600/800",
+    "category": "T-Shirts",
+    "color": "Green",
+    "size": "XXL",
+    "fit": "Oversized",
+    "occasionTags": [
+      "Work",
+      "Wedding",
+      "Evening"
+    ],
+    "style": "Bohemian",
+    "description": "Elegant t-shirts by ClassicWear. Bohemian style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0114",
+    "title": "ClassicWear Classic Blazers",
+    "brand": "ClassicWear",
+    "price": 5017,
+    "imageUrl": "https://picsum.photos/seed/114/600/800",
+    "category": "Blazers",
+    "color": "Pink",
+    "size": "XS",
+    "fit": "Fitted",
+    "occasionTags": [
+      "Beach"
+    ],
+    "style": "Classic",
+    "description": "High-quality blazers in pink. Perfect fit for beach settings."
+  },
+  {
+    "id": "prod-0115",
+    "title": "Slim Fit Dresses - ClassicWear",
+    "brand": "ClassicWear",
+    "price": 5054,
+    "imageUrl": "https://picsum.photos/seed/115/600/800",
+    "category": "Dresses",
+    "color": "Purple",
+    "size": "S",
+    "fit": "Slim",
+    "occasionTags": [
+      "Casual",
+      "Formal"
+    ],
+    "style": "Streetwear",
+    "description": "Premium purple dresses from ClassicWear. Perfect for casual occasions."
+  },
+  {
+    "id": "prod-0116",
+    "title": "ClassicWear Sneakers Elegant Collection",
+    "brand": "ClassicWear",
+    "price": 5091,
+    "imageUrl": "https://picsum.photos/seed/116/600/800",
+    "category": "Sneakers",
+    "color": "Yellow",
+    "size": "M",
+    "fit": "Regular",
+    "occasionTags": [
+      "Party",
+      "Work",
+      "Sports"
+    ],
+    "style": "Elegant",
+    "description": "Stylish sneakers featuring elegant design. Made with quality materials."
+  },
+  {
+    "id": "prod-0117",
+    "title": "Orange Relaxed Loafers",
+    "brand": "ClassicWear",
+    "price": 5128,
+    "imageUrl": "https://picsum.photos/seed/117/600/800",
+    "category": "Loafers",
+    "color": "Orange",
+    "size": "L",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Beach"
+    ],
+    "style": "Sporty",
+    "description": "Comfortable relaxed fit loafers in orange. Ideal for beach wear."
+  },
+  {
+    "id": "prod-0118",
+    "title": "ClassicWear Premium Handbags",
+    "brand": "ClassicWear",
+    "price": 5165,
+    "imageUrl": "https://picsum.photos/seed/118/600/800",
+    "category": "Handbags",
+    "color": "Maroon",
+    "occasionTags": [
+      "Casual",
+      "Sports"
+    ],
+    "style": "Casual",
+    "description": "Elegant handbags by ClassicWear. Casual style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0119",
+    "title": "Formal Watches - ClassicWear",
+    "brand": "ClassicWear",
+    "price": 5202,
+    "imageUrl": "https://picsum.photos/seed/119/600/800",
+    "category": "Watches",
+    "color": "Olive",
+    "occasionTags": [
+      "Casual",
+      "Travel",
+      "Evening"
+    ],
+    "style": "Formal",
+    "description": "High-quality watches in olive. Perfect fit for casual settings."
+  },
+  {
+    "id": "prod-0120",
+    "title": "ModernFit Shirts - Black",
+    "brand": "ModernFit",
+    "price": 5239,
+    "imageUrl": "https://picsum.photos/seed/120/600/800",
+    "category": "Shirts",
+    "color": "Black",
+    "size": "XS",
+    "fit": "Slim",
+    "occasionTags": [
+      "Office"
+    ],
+    "style": "Minimalist",
+    "description": "Premium black shirts from ModernFit. Perfect for office occasions."
+  },
+  {
+    "id": "prod-0121",
+    "title": "White Trousers by ModernFit",
+    "brand": "ModernFit",
+    "price": 5276,
+    "imageUrl": "https://picsum.photos/seed/121/600/800",
+    "category": "Trousers",
+    "color": "White",
+    "size": "S",
+    "fit": "Regular",
+    "occasionTags": [
+      "Casual",
+      "Travel"
+    ],
+    "style": "Vintage",
+    "description": "Stylish trousers featuring vintage design. Made with quality materials."
+  },
+  {
+    "id": "prod-0122",
+    "title": "ModernFit Contemporary Jeans",
+    "brand": "ModernFit",
+    "price": 5313,
+    "imageUrl": "https://picsum.photos/seed/122/600/800",
+    "category": "Jeans",
+    "color": "Navy",
+    "size": "M",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Evening",
+      "Casual",
+      "Work"
+    ],
+    "style": "Contemporary",
+    "description": "Comfortable relaxed fit jeans in navy. Ideal for evening and casual and work wear."
+  },
+  {
+    "id": "prod-0123",
+    "title": "Oversized Fit T-Shirts - ModernFit",
+    "brand": "ModernFit",
+    "price": 5350,
+    "imageUrl": "https://picsum.photos/seed/123/600/800",
+    "category": "T-Shirts",
+    "color": "Gray",
+    "size": "L",
+    "fit": "Oversized",
+    "occasionTags": [
+      "Formal"
+    ],
+    "style": "Bohemian",
+    "description": "Elegant t-shirts by ModernFit. Bohemian style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0124",
+    "title": "ModernFit Blazers Classic Collection",
+    "brand": "ModernFit",
+    "price": 5387,
+    "imageUrl": "https://picsum.photos/seed/124/600/800",
+    "category": "Blazers",
+    "color": "Beige",
+    "size": "XL",
+    "fit": "Fitted",
+    "occasionTags": [
+      "Party",
+      "Evening"
+    ],
+    "style": "Classic",
+    "description": "High-quality blazers in beige. Perfect fit for party settings."
+  },
+  {
+    "id": "prod-0125",
+    "title": "Brown Slim Dresses",
+    "brand": "ModernFit",
+    "price": 5424,
+    "imageUrl": "https://picsum.photos/seed/125/600/800",
+    "category": "Dresses",
+    "color": "Brown",
+    "size": "XXL",
+    "fit": "Slim",
+    "occasionTags": [
+      "Office",
+      "Work",
+      "Evening"
+    ],
+    "style": "Streetwear",
+    "description": "Premium brown dresses from ModernFit. Perfect for office occasions."
+  },
+  {
+    "id": "prod-0126",
+    "title": "ModernFit Premium Sneakers",
+    "brand": "ModernFit",
+    "price": 5461,
+    "imageUrl": "https://picsum.photos/seed/126/600/800",
+    "category": "Sneakers",
+    "color": "Blue",
+    "size": "XS",
+    "fit": "Regular",
+    "occasionTags": [
+      "Party"
+    ],
+    "style": "Elegant",
+    "description": "Stylish sneakers featuring elegant design. Made with quality materials."
+  },
+  {
+    "id": "prod-0127",
+    "title": "Sporty Loafers - ModernFit",
+    "brand": "ModernFit",
+    "price": 5498,
+    "imageUrl": "https://picsum.photos/seed/127/600/800",
+    "category": "Loafers",
+    "color": "Red",
+    "size": "S",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Wedding",
+      "Office"
+    ],
+    "style": "Sporty",
+    "description": "Comfortable relaxed fit loafers in red. Ideal for wedding and office wear."
+  },
+  {
+    "id": "prod-0128",
+    "title": "ModernFit Handbags - Green",
+    "brand": "ModernFit",
+    "price": 5535,
+    "imageUrl": "https://picsum.photos/seed/128/600/800",
+    "category": "Handbags",
+    "color": "Green",
+    "occasionTags": [
+      "Office",
+      "Travel",
+      "Work"
+    ],
+    "style": "Casual",
+    "description": "Elegant handbags by ModernFit. Casual style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0129",
+    "title": "Pink Watches by ModernFit",
+    "brand": "ModernFit",
+    "price": 5572,
+    "imageUrl": "https://picsum.photos/seed/129/600/800",
+    "category": "Watches",
+    "color": "Pink",
+    "occasionTags": [
+      "Wedding"
+    ],
+    "style": "Formal",
+    "description": "High-quality watches in pink. Perfect fit for wedding settings."
+  },
+  {
+    "id": "prod-0130",
+    "title": "ModernFit Minimalist Shirts",
+    "brand": "ModernFit",
+    "price": 5609,
+    "imageUrl": "https://picsum.photos/seed/130/600/800",
+    "category": "Shirts",
+    "color": "Purple",
+    "size": "XL",
+    "fit": "Slim",
+    "occasionTags": [
+      "Work",
+      "Evening"
+    ],
+    "style": "Minimalist",
+    "description": "Premium purple shirts from ModernFit. Perfect for work occasions."
+  },
+  {
+    "id": "prod-0131",
+    "title": "Regular Fit Trousers - ModernFit",
+    "brand": "ModernFit",
+    "price": 5646,
+    "imageUrl": "https://picsum.photos/seed/131/600/800",
+    "category": "Trousers",
+    "color": "Yellow",
+    "size": "XXL",
+    "fit": "Regular",
+    "occasionTags": [
+      "Formal",
+      "Casual",
+      "Wedding"
+    ],
+    "style": "Vintage",
+    "description": "Stylish trousers featuring vintage design. Made with quality materials."
+  },
+  {
+    "id": "prod-0132",
+    "title": "ModernFit Jeans Contemporary Collection",
+    "brand": "ModernFit",
+    "price": 5683,
+    "imageUrl": "https://picsum.photos/seed/132/600/800",
+    "category": "Jeans",
+    "color": "Orange",
+    "size": "XS",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Party"
+    ],
+    "style": "Contemporary",
+    "description": "Comfortable relaxed fit jeans in orange. Ideal for party wear."
+  },
+  {
+    "id": "prod-0133",
+    "title": "Maroon Oversized T-Shirts",
+    "brand": "ModernFit",
+    "price": 5720,
+    "imageUrl": "https://picsum.photos/seed/133/600/800",
+    "category": "T-Shirts",
+    "color": "Maroon",
+    "size": "S",
+    "fit": "Oversized",
+    "occasionTags": [
+      "Evening",
+      "Sports"
+    ],
+    "style": "Bohemian",
+    "description": "Elegant t-shirts by ModernFit. Bohemian style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0134",
+    "title": "ModernFit Premium Blazers",
+    "brand": "ModernFit",
+    "price": 5757,
+    "imageUrl": "https://picsum.photos/seed/134/600/800",
+    "category": "Blazers",
+    "color": "Olive",
+    "size": "M",
+    "fit": "Fitted",
+    "occasionTags": [
+      "Evening",
+      "Sports",
+      "Party"
+    ],
+    "style": "Classic",
+    "description": "High-quality blazers in olive. Perfect fit for evening settings."
+  },
+  {
+    "id": "prod-0135",
+    "title": "Streetwear Dresses - ModernFit",
+    "brand": "ModernFit",
+    "price": 5794,
+    "imageUrl": "https://picsum.photos/seed/135/600/800",
+    "category": "Dresses",
+    "color": "Black",
+    "size": "L",
+    "fit": "Slim",
+    "occasionTags": [
+      "Travel"
+    ],
+    "style": "Streetwear",
+    "description": "Premium black dresses from ModernFit. Perfect for travel occasions."
+  },
+  {
+    "id": "prod-0136",
+    "title": "ModernFit Sneakers - White",
+    "brand": "ModernFit",
+    "price": 5831,
+    "imageUrl": "https://picsum.photos/seed/136/600/800",
+    "category": "Sneakers",
+    "color": "White",
+    "size": "XL",
+    "fit": "Regular",
+    "occasionTags": [
+      "Sports",
+      "Wedding"
+    ],
+    "style": "Elegant",
+    "description": "Stylish sneakers featuring elegant design. Made with quality materials."
+  },
+  {
+    "id": "prod-0137",
+    "title": "Navy Loafers by ModernFit",
+    "brand": "ModernFit",
+    "price": 5868,
+    "imageUrl": "https://picsum.photos/seed/137/600/800",
+    "category": "Loafers",
+    "color": "Navy",
+    "size": "XXL",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Work",
+      "Formal",
+      "Wedding"
+    ],
+    "style": "Sporty",
+    "description": "Comfortable relaxed fit loafers in navy. Ideal for work and formal and wedding wear."
+  },
+  {
+    "id": "prod-0138",
+    "title": "ModernFit Casual Handbags",
+    "brand": "ModernFit",
+    "price": 5905,
+    "imageUrl": "https://picsum.photos/seed/138/600/800",
+    "category": "Handbags",
+    "color": "Gray",
+    "occasionTags": [
+      "Wedding"
+    ],
+    "style": "Casual",
+    "description": "Elegant handbags by ModernFit. Casual style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0139",
+    "title": "Fitted Fit Watches - ModernFit",
+    "brand": "ModernFit",
+    "price": 5942,
+    "imageUrl": "https://picsum.photos/seed/139/600/800",
+    "category": "Watches",
+    "color": "Beige",
+    "occasionTags": [
+      "Beach",
+      "Evening"
+    ],
+    "style": "Formal",
+    "description": "High-quality watches in beige. Perfect fit for beach settings."
+  },
+  {
+    "id": "prod-0140",
+    "title": "ModernFit Shirts Minimalist Collection",
+    "brand": "ModernFit",
+    "price": 5979,
+    "imageUrl": "https://picsum.photos/seed/140/600/800",
+    "category": "Shirts",
+    "color": "Brown",
+    "size": "M",
+    "fit": "Slim",
+    "occasionTags": [
+      "Work",
+      "Travel",
+      "Formal"
+    ],
+    "style": "Minimalist",
+    "description": "Premium brown shirts from ModernFit. Perfect for work occasions."
+  },
+  {
+    "id": "prod-0141",
+    "title": "Blue Regular Trousers",
+    "brand": "ModernFit",
+    "price": 6016,
+    "imageUrl": "https://picsum.photos/seed/141/600/800",
+    "category": "Trousers",
+    "color": "Blue",
+    "size": "L",
+    "fit": "Regular",
+    "occasionTags": [
+      "Party"
+    ],
+    "style": "Vintage",
+    "description": "Stylish trousers featuring vintage design. Made with quality materials."
+  },
+  {
+    "id": "prod-0142",
+    "title": "ModernFit Premium Jeans",
+    "brand": "ModernFit",
+    "price": 6053,
+    "imageUrl": "https://picsum.photos/seed/142/600/800",
+    "category": "Jeans",
+    "color": "Red",
+    "size": "XL",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Office",
+      "Travel"
+    ],
+    "style": "Contemporary",
+    "description": "Comfortable relaxed fit jeans in red. Ideal for office and travel wear."
+  },
+  {
+    "id": "prod-0143",
+    "title": "Bohemian T-Shirts - ModernFit",
+    "brand": "ModernFit",
+    "price": 6090,
+    "imageUrl": "https://picsum.photos/seed/143/600/800",
+    "category": "T-Shirts",
+    "color": "Green",
+    "size": "XXL",
+    "fit": "Oversized",
+    "occasionTags": [
+      "Casual",
+      "Evening",
+      "Formal"
+    ],
+    "style": "Bohemian",
+    "description": "Elegant t-shirts by ModernFit. Bohemian style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0144",
+    "title": "ModernFit Blazers - Pink",
+    "brand": "ModernFit",
+    "price": 6127,
+    "imageUrl": "https://picsum.photos/seed/144/600/800",
+    "category": "Blazers",
+    "color": "Pink",
+    "size": "XS",
+    "fit": "Fitted",
+    "occasionTags": [
+      "Casual"
+    ],
+    "style": "Classic",
+    "description": "High-quality blazers in pink. Perfect fit for casual settings."
+  },
+  {
+    "id": "prod-0145",
+    "title": "Purple Dresses by ModernFit",
+    "brand": "ModernFit",
+    "price": 6164,
+    "imageUrl": "https://picsum.photos/seed/145/600/800",
+    "category": "Dresses",
+    "color": "Purple",
+    "size": "S",
+    "fit": "Slim",
+    "occasionTags": [
+      "Casual",
+      "Travel"
+    ],
+    "style": "Streetwear",
+    "description": "Premium purple dresses from ModernFit. Perfect for casual occasions."
+  },
+  {
+    "id": "prod-0146",
+    "title": "ModernFit Elegant Sneakers",
+    "brand": "ModernFit",
+    "price": 6201,
+    "imageUrl": "https://picsum.photos/seed/146/600/800",
+    "category": "Sneakers",
+    "color": "Yellow",
+    "size": "M",
+    "fit": "Regular",
+    "occasionTags": [
+      "Casual",
+      "Party",
+      "Work"
+    ],
+    "style": "Elegant",
+    "description": "Stylish sneakers featuring elegant design. Made with quality materials."
+  },
+  {
+    "id": "prod-0147",
+    "title": "Relaxed Fit Loafers - ModernFit",
+    "brand": "ModernFit",
+    "price": 6238,
+    "imageUrl": "https://picsum.photos/seed/147/600/800",
+    "category": "Loafers",
+    "color": "Orange",
+    "size": "L",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Travel"
+    ],
+    "style": "Sporty",
+    "description": "Comfortable relaxed fit loafers in orange. Ideal for travel wear."
+  },
+  {
+    "id": "prod-0148",
+    "title": "ModernFit Handbags Casual Collection",
+    "brand": "ModernFit",
+    "price": 6275,
+    "imageUrl": "https://picsum.photos/seed/148/600/800",
+    "category": "Handbags",
+    "color": "Maroon",
+    "occasionTags": [
+      "Party",
+      "Formal"
+    ],
+    "style": "Casual",
+    "description": "Elegant handbags by ModernFit. Casual style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0149",
+    "title": "Olive Fitted Watches",
+    "brand": "ModernFit",
+    "price": 6312,
+    "imageUrl": "https://picsum.photos/seed/149/600/800",
+    "category": "Watches",
+    "color": "Olive",
+    "occasionTags": [
+      "Wedding",
+      "Evening",
+      "Casual"
+    ],
+    "style": "Formal",
+    "description": "High-quality watches in olive. Perfect fit for wedding settings."
+  },
+  {
+    "id": "prod-0150",
+    "title": "ModernFit Premium Shirts",
+    "brand": "ModernFit",
+    "price": 6349,
+    "imageUrl": "https://picsum.photos/seed/150/600/800",
+    "category": "Shirts",
+    "color": "Black",
+    "size": "XS",
+    "fit": "Slim",
+    "occasionTags": [
+      "Work"
+    ],
+    "style": "Minimalist",
+    "description": "Premium black shirts from ModernFit. Perfect for work occasions."
+  },
+  {
+    "id": "prod-0151",
+    "title": "Vintage Trousers - ModernFit",
+    "brand": "ModernFit",
+    "price": 6386,
+    "imageUrl": "https://picsum.photos/seed/151/600/800",
+    "category": "Trousers",
+    "color": "White",
+    "size": "S",
+    "fit": "Regular",
+    "occasionTags": [
+      "Work",
+      "Formal"
+    ],
+    "style": "Vintage",
+    "description": "Stylish trousers featuring vintage design. Made with quality materials."
+  },
+  {
+    "id": "prod-0152",
+    "title": "ModernFit Jeans - Navy",
+    "brand": "ModernFit",
+    "price": 6423,
+    "imageUrl": "https://picsum.photos/seed/152/600/800",
+    "category": "Jeans",
+    "color": "Navy",
+    "size": "M",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Work",
+      "Casual",
+      "Sports"
+    ],
+    "style": "Contemporary",
+    "description": "Comfortable relaxed fit jeans in navy. Ideal for work and casual and sports wear."
+  },
+  {
+    "id": "prod-0153",
+    "title": "Gray T-Shirts by ModernFit",
+    "brand": "ModernFit",
+    "price": 6460,
+    "imageUrl": "https://picsum.photos/seed/153/600/800",
+    "category": "T-Shirts",
+    "color": "Gray",
+    "size": "L",
+    "fit": "Oversized",
+    "occasionTags": [
+      "Party"
+    ],
+    "style": "Bohemian",
+    "description": "Elegant t-shirts by ModernFit. Bohemian style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0154",
+    "title": "ModernFit Classic Blazers",
+    "brand": "ModernFit",
+    "price": 6497,
+    "imageUrl": "https://picsum.photos/seed/154/600/800",
+    "category": "Blazers",
+    "color": "Beige",
+    "size": "XL",
+    "fit": "Fitted",
+    "occasionTags": [
+      "Formal",
+      "Evening"
+    ],
+    "style": "Classic",
+    "description": "High-quality blazers in beige. Perfect fit for formal settings."
+  },
+  {
+    "id": "prod-0155",
+    "title": "Slim Fit Dresses - ModernFit",
+    "brand": "ModernFit",
+    "price": 6534,
+    "imageUrl": "https://picsum.photos/seed/155/600/800",
+    "category": "Dresses",
+    "color": "Brown",
+    "size": "XXL",
+    "fit": "Slim",
+    "occasionTags": [
+      "Work",
+      "Travel",
+      "Casual"
+    ],
+    "style": "Streetwear",
+    "description": "Premium brown dresses from ModernFit. Perfect for work occasions."
+  },
+  {
+    "id": "prod-0156",
+    "title": "ModernFit Sneakers Elegant Collection",
+    "brand": "ModernFit",
+    "price": 6571,
+    "imageUrl": "https://picsum.photos/seed/156/600/800",
+    "category": "Sneakers",
+    "color": "Blue",
+    "size": "XS",
+    "fit": "Regular",
+    "occasionTags": [
+      "Work"
+    ],
+    "style": "Elegant",
+    "description": "Stylish sneakers featuring elegant design. Made with quality materials."
+  },
+  {
+    "id": "prod-0157",
+    "title": "Red Relaxed Loafers",
+    "brand": "ModernFit",
+    "price": 6608,
+    "imageUrl": "https://picsum.photos/seed/157/600/800",
+    "category": "Loafers",
+    "color": "Red",
+    "size": "S",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Formal",
+      "Evening"
+    ],
+    "style": "Sporty",
+    "description": "Comfortable relaxed fit loafers in red. Ideal for formal and evening wear."
+  },
+  {
+    "id": "prod-0158",
+    "title": "ModernFit Premium Handbags",
+    "brand": "ModernFit",
+    "price": 6645,
+    "imageUrl": "https://picsum.photos/seed/158/600/800",
+    "category": "Handbags",
+    "color": "Green",
+    "occasionTags": [
+      "Travel",
+      "Party",
+      "Formal"
+    ],
+    "style": "Casual",
+    "description": "Elegant handbags by ModernFit. Casual style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0159",
+    "title": "Formal Watches - ModernFit",
+    "brand": "ModernFit",
+    "price": 6682,
+    "imageUrl": "https://picsum.photos/seed/159/600/800",
+    "category": "Watches",
+    "color": "Pink",
+    "occasionTags": [
+      "Wedding"
+    ],
+    "style": "Formal",
+    "description": "High-quality watches in pink. Perfect fit for wedding settings."
+  },
+  {
+    "id": "prod-0160",
+    "title": "EliteFashion Shirts - Purple",
+    "brand": "EliteFashion",
+    "price": 6719,
+    "imageUrl": "https://picsum.photos/seed/160/600/800",
+    "category": "Shirts",
+    "color": "Purple",
+    "size": "XL",
+    "fit": "Slim",
+    "occasionTags": [
+      "Office",
+      "Beach"
+    ],
+    "style": "Minimalist",
+    "description": "Premium purple shirts from EliteFashion. Perfect for office occasions."
+  },
+  {
+    "id": "prod-0161",
+    "title": "Yellow Trousers by EliteFashion",
+    "brand": "EliteFashion",
+    "price": 6756,
+    "imageUrl": "https://picsum.photos/seed/161/600/800",
+    "category": "Trousers",
+    "color": "Yellow",
+    "size": "XXL",
+    "fit": "Regular",
+    "occasionTags": [
+      "Party",
+      "Wedding",
+      "Office"
+    ],
+    "style": "Vintage",
+    "description": "Stylish trousers featuring vintage design. Made with quality materials."
+  },
+  {
+    "id": "prod-0162",
+    "title": "EliteFashion Contemporary Jeans",
+    "brand": "EliteFashion",
+    "price": 6793,
+    "imageUrl": "https://picsum.photos/seed/162/600/800",
+    "category": "Jeans",
+    "color": "Orange",
+    "size": "XS",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Work"
+    ],
+    "style": "Contemporary",
+    "description": "Comfortable relaxed fit jeans in orange. Ideal for work wear."
+  },
+  {
+    "id": "prod-0163",
+    "title": "Oversized Fit T-Shirts - EliteFashion",
+    "brand": "EliteFashion",
+    "price": 6830,
+    "imageUrl": "https://picsum.photos/seed/163/600/800",
+    "category": "T-Shirts",
+    "color": "Maroon",
+    "size": "S",
+    "fit": "Oversized",
+    "occasionTags": [
+      "Travel",
+      "Sports"
+    ],
+    "style": "Bohemian",
+    "description": "Elegant t-shirts by EliteFashion. Bohemian style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0164",
+    "title": "EliteFashion Blazers Classic Collection",
+    "brand": "EliteFashion",
+    "price": 6867,
+    "imageUrl": "https://picsum.photos/seed/164/600/800",
+    "category": "Blazers",
+    "color": "Olive",
+    "size": "M",
+    "fit": "Fitted",
+    "occasionTags": [
+      "Travel",
+      "Casual",
+      "Sports"
+    ],
+    "style": "Classic",
+    "description": "High-quality blazers in olive. Perfect fit for travel settings."
+  },
+  {
+    "id": "prod-0165",
+    "title": "Black Slim Dresses",
+    "brand": "EliteFashion",
+    "price": 6904,
+    "imageUrl": "https://picsum.photos/seed/165/600/800",
+    "category": "Dresses",
+    "color": "Black",
+    "size": "L",
+    "fit": "Slim",
+    "occasionTags": [
+      "Casual"
+    ],
+    "style": "Streetwear",
+    "description": "Premium black dresses from EliteFashion. Perfect for casual occasions."
+  },
+  {
+    "id": "prod-0166",
+    "title": "EliteFashion Premium Sneakers",
+    "brand": "EliteFashion",
+    "price": 6941,
+    "imageUrl": "https://picsum.photos/seed/166/600/800",
+    "category": "Sneakers",
+    "color": "White",
+    "size": "XL",
+    "fit": "Regular",
+    "occasionTags": [
+      "Casual",
+      "Travel"
+    ],
+    "style": "Elegant",
+    "description": "Stylish sneakers featuring elegant design. Made with quality materials."
+  },
+  {
+    "id": "prod-0167",
+    "title": "Sporty Loafers - EliteFashion",
+    "brand": "EliteFashion",
+    "price": 6978,
+    "imageUrl": "https://picsum.photos/seed/167/600/800",
+    "category": "Loafers",
+    "color": "Navy",
+    "size": "XXL",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Office",
+      "Work",
+      "Evening"
+    ],
+    "style": "Sporty",
+    "description": "Comfortable relaxed fit loafers in navy. Ideal for office and work and evening wear."
+  },
+  {
+    "id": "prod-0168",
+    "title": "EliteFashion Handbags - Gray",
+    "brand": "EliteFashion",
+    "price": 7015,
+    "imageUrl": "https://picsum.photos/seed/168/600/800",
+    "category": "Handbags",
+    "color": "Gray",
+    "occasionTags": [
+      "Casual"
+    ],
+    "style": "Casual",
+    "description": "Elegant handbags by EliteFashion. Casual style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0169",
+    "title": "Beige Watches by EliteFashion",
+    "brand": "EliteFashion",
+    "price": 7052,
+    "imageUrl": "https://picsum.photos/seed/169/600/800",
+    "category": "Watches",
+    "color": "Beige",
+    "occasionTags": [
+      "Party",
+      "Evening"
+    ],
+    "style": "Formal",
+    "description": "High-quality watches in beige. Perfect fit for party settings."
+  },
+  {
+    "id": "prod-0170",
+    "title": "EliteFashion Minimalist Shirts",
+    "brand": "EliteFashion",
+    "price": 7089,
+    "imageUrl": "https://picsum.photos/seed/170/600/800",
+    "category": "Shirts",
+    "color": "Brown",
+    "size": "M",
+    "fit": "Slim",
+    "occasionTags": [
+      "Casual",
+      "Formal",
+      "Sports"
+    ],
+    "style": "Minimalist",
+    "description": "Premium brown shirts from EliteFashion. Perfect for casual occasions."
+  },
+  {
+    "id": "prod-0171",
+    "title": "Regular Fit Trousers - EliteFashion",
+    "brand": "EliteFashion",
+    "price": 7126,
+    "imageUrl": "https://picsum.photos/seed/171/600/800",
+    "category": "Trousers",
+    "color": "Blue",
+    "size": "L",
+    "fit": "Regular",
+    "occasionTags": [
+      "Casual"
+    ],
+    "style": "Vintage",
+    "description": "Stylish trousers featuring vintage design. Made with quality materials."
+  },
+  {
+    "id": "prod-0172",
+    "title": "EliteFashion Jeans Contemporary Collection",
+    "brand": "EliteFashion",
+    "price": 7163,
+    "imageUrl": "https://picsum.photos/seed/172/600/800",
+    "category": "Jeans",
+    "color": "Red",
+    "size": "XL",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Formal",
+      "Sports"
+    ],
+    "style": "Contemporary",
+    "description": "Comfortable relaxed fit jeans in red. Ideal for formal and sports wear."
+  },
+  {
+    "id": "prod-0173",
+    "title": "Green Oversized T-Shirts",
+    "brand": "EliteFashion",
+    "price": 7200,
+    "imageUrl": "https://picsum.photos/seed/173/600/800",
+    "category": "T-Shirts",
+    "color": "Green",
+    "size": "XXL",
+    "fit": "Oversized",
+    "occasionTags": [
+      "Evening",
+      "Casual",
+      "Work"
+    ],
+    "style": "Bohemian",
+    "description": "Elegant t-shirts by EliteFashion. Bohemian style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0174",
+    "title": "EliteFashion Premium Blazers",
+    "brand": "EliteFashion",
+    "price": 7237,
+    "imageUrl": "https://picsum.photos/seed/174/600/800",
+    "category": "Blazers",
+    "color": "Pink",
+    "size": "XS",
+    "fit": "Fitted",
+    "occasionTags": [
+      "Travel"
+    ],
+    "style": "Classic",
+    "description": "High-quality blazers in pink. Perfect fit for travel settings."
+  },
+  {
+    "id": "prod-0175",
+    "title": "Streetwear Dresses - EliteFashion",
+    "brand": "EliteFashion",
+    "price": 7274,
+    "imageUrl": "https://picsum.photos/seed/175/600/800",
+    "category": "Dresses",
+    "color": "Purple",
+    "size": "S",
+    "fit": "Slim",
+    "occasionTags": [
+      "Party",
+      "Work"
+    ],
+    "style": "Streetwear",
+    "description": "Premium purple dresses from EliteFashion. Perfect for party occasions."
+  },
+  {
+    "id": "prod-0176",
+    "title": "EliteFashion Sneakers - Yellow",
+    "brand": "EliteFashion",
+    "price": 7311,
+    "imageUrl": "https://picsum.photos/seed/176/600/800",
+    "category": "Sneakers",
+    "color": "Yellow",
+    "size": "M",
+    "fit": "Regular",
+    "occasionTags": [
+      "Evening",
+      "Office",
+      "Travel"
+    ],
+    "style": "Elegant",
+    "description": "Stylish sneakers featuring elegant design. Made with quality materials."
+  },
+  {
+    "id": "prod-0177",
+    "title": "Orange Loafers by EliteFashion",
+    "brand": "EliteFashion",
+    "price": 7348,
+    "imageUrl": "https://picsum.photos/seed/177/600/800",
+    "category": "Loafers",
+    "color": "Orange",
+    "size": "L",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Casual"
+    ],
+    "style": "Sporty",
+    "description": "Comfortable relaxed fit loafers in orange. Ideal for casual wear."
+  },
+  {
+    "id": "prod-0178",
+    "title": "EliteFashion Casual Handbags",
+    "brand": "EliteFashion",
+    "price": 7385,
+    "imageUrl": "https://picsum.photos/seed/178/600/800",
+    "category": "Handbags",
+    "color": "Maroon",
+    "occasionTags": [
+      "Wedding",
+      "Office"
+    ],
+    "style": "Casual",
+    "description": "Elegant handbags by EliteFashion. Casual style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0179",
+    "title": "Fitted Fit Watches - EliteFashion",
+    "brand": "EliteFashion",
+    "price": 7422,
+    "imageUrl": "https://picsum.photos/seed/179/600/800",
+    "category": "Watches",
+    "color": "Olive",
+    "occasionTags": [
+      "Travel",
+      "Evening",
+      "Wedding"
+    ],
+    "style": "Formal",
+    "description": "High-quality watches in olive. Perfect fit for travel settings."
+  },
+  {
+    "id": "prod-0180",
+    "title": "EliteFashion Shirts Minimalist Collection",
+    "brand": "EliteFashion",
+    "price": 7459,
+    "imageUrl": "https://picsum.photos/seed/180/600/800",
+    "category": "Shirts",
+    "color": "Black",
+    "size": "XS",
+    "fit": "Slim",
+    "occasionTags": [
+      "Beach"
+    ],
+    "style": "Minimalist",
+    "description": "Premium black shirts from EliteFashion. Perfect for beach occasions."
+  },
+  {
+    "id": "prod-0181",
+    "title": "White Regular Trousers",
+    "brand": "EliteFashion",
+    "price": 7496,
+    "imageUrl": "https://picsum.photos/seed/181/600/800",
+    "category": "Trousers",
+    "color": "White",
+    "size": "S",
+    "fit": "Regular",
+    "occasionTags": [
+      "Casual",
+      "Formal"
+    ],
+    "style": "Vintage",
+    "description": "Stylish trousers featuring vintage design. Made with quality materials."
+  },
+  {
+    "id": "prod-0182",
+    "title": "EliteFashion Premium Jeans",
+    "brand": "EliteFashion",
+    "price": 7533,
+    "imageUrl": "https://picsum.photos/seed/182/600/800",
+    "category": "Jeans",
+    "color": "Navy",
+    "size": "M",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Office",
+      "Casual",
+      "Formal"
+    ],
+    "style": "Contemporary",
+    "description": "Comfortable relaxed fit jeans in navy. Ideal for office and casual and formal wear."
+  },
+  {
+    "id": "prod-0183",
+    "title": "Bohemian T-Shirts - EliteFashion",
+    "brand": "EliteFashion",
+    "price": 7570,
+    "imageUrl": "https://picsum.photos/seed/183/600/800",
+    "category": "T-Shirts",
+    "color": "Gray",
+    "size": "L",
+    "fit": "Oversized",
+    "occasionTags": [
+      "Work"
+    ],
+    "style": "Bohemian",
+    "description": "Elegant t-shirts by EliteFashion. Bohemian style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0184",
+    "title": "EliteFashion Blazers - Beige",
+    "brand": "EliteFashion",
+    "price": 7607,
+    "imageUrl": "https://picsum.photos/seed/184/600/800",
+    "category": "Blazers",
+    "color": "Beige",
+    "size": "XL",
+    "fit": "Fitted",
+    "occasionTags": [
+      "Travel",
+      "Sports"
+    ],
+    "style": "Classic",
+    "description": "High-quality blazers in beige. Perfect fit for travel settings."
+  },
+  {
+    "id": "prod-0185",
+    "title": "Brown Dresses by EliteFashion",
+    "brand": "EliteFashion",
+    "price": 7644,
+    "imageUrl": "https://picsum.photos/seed/185/600/800",
+    "category": "Dresses",
+    "color": "Brown",
+    "size": "XXL",
+    "fit": "Slim",
+    "occasionTags": [
+      "Office",
+      "Work",
+      "Travel"
+    ],
+    "style": "Streetwear",
+    "description": "Premium brown dresses from EliteFashion. Perfect for office occasions."
+  },
+  {
+    "id": "prod-0186",
+    "title": "EliteFashion Elegant Sneakers",
+    "brand": "EliteFashion",
+    "price": 7681,
+    "imageUrl": "https://picsum.photos/seed/186/600/800",
+    "category": "Sneakers",
+    "color": "Blue",
+    "size": "XS",
+    "fit": "Regular",
+    "occasionTags": [
+      "Party"
+    ],
+    "style": "Elegant",
+    "description": "Stylish sneakers featuring elegant design. Made with quality materials."
+  },
+  {
+    "id": "prod-0187",
+    "title": "Relaxed Fit Loafers - EliteFashion",
+    "brand": "EliteFashion",
+    "price": 7718,
+    "imageUrl": "https://picsum.photos/seed/187/600/800",
+    "category": "Loafers",
+    "color": "Red",
+    "size": "S",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Work",
+      "Evening"
+    ],
+    "style": "Sporty",
+    "description": "Comfortable relaxed fit loafers in red. Ideal for work and evening wear."
+  },
+  {
+    "id": "prod-0188",
+    "title": "EliteFashion Handbags Casual Collection",
+    "brand": "EliteFashion",
+    "price": 7755,
+    "imageUrl": "https://picsum.photos/seed/188/600/800",
+    "category": "Handbags",
+    "color": "Green",
+    "occasionTags": [
+      "Travel",
+      "Formal",
+      "Wedding"
+    ],
+    "style": "Casual",
+    "description": "Elegant handbags by EliteFashion. Casual style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0189",
+    "title": "Pink Fitted Watches",
+    "brand": "EliteFashion",
+    "price": 7792,
+    "imageUrl": "https://picsum.photos/seed/189/600/800",
+    "category": "Watches",
+    "color": "Pink",
+    "occasionTags": [
+      "Work"
+    ],
+    "style": "Formal",
+    "description": "High-quality watches in pink. Perfect fit for work settings."
+  },
+  {
+    "id": "prod-0190",
+    "title": "EliteFashion Premium Shirts",
+    "brand": "EliteFashion",
+    "price": 7829,
+    "imageUrl": "https://picsum.photos/seed/190/600/800",
+    "category": "Shirts",
+    "color": "Purple",
+    "size": "XL",
+    "fit": "Slim",
+    "occasionTags": [
+      "Evening",
+      "Casual"
+    ],
+    "style": "Minimalist",
+    "description": "Premium purple shirts from EliteFashion. Perfect for evening occasions."
+  },
+  {
+    "id": "prod-0191",
+    "title": "Vintage Trousers - EliteFashion",
+    "brand": "EliteFashion",
+    "price": 7866,
+    "imageUrl": "https://picsum.photos/seed/191/600/800",
+    "category": "Trousers",
+    "color": "Yellow",
+    "size": "XXL",
+    "fit": "Regular",
+    "occasionTags": [
+      "Travel",
+      "Casual",
+      "Work"
+    ],
+    "style": "Vintage",
+    "description": "Stylish trousers featuring vintage design. Made with quality materials."
+  },
+  {
+    "id": "prod-0192",
+    "title": "EliteFashion Jeans - Orange",
+    "brand": "EliteFashion",
+    "price": 7903,
+    "imageUrl": "https://picsum.photos/seed/192/600/800",
+    "category": "Jeans",
+    "color": "Orange",
+    "size": "XS",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Casual"
+    ],
+    "style": "Contemporary",
+    "description": "Comfortable relaxed fit jeans in orange. Ideal for casual wear."
+  },
+  {
+    "id": "prod-0193",
+    "title": "Maroon T-Shirts by EliteFashion",
+    "brand": "EliteFashion",
+    "price": 7940,
+    "imageUrl": "https://picsum.photos/seed/193/600/800",
+    "category": "T-Shirts",
+    "color": "Maroon",
+    "size": "S",
+    "fit": "Oversized",
+    "occasionTags": [
+      "Sports",
+      "Work"
+    ],
+    "style": "Bohemian",
+    "description": "Elegant t-shirts by EliteFashion. Bohemian style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0194",
+    "title": "EliteFashion Classic Blazers",
+    "brand": "EliteFashion",
+    "price": 7977,
+    "imageUrl": "https://picsum.photos/seed/194/600/800",
+    "category": "Blazers",
+    "color": "Olive",
+    "size": "M",
+    "fit": "Fitted",
+    "occasionTags": [
+      "Formal",
+      "Wedding",
+      "Beach"
+    ],
+    "style": "Classic",
+    "description": "High-quality blazers in olive. Perfect fit for formal settings."
+  },
+  {
+    "id": "prod-0195",
+    "title": "Slim Fit Dresses - EliteFashion",
+    "brand": "EliteFashion",
+    "price": 8014,
+    "imageUrl": "https://picsum.photos/seed/195/600/800",
+    "category": "Dresses",
+    "color": "Black",
+    "size": "L",
+    "fit": "Slim",
+    "occasionTags": [
+      "Evening"
+    ],
+    "style": "Streetwear",
+    "description": "Premium black dresses from EliteFashion. Perfect for evening occasions."
+  },
+  {
+    "id": "prod-0196",
+    "title": "EliteFashion Sneakers Elegant Collection",
+    "brand": "EliteFashion",
+    "price": 8051,
+    "imageUrl": "https://picsum.photos/seed/196/600/800",
+    "category": "Sneakers",
+    "color": "White",
+    "size": "XL",
+    "fit": "Regular",
+    "occasionTags": [
+      "Evening",
+      "Formal"
+    ],
+    "style": "Elegant",
+    "description": "Stylish sneakers featuring elegant design. Made with quality materials."
+  },
+  {
+    "id": "prod-0197",
+    "title": "Navy Relaxed Loafers",
+    "brand": "EliteFashion",
+    "price": 8088,
+    "imageUrl": "https://picsum.photos/seed/197/600/800",
+    "category": "Loafers",
+    "color": "Navy",
+    "size": "XXL",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Beach",
+      "Wedding",
+      "Office"
+    ],
+    "style": "Sporty",
+    "description": "Comfortable relaxed fit loafers in navy. Ideal for beach and wedding and office wear."
+  },
+  {
+    "id": "prod-0198",
+    "title": "EliteFashion Premium Handbags",
+    "brand": "EliteFashion",
+    "price": 8125,
+    "imageUrl": "https://picsum.photos/seed/198/600/800",
+    "category": "Handbags",
+    "color": "Gray",
+    "occasionTags": [
+      "Work"
+    ],
+    "style": "Casual",
+    "description": "Elegant handbags by EliteFashion. Casual style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0199",
+    "title": "Formal Watches - EliteFashion",
+    "brand": "EliteFashion",
+    "price": 8162,
+    "imageUrl": "https://picsum.photos/seed/199/600/800",
+    "category": "Watches",
+    "color": "Beige",
+    "occasionTags": [
+      "Casual",
+      "Party"
+    ],
+    "style": "Formal",
+    "description": "High-quality watches in beige. Perfect fit for casual settings."
+  },
+  {
+    "id": "prod-0200",
+    "title": "TrendSet Shirts - Brown",
+    "brand": "TrendSet",
+    "price": 8199,
+    "imageUrl": "https://picsum.photos/seed/200/600/800",
+    "category": "Shirts",
+    "color": "Brown",
+    "size": "M",
+    "fit": "Slim",
+    "occasionTags": [
+      "Casual",
+      "Beach",
+      "Formal"
+    ],
+    "style": "Minimalist",
+    "description": "Premium brown shirts from TrendSet. Perfect for casual occasions."
+  },
+  {
+    "id": "prod-0201",
+    "title": "Blue Trousers by TrendSet",
+    "brand": "TrendSet",
+    "price": 8236,
+    "imageUrl": "https://picsum.photos/seed/201/600/800",
+    "category": "Trousers",
+    "color": "Blue",
+    "size": "L",
+    "fit": "Regular",
+    "occasionTags": [
+      "Formal"
+    ],
+    "style": "Vintage",
+    "description": "Stylish trousers featuring vintage design. Made with quality materials."
+  },
+  {
+    "id": "prod-0202",
+    "title": "TrendSet Contemporary Jeans",
+    "brand": "TrendSet",
+    "price": 8273,
+    "imageUrl": "https://picsum.photos/seed/202/600/800",
+    "category": "Jeans",
+    "color": "Red",
+    "size": "XL",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Travel",
+      "Formal"
+    ],
+    "style": "Contemporary",
+    "description": "Comfortable relaxed fit jeans in red. Ideal for travel and formal wear."
+  },
+  {
+    "id": "prod-0203",
+    "title": "Oversized Fit T-Shirts - TrendSet",
+    "brand": "TrendSet",
+    "price": 8310,
+    "imageUrl": "https://picsum.photos/seed/203/600/800",
+    "category": "T-Shirts",
+    "color": "Green",
+    "size": "XXL",
+    "fit": "Oversized",
+    "occasionTags": [
+      "Sports",
+      "Office",
+      "Beach"
+    ],
+    "style": "Bohemian",
+    "description": "Elegant t-shirts by TrendSet. Bohemian style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0204",
+    "title": "TrendSet Blazers Classic Collection",
+    "brand": "TrendSet",
+    "price": 8347,
+    "imageUrl": "https://picsum.photos/seed/204/600/800",
+    "category": "Blazers",
+    "color": "Pink",
+    "size": "XS",
+    "fit": "Fitted",
+    "occasionTags": [
+      "Party"
+    ],
+    "style": "Classic",
+    "description": "High-quality blazers in pink. Perfect fit for party settings."
+  },
+  {
+    "id": "prod-0205",
+    "title": "Purple Slim Dresses",
+    "brand": "TrendSet",
+    "price": 8384,
+    "imageUrl": "https://picsum.photos/seed/205/600/800",
+    "category": "Dresses",
+    "color": "Purple",
+    "size": "S",
+    "fit": "Slim",
+    "occasionTags": [
+      "Casual",
+      "Formal"
+    ],
+    "style": "Streetwear",
+    "description": "Premium purple dresses from TrendSet. Perfect for casual occasions."
+  },
+  {
+    "id": "prod-0206",
+    "title": "TrendSet Premium Sneakers",
+    "brand": "TrendSet",
+    "price": 8421,
+    "imageUrl": "https://picsum.photos/seed/206/600/800",
+    "category": "Sneakers",
+    "color": "Yellow",
+    "size": "M",
+    "fit": "Regular",
+    "occasionTags": [
+      "Work",
+      "Evening",
+      "Party"
+    ],
+    "style": "Elegant",
+    "description": "Stylish sneakers featuring elegant design. Made with quality materials."
+  },
+  {
+    "id": "prod-0207",
+    "title": "Sporty Loafers - TrendSet",
+    "brand": "TrendSet",
+    "price": 8458,
+    "imageUrl": "https://picsum.photos/seed/207/600/800",
+    "category": "Loafers",
+    "color": "Orange",
+    "size": "L",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Travel"
+    ],
+    "style": "Sporty",
+    "description": "Comfortable relaxed fit loafers in orange. Ideal for travel wear."
+  },
+  {
+    "id": "prod-0208",
+    "title": "TrendSet Handbags - Maroon",
+    "brand": "TrendSet",
+    "price": 8495,
+    "imageUrl": "https://picsum.photos/seed/208/600/800",
+    "category": "Handbags",
+    "color": "Maroon",
+    "occasionTags": [
+      "Casual",
+      "Evening"
+    ],
+    "style": "Casual",
+    "description": "Elegant handbags by TrendSet. Casual style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0209",
+    "title": "Olive Watches by TrendSet",
+    "brand": "TrendSet",
+    "price": 8532,
+    "imageUrl": "https://picsum.photos/seed/209/600/800",
+    "category": "Watches",
+    "color": "Olive",
+    "occasionTags": [
+      "Casual",
+      "Formal",
+      "Wedding"
+    ],
+    "style": "Formal",
+    "description": "High-quality watches in olive. Perfect fit for casual settings."
+  },
+  {
+    "id": "prod-0210",
+    "title": "TrendSet Minimalist Shirts",
+    "brand": "TrendSet",
+    "price": 8569,
+    "imageUrl": "https://picsum.photos/seed/210/600/800",
+    "category": "Shirts",
+    "color": "Black",
+    "size": "XS",
+    "fit": "Slim",
+    "occasionTags": [
+      "Travel"
+    ],
+    "style": "Minimalist",
+    "description": "Premium black shirts from TrendSet. Perfect for travel occasions."
+  },
+  {
+    "id": "prod-0211",
+    "title": "Regular Fit Trousers - TrendSet",
+    "brand": "TrendSet",
+    "price": 8606,
+    "imageUrl": "https://picsum.photos/seed/211/600/800",
+    "category": "Trousers",
+    "color": "White",
+    "size": "S",
+    "fit": "Regular",
+    "occasionTags": [
+      "Evening",
+      "Casual"
+    ],
+    "style": "Vintage",
+    "description": "Stylish trousers featuring vintage design. Made with quality materials."
+  },
+  {
+    "id": "prod-0212",
+    "title": "TrendSet Jeans Contemporary Collection",
+    "brand": "TrendSet",
+    "price": 8643,
+    "imageUrl": "https://picsum.photos/seed/212/600/800",
+    "category": "Jeans",
+    "color": "Navy",
+    "size": "M",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Office",
+      "Casual",
+      "Sports"
+    ],
+    "style": "Contemporary",
+    "description": "Comfortable relaxed fit jeans in navy. Ideal for office and casual and sports wear."
+  },
+  {
+    "id": "prod-0213",
+    "title": "Gray Oversized T-Shirts",
+    "brand": "TrendSet",
+    "price": 8680,
+    "imageUrl": "https://picsum.photos/seed/213/600/800",
+    "category": "T-Shirts",
+    "color": "Gray",
+    "size": "L",
+    "fit": "Oversized",
+    "occasionTags": [
+      "Travel"
+    ],
+    "style": "Bohemian",
+    "description": "Elegant t-shirts by TrendSet. Bohemian style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0214",
+    "title": "TrendSet Premium Blazers",
+    "brand": "TrendSet",
+    "price": 8717,
+    "imageUrl": "https://picsum.photos/seed/214/600/800",
+    "category": "Blazers",
+    "color": "Beige",
+    "size": "XL",
+    "fit": "Fitted",
+    "occasionTags": [
+      "Party",
+      "Office"
+    ],
+    "style": "Classic",
+    "description": "High-quality blazers in beige. Perfect fit for party settings."
+  },
+  {
+    "id": "prod-0215",
+    "title": "Streetwear Dresses - TrendSet",
+    "brand": "TrendSet",
+    "price": 8754,
+    "imageUrl": "https://picsum.photos/seed/215/600/800",
+    "category": "Dresses",
+    "color": "Brown",
+    "size": "XXL",
+    "fit": "Slim",
+    "occasionTags": [
+      "Travel",
+      "Sports",
+      "Wedding"
+    ],
+    "style": "Streetwear",
+    "description": "Premium brown dresses from TrendSet. Perfect for travel occasions."
+  },
+  {
+    "id": "prod-0216",
+    "title": "TrendSet Sneakers - Blue",
+    "brand": "TrendSet",
+    "price": 8791,
+    "imageUrl": "https://picsum.photos/seed/216/600/800",
+    "category": "Sneakers",
+    "color": "Blue",
+    "size": "XS",
+    "fit": "Regular",
+    "occasionTags": [
+      "Sports"
+    ],
+    "style": "Elegant",
+    "description": "Stylish sneakers featuring elegant design. Made with quality materials."
+  },
+  {
+    "id": "prod-0217",
+    "title": "Red Loafers by TrendSet",
+    "brand": "TrendSet",
+    "price": 8828,
+    "imageUrl": "https://picsum.photos/seed/217/600/800",
+    "category": "Loafers",
+    "color": "Red",
+    "size": "S",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Casual",
+      "Formal"
+    ],
+    "style": "Sporty",
+    "description": "Comfortable relaxed fit loafers in red. Ideal for casual and formal wear."
+  },
+  {
+    "id": "prod-0218",
+    "title": "TrendSet Casual Handbags",
+    "brand": "TrendSet",
+    "price": 8865,
+    "imageUrl": "https://picsum.photos/seed/218/600/800",
+    "category": "Handbags",
+    "color": "Green",
+    "occasionTags": [
+      "Evening",
+      "Sports",
+      "Wedding"
+    ],
+    "style": "Casual",
+    "description": "Elegant handbags by TrendSet. Casual style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0219",
+    "title": "Fitted Fit Watches - TrendSet",
+    "brand": "TrendSet",
+    "price": 8902,
+    "imageUrl": "https://picsum.photos/seed/219/600/800",
+    "category": "Watches",
+    "color": "Pink",
+    "occasionTags": [
+      "Casual"
+    ],
+    "style": "Formal",
+    "description": "High-quality watches in pink. Perfect fit for casual settings."
+  },
+  {
+    "id": "prod-0220",
+    "title": "TrendSet Shirts Minimalist Collection",
+    "brand": "TrendSet",
+    "price": 8939,
+    "imageUrl": "https://picsum.photos/seed/220/600/800",
+    "category": "Shirts",
+    "color": "Purple",
+    "size": "XL",
+    "fit": "Slim",
+    "occasionTags": [
+      "Party",
+      "Wedding"
+    ],
+    "style": "Minimalist",
+    "description": "Premium purple shirts from TrendSet. Perfect for party occasions."
+  },
+  {
+    "id": "prod-0221",
+    "title": "Yellow Regular Trousers",
+    "brand": "TrendSet",
+    "price": 8976,
+    "imageUrl": "https://picsum.photos/seed/221/600/800",
+    "category": "Trousers",
+    "color": "Yellow",
+    "size": "XXL",
+    "fit": "Regular",
+    "occasionTags": [
+      "Evening",
+      "Formal",
+      "Work"
+    ],
+    "style": "Vintage",
+    "description": "Stylish trousers featuring vintage design. Made with quality materials."
+  },
+  {
+    "id": "prod-0222",
+    "title": "TrendSet Premium Jeans",
+    "brand": "TrendSet",
+    "price": 9013,
+    "imageUrl": "https://picsum.photos/seed/222/600/800",
+    "category": "Jeans",
+    "color": "Orange",
+    "size": "XS",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Sports"
+    ],
+    "style": "Contemporary",
+    "description": "Comfortable relaxed fit jeans in orange. Ideal for sports wear."
+  },
+  {
+    "id": "prod-0223",
+    "title": "Bohemian T-Shirts - TrendSet",
+    "brand": "TrendSet",
+    "price": 9050,
+    "imageUrl": "https://picsum.photos/seed/223/600/800",
+    "category": "T-Shirts",
+    "color": "Maroon",
+    "size": "S",
+    "fit": "Oversized",
+    "occasionTags": [
+      "Casual",
+      "Formal"
+    ],
+    "style": "Bohemian",
+    "description": "Elegant t-shirts by TrendSet. Bohemian style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0224",
+    "title": "TrendSet Blazers - Olive",
+    "brand": "TrendSet",
+    "price": 9087,
+    "imageUrl": "https://picsum.photos/seed/224/600/800",
+    "category": "Blazers",
+    "color": "Olive",
+    "size": "M",
+    "fit": "Fitted",
+    "occasionTags": [
+      "Formal",
+      "Office",
+      "Sports"
+    ],
+    "style": "Classic",
+    "description": "High-quality blazers in olive. Perfect fit for formal settings."
+  },
+  {
+    "id": "prod-0225",
+    "title": "Black Dresses by TrendSet",
+    "brand": "TrendSet",
+    "price": 9124,
+    "imageUrl": "https://picsum.photos/seed/225/600/800",
+    "category": "Dresses",
+    "color": "Black",
+    "size": "L",
+    "fit": "Slim",
+    "occasionTags": [
+      "Travel"
+    ],
+    "style": "Streetwear",
+    "description": "Premium black dresses from TrendSet. Perfect for travel occasions."
+  },
+  {
+    "id": "prod-0226",
+    "title": "TrendSet Elegant Sneakers",
+    "brand": "TrendSet",
+    "price": 9161,
+    "imageUrl": "https://picsum.photos/seed/226/600/800",
+    "category": "Sneakers",
+    "color": "White",
+    "size": "XL",
+    "fit": "Regular",
+    "occasionTags": [
+      "Office",
+      "Evening"
+    ],
+    "style": "Elegant",
+    "description": "Stylish sneakers featuring elegant design. Made with quality materials."
+  },
+  {
+    "id": "prod-0227",
+    "title": "Relaxed Fit Loafers - TrendSet",
+    "brand": "TrendSet",
+    "price": 9198,
+    "imageUrl": "https://picsum.photos/seed/227/600/800",
+    "category": "Loafers",
+    "color": "Navy",
+    "size": "XXL",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Formal",
+      "Casual",
+      "Beach"
+    ],
+    "style": "Sporty",
+    "description": "Comfortable relaxed fit loafers in navy. Ideal for formal and casual and beach wear."
+  },
+  {
+    "id": "prod-0228",
+    "title": "TrendSet Handbags Casual Collection",
+    "brand": "TrendSet",
+    "price": 9235,
+    "imageUrl": "https://picsum.photos/seed/228/600/800",
+    "category": "Handbags",
+    "color": "Gray",
+    "occasionTags": [
+      "Casual"
+    ],
+    "style": "Casual",
+    "description": "Elegant handbags by TrendSet. Casual style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0229",
+    "title": "Beige Fitted Watches",
+    "brand": "TrendSet",
+    "price": 9272,
+    "imageUrl": "https://picsum.photos/seed/229/600/800",
+    "category": "Watches",
+    "color": "Beige",
+    "occasionTags": [
+      "Office",
+      "Casual"
+    ],
+    "style": "Formal",
+    "description": "High-quality watches in beige. Perfect fit for office settings."
+  },
+  {
+    "id": "prod-0230",
+    "title": "TrendSet Premium Shirts",
+    "brand": "TrendSet",
+    "price": 9309,
+    "imageUrl": "https://picsum.photos/seed/230/600/800",
+    "category": "Shirts",
+    "color": "Brown",
+    "size": "M",
+    "fit": "Slim",
+    "occasionTags": [
+      "Formal",
+      "Office",
+      "Wedding"
+    ],
+    "style": "Minimalist",
+    "description": "Premium brown shirts from TrendSet. Perfect for formal occasions."
+  },
+  {
+    "id": "prod-0231",
+    "title": "Vintage Trousers - TrendSet",
+    "brand": "TrendSet",
+    "price": 9346,
+    "imageUrl": "https://picsum.photos/seed/231/600/800",
+    "category": "Trousers",
+    "color": "Blue",
+    "size": "L",
+    "fit": "Regular",
+    "occasionTags": [
+      "Casual"
+    ],
+    "style": "Vintage",
+    "description": "Stylish trousers featuring vintage design. Made with quality materials."
+  },
+  {
+    "id": "prod-0232",
+    "title": "TrendSet Jeans - Red",
+    "brand": "TrendSet",
+    "price": 9383,
+    "imageUrl": "https://picsum.photos/seed/232/600/800",
+    "category": "Jeans",
+    "color": "Red",
+    "size": "XL",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Evening",
+      "Casual"
+    ],
+    "style": "Contemporary",
+    "description": "Comfortable relaxed fit jeans in red. Ideal for evening and casual wear."
+  },
+  {
+    "id": "prod-0233",
+    "title": "Green T-Shirts by TrendSet",
+    "brand": "TrendSet",
+    "price": 9420,
+    "imageUrl": "https://picsum.photos/seed/233/600/800",
+    "category": "T-Shirts",
+    "color": "Green",
+    "size": "XXL",
+    "fit": "Oversized",
+    "occasionTags": [
+      "Party",
+      "Travel",
+      "Formal"
+    ],
+    "style": "Bohemian",
+    "description": "Elegant t-shirts by TrendSet. Bohemian style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0234",
+    "title": "TrendSet Classic Blazers",
+    "brand": "TrendSet",
+    "price": 9457,
+    "imageUrl": "https://picsum.photos/seed/234/600/800",
+    "category": "Blazers",
+    "color": "Pink",
+    "size": "XS",
+    "fit": "Fitted",
+    "occasionTags": [
+      "Casual"
+    ],
+    "style": "Classic",
+    "description": "High-quality blazers in pink. Perfect fit for casual settings."
+  },
+  {
+    "id": "prod-0235",
+    "title": "Slim Fit Dresses - TrendSet",
+    "brand": "TrendSet",
+    "price": 9494,
+    "imageUrl": "https://picsum.photos/seed/235/600/800",
+    "category": "Dresses",
+    "color": "Purple",
+    "size": "S",
+    "fit": "Slim",
+    "occasionTags": [
+      "Casual",
+      "Sports"
+    ],
+    "style": "Streetwear",
+    "description": "Premium purple dresses from TrendSet. Perfect for casual occasions."
+  },
+  {
+    "id": "prod-0236",
+    "title": "TrendSet Sneakers Elegant Collection",
+    "brand": "TrendSet",
+    "price": 9531,
+    "imageUrl": "https://picsum.photos/seed/236/600/800",
+    "category": "Sneakers",
+    "color": "Yellow",
+    "size": "M",
+    "fit": "Regular",
+    "occasionTags": [
+      "Evening",
+      "Work",
+      "Office"
+    ],
+    "style": "Elegant",
+    "description": "Stylish sneakers featuring elegant design. Made with quality materials."
+  },
+  {
+    "id": "prod-0237",
+    "title": "Orange Relaxed Loafers",
+    "brand": "TrendSet",
+    "price": 9568,
+    "imageUrl": "https://picsum.photos/seed/237/600/800",
+    "category": "Loafers",
+    "color": "Orange",
+    "size": "L",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Wedding"
+    ],
+    "style": "Sporty",
+    "description": "Comfortable relaxed fit loafers in orange. Ideal for wedding wear."
+  },
+  {
+    "id": "prod-0238",
+    "title": "TrendSet Premium Handbags",
+    "brand": "TrendSet",
+    "price": 9605,
+    "imageUrl": "https://picsum.photos/seed/238/600/800",
+    "category": "Handbags",
+    "color": "Maroon",
+    "occasionTags": [
+      "Wedding",
+      "Work"
+    ],
+    "style": "Casual",
+    "description": "Elegant handbags by TrendSet. Casual style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0239",
+    "title": "Formal Watches - TrendSet",
+    "brand": "TrendSet",
+    "price": 9642,
+    "imageUrl": "https://picsum.photos/seed/239/600/800",
+    "category": "Watches",
+    "color": "Olive",
+    "occasionTags": [
+      "Sports",
+      "Formal",
+      "Beach"
+    ],
+    "style": "Formal",
+    "description": "High-quality watches in olive. Perfect fit for sports settings."
+  },
+  {
+    "id": "prod-0240",
+    "title": "PremiumStyle Shirts - Black",
+    "brand": "PremiumStyle",
+    "price": 9679,
+    "imageUrl": "https://picsum.photos/seed/240/600/800",
+    "category": "Shirts",
+    "color": "Black",
+    "size": "XS",
+    "fit": "Slim",
+    "occasionTags": [
+      "Office"
+    ],
+    "style": "Minimalist",
+    "description": "Premium black shirts from PremiumStyle. Perfect for office occasions."
+  },
+  {
+    "id": "prod-0241",
+    "title": "White Trousers by PremiumStyle",
+    "brand": "PremiumStyle",
+    "price": 9716,
+    "imageUrl": "https://picsum.photos/seed/241/600/800",
+    "category": "Trousers",
+    "color": "White",
+    "size": "S",
+    "fit": "Regular",
+    "occasionTags": [
+      "Wedding",
+      "Sports"
+    ],
+    "style": "Vintage",
+    "description": "Stylish trousers featuring vintage design. Made with quality materials."
+  },
+  {
+    "id": "prod-0242",
+    "title": "PremiumStyle Contemporary Jeans",
+    "brand": "PremiumStyle",
+    "price": 9753,
+    "imageUrl": "https://picsum.photos/seed/242/600/800",
+    "category": "Jeans",
+    "color": "Navy",
+    "size": "M",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Beach",
+      "Office",
+      "Casual"
+    ],
+    "style": "Contemporary",
+    "description": "Comfortable relaxed fit jeans in navy. Ideal for beach and office and casual wear."
+  },
+  {
+    "id": "prod-0243",
+    "title": "Oversized Fit T-Shirts - PremiumStyle",
+    "brand": "PremiumStyle",
+    "price": 9790,
+    "imageUrl": "https://picsum.photos/seed/243/600/800",
+    "category": "T-Shirts",
+    "color": "Gray",
+    "size": "L",
+    "fit": "Oversized",
+    "occasionTags": [
+      "Wedding"
+    ],
+    "style": "Bohemian",
+    "description": "Elegant t-shirts by PremiumStyle. Bohemian style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0244",
+    "title": "PremiumStyle Blazers Classic Collection",
+    "brand": "PremiumStyle",
+    "price": 9827,
+    "imageUrl": "https://picsum.photos/seed/244/600/800",
+    "category": "Blazers",
+    "color": "Beige",
+    "size": "XL",
+    "fit": "Fitted",
+    "occasionTags": [
+      "Travel",
+      "Formal"
+    ],
+    "style": "Classic",
+    "description": "High-quality blazers in beige. Perfect fit for travel settings."
+  },
+  {
+    "id": "prod-0245",
+    "title": "Brown Slim Dresses",
+    "brand": "PremiumStyle",
+    "price": 9864,
+    "imageUrl": "https://picsum.photos/seed/245/600/800",
+    "category": "Dresses",
+    "color": "Brown",
+    "size": "XXL",
+    "fit": "Slim",
+    "occasionTags": [
+      "Wedding",
+      "Formal",
+      "Work"
+    ],
+    "style": "Streetwear",
+    "description": "Premium brown dresses from PremiumStyle. Perfect for wedding occasions."
+  },
+  {
+    "id": "prod-0246",
+    "title": "PremiumStyle Premium Sneakers",
+    "brand": "PremiumStyle",
+    "price": 9901,
+    "imageUrl": "https://picsum.photos/seed/246/600/800",
+    "category": "Sneakers",
+    "color": "Blue",
+    "size": "XS",
+    "fit": "Regular",
+    "occasionTags": [
+      "Formal"
+    ],
+    "style": "Elegant",
+    "description": "Stylish sneakers featuring elegant design. Made with quality materials."
+  },
+  {
+    "id": "prod-0247",
+    "title": "Sporty Loafers - PremiumStyle",
+    "brand": "PremiumStyle",
+    "price": 9938,
+    "imageUrl": "https://picsum.photos/seed/247/600/800",
+    "category": "Loafers",
+    "color": "Red",
+    "size": "S",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Wedding",
+      "Casual"
+    ],
+    "style": "Sporty",
+    "description": "Comfortable relaxed fit loafers in red. Ideal for wedding and casual wear."
+  },
+  {
+    "id": "prod-0248",
+    "title": "PremiumStyle Handbags - Green",
+    "brand": "PremiumStyle",
+    "price": 9975,
+    "imageUrl": "https://picsum.photos/seed/248/600/800",
+    "category": "Handbags",
+    "color": "Green",
+    "occasionTags": [
+      "Casual",
+      "Sports",
+      "Formal"
+    ],
+    "style": "Casual",
+    "description": "Elegant handbags by PremiumStyle. Casual style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0249",
+    "title": "Pink Watches by PremiumStyle",
+    "brand": "PremiumStyle",
+    "price": 10012,
+    "imageUrl": "https://picsum.photos/seed/249/600/800",
+    "category": "Watches",
+    "color": "Pink",
+    "occasionTags": [
+      "Sports"
+    ],
+    "style": "Formal",
+    "description": "High-quality watches in pink. Perfect fit for sports settings."
+  },
+  {
+    "id": "prod-0250",
+    "title": "PremiumStyle Minimalist Shirts",
+    "brand": "PremiumStyle",
+    "price": 10049,
+    "imageUrl": "https://picsum.photos/seed/250/600/800",
+    "category": "Shirts",
+    "color": "Purple",
+    "size": "XL",
+    "fit": "Slim",
+    "occasionTags": [
+      "Work",
+      "Casual"
+    ],
+    "style": "Minimalist",
+    "description": "Premium purple shirts from PremiumStyle. Perfect for work occasions."
+  },
+  {
+    "id": "prod-0251",
+    "title": "Regular Fit Trousers - PremiumStyle",
+    "brand": "PremiumStyle",
+    "price": 10086,
+    "imageUrl": "https://picsum.photos/seed/251/600/800",
+    "category": "Trousers",
+    "color": "Yellow",
+    "size": "XXL",
+    "fit": "Regular",
+    "occasionTags": [
+      "Casual",
+      "Evening",
+      "Party"
+    ],
+    "style": "Vintage",
+    "description": "Stylish trousers featuring vintage design. Made with quality materials."
+  },
+  {
+    "id": "prod-0252",
+    "title": "PremiumStyle Jeans Contemporary Collection",
+    "brand": "PremiumStyle",
+    "price": 10123,
+    "imageUrl": "https://picsum.photos/seed/252/600/800",
+    "category": "Jeans",
+    "color": "Orange",
+    "size": "XS",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Work"
+    ],
+    "style": "Contemporary",
+    "description": "Comfortable relaxed fit jeans in orange. Ideal for work wear."
+  },
+  {
+    "id": "prod-0253",
+    "title": "Maroon Oversized T-Shirts",
+    "brand": "PremiumStyle",
+    "price": 10160,
+    "imageUrl": "https://picsum.photos/seed/253/600/800",
+    "category": "T-Shirts",
+    "color": "Maroon",
+    "size": "S",
+    "fit": "Oversized",
+    "occasionTags": [
+      "Casual",
+      "Formal"
+    ],
+    "style": "Bohemian",
+    "description": "Elegant t-shirts by PremiumStyle. Bohemian style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0254",
+    "title": "PremiumStyle Premium Blazers",
+    "brand": "PremiumStyle",
+    "price": 10197,
+    "imageUrl": "https://picsum.photos/seed/254/600/800",
+    "category": "Blazers",
+    "color": "Olive",
+    "size": "M",
+    "fit": "Fitted",
+    "occasionTags": [
+      "Beach",
+      "Work",
+      "Travel"
+    ],
+    "style": "Classic",
+    "description": "High-quality blazers in olive. Perfect fit for beach settings."
+  },
+  {
+    "id": "prod-0255",
+    "title": "Streetwear Dresses - PremiumStyle",
+    "brand": "PremiumStyle",
+    "price": 10234,
+    "imageUrl": "https://picsum.photos/seed/255/600/800",
+    "category": "Dresses",
+    "color": "Black",
+    "size": "L",
+    "fit": "Slim",
+    "occasionTags": [
+      "Work"
+    ],
+    "style": "Streetwear",
+    "description": "Premium black dresses from PremiumStyle. Perfect for work occasions."
+  },
+  {
+    "id": "prod-0256",
+    "title": "PremiumStyle Sneakers - White",
+    "brand": "PremiumStyle",
+    "price": 10271,
+    "imageUrl": "https://picsum.photos/seed/256/600/800",
+    "category": "Sneakers",
+    "color": "White",
+    "size": "XL",
+    "fit": "Regular",
+    "occasionTags": [
+      "Travel",
+      "Wedding"
+    ],
+    "style": "Elegant",
+    "description": "Stylish sneakers featuring elegant design. Made with quality materials."
+  },
+  {
+    "id": "prod-0257",
+    "title": "Navy Loafers by PremiumStyle",
+    "brand": "PremiumStyle",
+    "price": 10308,
+    "imageUrl": "https://picsum.photos/seed/257/600/800",
+    "category": "Loafers",
+    "color": "Navy",
+    "size": "XXL",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Casual",
+      "Beach",
+      "Formal"
+    ],
+    "style": "Sporty",
+    "description": "Comfortable relaxed fit loafers in navy. Ideal for casual and beach and formal wear."
+  },
+  {
+    "id": "prod-0258",
+    "title": "PremiumStyle Casual Handbags",
+    "brand": "PremiumStyle",
+    "price": 10345,
+    "imageUrl": "https://picsum.photos/seed/258/600/800",
+    "category": "Handbags",
+    "color": "Gray",
+    "occasionTags": [
+      "Wedding"
+    ],
+    "style": "Casual",
+    "description": "Elegant handbags by PremiumStyle. Casual style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0259",
+    "title": "Fitted Fit Watches - PremiumStyle",
+    "brand": "PremiumStyle",
+    "price": 10382,
+    "imageUrl": "https://picsum.photos/seed/259/600/800",
+    "category": "Watches",
+    "color": "Beige",
+    "occasionTags": [
+      "Casual",
+      "Beach"
+    ],
+    "style": "Formal",
+    "description": "High-quality watches in beige. Perfect fit for casual settings."
+  },
+  {
+    "id": "prod-0260",
+    "title": "PremiumStyle Shirts Minimalist Collection",
+    "brand": "PremiumStyle",
+    "price": 10419,
+    "imageUrl": "https://picsum.photos/seed/260/600/800",
+    "category": "Shirts",
+    "color": "Brown",
+    "size": "M",
+    "fit": "Slim",
+    "occasionTags": [
+      "Sports",
+      "Evening",
+      "Beach"
+    ],
+    "style": "Minimalist",
+    "description": "Premium brown shirts from PremiumStyle. Perfect for sports occasions."
+  },
+  {
+    "id": "prod-0261",
+    "title": "Blue Regular Trousers",
+    "brand": "PremiumStyle",
+    "price": 10456,
+    "imageUrl": "https://picsum.photos/seed/261/600/800",
+    "category": "Trousers",
+    "color": "Blue",
+    "size": "L",
+    "fit": "Regular",
+    "occasionTags": [
+      "Office"
+    ],
+    "style": "Vintage",
+    "description": "Stylish trousers featuring vintage design. Made with quality materials."
+  },
+  {
+    "id": "prod-0262",
+    "title": "PremiumStyle Premium Jeans",
+    "brand": "PremiumStyle",
+    "price": 10493,
+    "imageUrl": "https://picsum.photos/seed/262/600/800",
+    "category": "Jeans",
+    "color": "Red",
+    "size": "XL",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Sports",
+      "Work"
+    ],
+    "style": "Contemporary",
+    "description": "Comfortable relaxed fit jeans in red. Ideal for sports and work wear."
+  },
+  {
+    "id": "prod-0263",
+    "title": "Bohemian T-Shirts - PremiumStyle",
+    "brand": "PremiumStyle",
+    "price": 10530,
+    "imageUrl": "https://picsum.photos/seed/263/600/800",
+    "category": "T-Shirts",
+    "color": "Green",
+    "size": "XXL",
+    "fit": "Oversized",
+    "occasionTags": [
+      "Casual",
+      "Work",
+      "Office"
+    ],
+    "style": "Bohemian",
+    "description": "Elegant t-shirts by PremiumStyle. Bohemian style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0264",
+    "title": "PremiumStyle Blazers - Pink",
+    "brand": "PremiumStyle",
+    "price": 10567,
+    "imageUrl": "https://picsum.photos/seed/264/600/800",
+    "category": "Blazers",
+    "color": "Pink",
+    "size": "XS",
+    "fit": "Fitted",
+    "occasionTags": [
+      "Sports"
+    ],
+    "style": "Classic",
+    "description": "High-quality blazers in pink. Perfect fit for sports settings."
+  },
+  {
+    "id": "prod-0265",
+    "title": "Purple Dresses by PremiumStyle",
+    "brand": "PremiumStyle",
+    "price": 10604,
+    "imageUrl": "https://picsum.photos/seed/265/600/800",
+    "category": "Dresses",
+    "color": "Purple",
+    "size": "S",
+    "fit": "Slim",
+    "occasionTags": [
+      "Beach",
+      "Party"
+    ],
+    "style": "Streetwear",
+    "description": "Premium purple dresses from PremiumStyle. Perfect for beach occasions."
+  },
+  {
+    "id": "prod-0266",
+    "title": "PremiumStyle Elegant Sneakers",
+    "brand": "PremiumStyle",
+    "price": 10641,
+    "imageUrl": "https://picsum.photos/seed/266/600/800",
+    "category": "Sneakers",
+    "color": "Yellow",
+    "size": "M",
+    "fit": "Regular",
+    "occasionTags": [
+      "Travel",
+      "Casual",
+      "Evening"
+    ],
+    "style": "Elegant",
+    "description": "Stylish sneakers featuring elegant design. Made with quality materials."
+  },
+  {
+    "id": "prod-0267",
+    "title": "Relaxed Fit Loafers - PremiumStyle",
+    "brand": "PremiumStyle",
+    "price": 10678,
+    "imageUrl": "https://picsum.photos/seed/267/600/800",
+    "category": "Loafers",
+    "color": "Orange",
+    "size": "L",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Formal"
+    ],
+    "style": "Sporty",
+    "description": "Comfortable relaxed fit loafers in orange. Ideal for formal wear."
+  },
+  {
+    "id": "prod-0268",
+    "title": "PremiumStyle Handbags Casual Collection",
+    "brand": "PremiumStyle",
+    "price": 10715,
+    "imageUrl": "https://picsum.photos/seed/268/600/800",
+    "category": "Handbags",
+    "color": "Maroon",
+    "occasionTags": [
+      "Evening",
+      "Sports"
+    ],
+    "style": "Casual",
+    "description": "Elegant handbags by PremiumStyle. Casual style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0269",
+    "title": "Olive Fitted Watches",
+    "brand": "PremiumStyle",
+    "price": 10752,
+    "imageUrl": "https://picsum.photos/seed/269/600/800",
+    "category": "Watches",
+    "color": "Olive",
+    "occasionTags": [
+      "Sports",
+      "Work",
+      "Party"
+    ],
+    "style": "Formal",
+    "description": "High-quality watches in olive. Perfect fit for sports settings."
+  },
+  {
+    "id": "prod-0270",
+    "title": "PremiumStyle Premium Shirts",
+    "brand": "PremiumStyle",
+    "price": 10789,
+    "imageUrl": "https://picsum.photos/seed/270/600/800",
+    "category": "Shirts",
+    "color": "Black",
+    "size": "XS",
+    "fit": "Slim",
+    "occasionTags": [
+      "Travel"
+    ],
+    "style": "Minimalist",
+    "description": "Premium black shirts from PremiumStyle. Perfect for travel occasions."
+  },
+  {
+    "id": "prod-0271",
+    "title": "Vintage Trousers - PremiumStyle",
+    "brand": "PremiumStyle",
+    "price": 10826,
+    "imageUrl": "https://picsum.photos/seed/271/600/800",
+    "category": "Trousers",
+    "color": "White",
+    "size": "S",
+    "fit": "Regular",
+    "occasionTags": [
+      "Work",
+      "Casual"
+    ],
+    "style": "Vintage",
+    "description": "Stylish trousers featuring vintage design. Made with quality materials."
+  },
+  {
+    "id": "prod-0272",
+    "title": "PremiumStyle Jeans - Navy",
+    "brand": "PremiumStyle",
+    "price": 10863,
+    "imageUrl": "https://picsum.photos/seed/272/600/800",
+    "category": "Jeans",
+    "color": "Navy",
+    "size": "M",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Wedding",
+      "Casual",
+      "Formal"
+    ],
+    "style": "Contemporary",
+    "description": "Comfortable relaxed fit jeans in navy. Ideal for wedding and casual and formal wear."
+  },
+  {
+    "id": "prod-0273",
+    "title": "Gray T-Shirts by PremiumStyle",
+    "brand": "PremiumStyle",
+    "price": 10900,
+    "imageUrl": "https://picsum.photos/seed/273/600/800",
+    "category": "T-Shirts",
+    "color": "Gray",
+    "size": "L",
+    "fit": "Oversized",
+    "occasionTags": [
+      "Work"
+    ],
+    "style": "Bohemian",
+    "description": "Elegant t-shirts by PremiumStyle. Bohemian style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0274",
+    "title": "PremiumStyle Classic Blazers",
+    "brand": "PremiumStyle",
+    "price": 10937,
+    "imageUrl": "https://picsum.photos/seed/274/600/800",
+    "category": "Blazers",
+    "color": "Beige",
+    "size": "XL",
+    "fit": "Fitted",
+    "occasionTags": [
+      "Work",
+      "Sports"
+    ],
+    "style": "Classic",
+    "description": "High-quality blazers in beige. Perfect fit for work settings."
+  },
+  {
+    "id": "prod-0275",
+    "title": "Slim Fit Dresses - PremiumStyle",
+    "brand": "PremiumStyle",
+    "price": 10974,
+    "imageUrl": "https://picsum.photos/seed/275/600/800",
+    "category": "Dresses",
+    "color": "Brown",
+    "size": "XXL",
+    "fit": "Slim",
+    "occasionTags": [
+      "Sports",
+      "Evening",
+      "Travel"
+    ],
+    "style": "Streetwear",
+    "description": "Premium brown dresses from PremiumStyle. Perfect for sports occasions."
+  },
+  {
+    "id": "prod-0276",
+    "title": "PremiumStyle Sneakers Elegant Collection",
+    "brand": "PremiumStyle",
+    "price": 11011,
+    "imageUrl": "https://picsum.photos/seed/276/600/800",
+    "category": "Sneakers",
+    "color": "Blue",
+    "size": "XS",
+    "fit": "Regular",
+    "occasionTags": [
+      "Wedding"
+    ],
+    "style": "Elegant",
+    "description": "Stylish sneakers featuring elegant design. Made with quality materials."
+  },
+  {
+    "id": "prod-0277",
+    "title": "Red Relaxed Loafers",
+    "brand": "PremiumStyle",
+    "price": 11048,
+    "imageUrl": "https://picsum.photos/seed/277/600/800",
+    "category": "Loafers",
+    "color": "Red",
+    "size": "S",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Wedding",
+      "Casual"
+    ],
+    "style": "Sporty",
+    "description": "Comfortable relaxed fit loafers in red. Ideal for wedding and casual wear."
+  },
+  {
+    "id": "prod-0278",
+    "title": "PremiumStyle Premium Handbags",
+    "brand": "PremiumStyle",
+    "price": 11085,
+    "imageUrl": "https://picsum.photos/seed/278/600/800",
+    "category": "Handbags",
+    "color": "Green",
+    "occasionTags": [
+      "Wedding",
+      "Evening",
+      "Work"
+    ],
+    "style": "Casual",
+    "description": "Elegant handbags by PremiumStyle. Casual style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0279",
+    "title": "Formal Watches - PremiumStyle",
+    "brand": "PremiumStyle",
+    "price": 11122,
+    "imageUrl": "https://picsum.photos/seed/279/600/800",
+    "category": "Watches",
+    "color": "Pink",
+    "occasionTags": [
+      "Wedding"
+    ],
+    "style": "Formal",
+    "description": "High-quality watches in pink. Perfect fit for wedding settings."
+  },
+  {
+    "id": "prod-0280",
+    "title": "FashionHub Shirts - Purple",
+    "brand": "FashionHub",
+    "price": 11159,
+    "imageUrl": "https://picsum.photos/seed/280/600/800",
+    "category": "Shirts",
+    "color": "Purple",
+    "size": "XL",
+    "fit": "Slim",
+    "occasionTags": [
+      "Wedding",
+      "Evening"
+    ],
+    "style": "Minimalist",
+    "description": "Premium purple shirts from FashionHub. Perfect for wedding occasions."
+  },
+  {
+    "id": "prod-0281",
+    "title": "Yellow Trousers by FashionHub",
+    "brand": "FashionHub",
+    "price": 11196,
+    "imageUrl": "https://picsum.photos/seed/281/600/800",
+    "category": "Trousers",
+    "color": "Yellow",
+    "size": "XXL",
+    "fit": "Regular",
+    "occasionTags": [
+      "Casual",
+      "Formal",
+      "Sports"
+    ],
+    "style": "Vintage",
+    "description": "Stylish trousers featuring vintage design. Made with quality materials."
+  },
+  {
+    "id": "prod-0282",
+    "title": "FashionHub Contemporary Jeans",
+    "brand": "FashionHub",
+    "price": 11233,
+    "imageUrl": "https://picsum.photos/seed/282/600/800",
+    "category": "Jeans",
+    "color": "Orange",
+    "size": "XS",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Evening"
+    ],
+    "style": "Contemporary",
+    "description": "Comfortable relaxed fit jeans in orange. Ideal for evening wear."
+  },
+  {
+    "id": "prod-0283",
+    "title": "Oversized Fit T-Shirts - FashionHub",
+    "brand": "FashionHub",
+    "price": 11270,
+    "imageUrl": "https://picsum.photos/seed/283/600/800",
+    "category": "T-Shirts",
+    "color": "Maroon",
+    "size": "S",
+    "fit": "Oversized",
+    "occasionTags": [
+      "Formal",
+      "Wedding"
+    ],
+    "style": "Bohemian",
+    "description": "Elegant t-shirts by FashionHub. Bohemian style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0284",
+    "title": "FashionHub Blazers Classic Collection",
+    "brand": "FashionHub",
+    "price": 11307,
+    "imageUrl": "https://picsum.photos/seed/284/600/800",
+    "category": "Blazers",
+    "color": "Olive",
+    "size": "M",
+    "fit": "Fitted",
+    "occasionTags": [
+      "Sports",
+      "Wedding",
+      "Casual"
+    ],
+    "style": "Classic",
+    "description": "High-quality blazers in olive. Perfect fit for sports settings."
+  },
+  {
+    "id": "prod-0285",
+    "title": "Black Slim Dresses",
+    "brand": "FashionHub",
+    "price": 11344,
+    "imageUrl": "https://picsum.photos/seed/285/600/800",
+    "category": "Dresses",
+    "color": "Black",
+    "size": "L",
+    "fit": "Slim",
+    "occasionTags": [
+      "Casual"
+    ],
+    "style": "Streetwear",
+    "description": "Premium black dresses from FashionHub. Perfect for casual occasions."
+  },
+  {
+    "id": "prod-0286",
+    "title": "FashionHub Premium Sneakers",
+    "brand": "FashionHub",
+    "price": 11381,
+    "imageUrl": "https://picsum.photos/seed/286/600/800",
+    "category": "Sneakers",
+    "color": "White",
+    "size": "XL",
+    "fit": "Regular",
+    "occasionTags": [
+      "Travel",
+      "Work"
+    ],
+    "style": "Elegant",
+    "description": "Stylish sneakers featuring elegant design. Made with quality materials."
+  },
+  {
+    "id": "prod-0287",
+    "title": "Sporty Loafers - FashionHub",
+    "brand": "FashionHub",
+    "price": 11418,
+    "imageUrl": "https://picsum.photos/seed/287/600/800",
+    "category": "Loafers",
+    "color": "Navy",
+    "size": "XXL",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Casual",
+      "Work",
+      "Office"
+    ],
+    "style": "Sporty",
+    "description": "Comfortable relaxed fit loafers in navy. Ideal for casual and work and office wear."
+  },
+  {
+    "id": "prod-0288",
+    "title": "FashionHub Handbags - Gray",
+    "brand": "FashionHub",
+    "price": 11455,
+    "imageUrl": "https://picsum.photos/seed/288/600/800",
+    "category": "Handbags",
+    "color": "Gray",
+    "occasionTags": [
+      "Travel"
+    ],
+    "style": "Casual",
+    "description": "Elegant handbags by FashionHub. Casual style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0289",
+    "title": "Beige Watches by FashionHub",
+    "brand": "FashionHub",
+    "price": 11492,
+    "imageUrl": "https://picsum.photos/seed/289/600/800",
+    "category": "Watches",
+    "color": "Beige",
+    "occasionTags": [
+      "Sports",
+      "Wedding"
+    ],
+    "style": "Formal",
+    "description": "High-quality watches in beige. Perfect fit for sports settings."
+  },
+  {
+    "id": "prod-0290",
+    "title": "FashionHub Minimalist Shirts",
+    "brand": "FashionHub",
+    "price": 11529,
+    "imageUrl": "https://picsum.photos/seed/290/600/800",
+    "category": "Shirts",
+    "color": "Brown",
+    "size": "M",
+    "fit": "Slim",
+    "occasionTags": [
+      "Casual",
+      "Formal",
+      "Work"
+    ],
+    "style": "Minimalist",
+    "description": "Premium brown shirts from FashionHub. Perfect for casual occasions."
+  },
+  {
+    "id": "prod-0291",
+    "title": "Regular Fit Trousers - FashionHub",
+    "brand": "FashionHub",
+    "price": 11566,
+    "imageUrl": "https://picsum.photos/seed/291/600/800",
+    "category": "Trousers",
+    "color": "Blue",
+    "size": "L",
+    "fit": "Regular",
+    "occasionTags": [
+      "Casual"
+    ],
+    "style": "Vintage",
+    "description": "Stylish trousers featuring vintage design. Made with quality materials."
+  },
+  {
+    "id": "prod-0292",
+    "title": "FashionHub Jeans Contemporary Collection",
+    "brand": "FashionHub",
+    "price": 11603,
+    "imageUrl": "https://picsum.photos/seed/292/600/800",
+    "category": "Jeans",
+    "color": "Red",
+    "size": "XL",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Casual",
+      "Travel"
+    ],
+    "style": "Contemporary",
+    "description": "Comfortable relaxed fit jeans in red. Ideal for casual and travel wear."
+  },
+  {
+    "id": "prod-0293",
+    "title": "Green Oversized T-Shirts",
+    "brand": "FashionHub",
+    "price": 11640,
+    "imageUrl": "https://picsum.photos/seed/293/600/800",
+    "category": "T-Shirts",
+    "color": "Green",
+    "size": "XXL",
+    "fit": "Oversized",
+    "occasionTags": [
+      "Casual",
+      "Travel",
+      "Formal"
+    ],
+    "style": "Bohemian",
+    "description": "Elegant t-shirts by FashionHub. Bohemian style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0294",
+    "title": "FashionHub Premium Blazers",
+    "brand": "FashionHub",
+    "price": 11677,
+    "imageUrl": "https://picsum.photos/seed/294/600/800",
+    "category": "Blazers",
+    "color": "Pink",
+    "size": "XS",
+    "fit": "Fitted",
+    "occasionTags": [
+      "Formal"
+    ],
+    "style": "Classic",
+    "description": "High-quality blazers in pink. Perfect fit for formal settings."
+  },
+  {
+    "id": "prod-0295",
+    "title": "Streetwear Dresses - FashionHub",
+    "brand": "FashionHub",
+    "price": 11714,
+    "imageUrl": "https://picsum.photos/seed/295/600/800",
+    "category": "Dresses",
+    "color": "Purple",
+    "size": "S",
+    "fit": "Slim",
+    "occasionTags": [
+      "Work",
+      "Casual"
+    ],
+    "style": "Streetwear",
+    "description": "Premium purple dresses from FashionHub. Perfect for work occasions."
+  },
+  {
+    "id": "prod-0296",
+    "title": "FashionHub Sneakers - Yellow",
+    "brand": "FashionHub",
+    "price": 11751,
+    "imageUrl": "https://picsum.photos/seed/296/600/800",
+    "category": "Sneakers",
+    "color": "Yellow",
+    "size": "M",
+    "fit": "Regular",
+    "occasionTags": [
+      "Office",
+      "Wedding",
+      "Casual"
+    ],
+    "style": "Elegant",
+    "description": "Stylish sneakers featuring elegant design. Made with quality materials."
+  },
+  {
+    "id": "prod-0297",
+    "title": "Orange Loafers by FashionHub",
+    "brand": "FashionHub",
+    "price": 11788,
+    "imageUrl": "https://picsum.photos/seed/297/600/800",
+    "category": "Loafers",
+    "color": "Orange",
+    "size": "L",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Beach"
+    ],
+    "style": "Sporty",
+    "description": "Comfortable relaxed fit loafers in orange. Ideal for beach wear."
+  },
+  {
+    "id": "prod-0298",
+    "title": "FashionHub Casual Handbags",
+    "brand": "FashionHub",
+    "price": 11825,
+    "imageUrl": "https://picsum.photos/seed/298/600/800",
+    "category": "Handbags",
+    "color": "Maroon",
+    "occasionTags": [
+      "Travel",
+      "Work"
+    ],
+    "style": "Casual",
+    "description": "Elegant handbags by FashionHub. Casual style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0299",
+    "title": "Fitted Fit Watches - FashionHub",
+    "brand": "FashionHub",
+    "price": 11862,
+    "imageUrl": "https://picsum.photos/seed/299/600/800",
+    "category": "Watches",
+    "color": "Olive",
+    "occasionTags": [
+      "Party",
+      "Travel",
+      "Office"
+    ],
+    "style": "Formal",
+    "description": "High-quality watches in olive. Perfect fit for party settings."
+  },
+  {
+    "id": "prod-0300",
+    "title": "FashionHub Shirts Minimalist Collection",
+    "brand": "FashionHub",
+    "price": 11899,
+    "imageUrl": "https://picsum.photos/seed/300/600/800",
+    "category": "Shirts",
+    "color": "Black",
+    "size": "XS",
+    "fit": "Slim",
+    "occasionTags": [
+      "Sports"
+    ],
+    "style": "Minimalist",
+    "description": "Premium black shirts from FashionHub. Perfect for sports occasions."
+  },
+  {
+    "id": "prod-0301",
+    "title": "White Regular Trousers",
+    "brand": "FashionHub",
+    "price": 11936,
+    "imageUrl": "https://picsum.photos/seed/301/600/800",
+    "category": "Trousers",
+    "color": "White",
+    "size": "S",
+    "fit": "Regular",
+    "occasionTags": [
+      "Casual",
+      "Beach"
+    ],
+    "style": "Vintage",
+    "description": "Stylish trousers featuring vintage design. Made with quality materials."
+  },
+  {
+    "id": "prod-0302",
+    "title": "FashionHub Premium Jeans",
+    "brand": "FashionHub",
+    "price": 11973,
+    "imageUrl": "https://picsum.photos/seed/302/600/800",
+    "category": "Jeans",
+    "color": "Navy",
+    "size": "M",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Party",
+      "Office",
+      "Formal"
+    ],
+    "style": "Contemporary",
+    "description": "Comfortable relaxed fit jeans in navy. Ideal for party and office and formal wear."
+  },
+  {
+    "id": "prod-0303",
+    "title": "Bohemian T-Shirts - FashionHub",
+    "brand": "FashionHub",
+    "price": 12010,
+    "imageUrl": "https://picsum.photos/seed/303/600/800",
+    "category": "T-Shirts",
+    "color": "Gray",
+    "size": "L",
+    "fit": "Oversized",
+    "occasionTags": [
+      "Work"
+    ],
+    "style": "Bohemian",
+    "description": "Elegant t-shirts by FashionHub. Bohemian style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0304",
+    "title": "FashionHub Blazers - Beige",
+    "brand": "FashionHub",
+    "price": 12047,
+    "imageUrl": "https://picsum.photos/seed/304/600/800",
+    "category": "Blazers",
+    "color": "Beige",
+    "size": "XL",
+    "fit": "Fitted",
+    "occasionTags": [
+      "Party",
+      "Work"
+    ],
+    "style": "Classic",
+    "description": "High-quality blazers in beige. Perfect fit for party settings."
+  },
+  {
+    "id": "prod-0305",
+    "title": "Brown Dresses by FashionHub",
+    "brand": "FashionHub",
+    "price": 12084,
+    "imageUrl": "https://picsum.photos/seed/305/600/800",
+    "category": "Dresses",
+    "color": "Brown",
+    "size": "XXL",
+    "fit": "Slim",
+    "occasionTags": [
+      "Casual",
+      "Beach",
+      "Evening"
+    ],
+    "style": "Streetwear",
+    "description": "Premium brown dresses from FashionHub. Perfect for casual occasions."
+  },
+  {
+    "id": "prod-0306",
+    "title": "FashionHub Elegant Sneakers",
+    "brand": "FashionHub",
+    "price": 12121,
+    "imageUrl": "https://picsum.photos/seed/306/600/800",
+    "category": "Sneakers",
+    "color": "Blue",
+    "size": "XS",
+    "fit": "Regular",
+    "occasionTags": [
+      "Wedding"
+    ],
+    "style": "Elegant",
+    "description": "Stylish sneakers featuring elegant design. Made with quality materials."
+  },
+  {
+    "id": "prod-0307",
+    "title": "Relaxed Fit Loafers - FashionHub",
+    "brand": "FashionHub",
+    "price": 12158,
+    "imageUrl": "https://picsum.photos/seed/307/600/800",
+    "category": "Loafers",
+    "color": "Red",
+    "size": "S",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Sports",
+      "Work"
+    ],
+    "style": "Sporty",
+    "description": "Comfortable relaxed fit loafers in red. Ideal for sports and work wear."
+  },
+  {
+    "id": "prod-0308",
+    "title": "FashionHub Handbags Casual Collection",
+    "brand": "FashionHub",
+    "price": 12195,
+    "imageUrl": "https://picsum.photos/seed/308/600/800",
+    "category": "Handbags",
+    "color": "Green",
+    "occasionTags": [
+      "Office",
+      "Formal",
+      "Party"
+    ],
+    "style": "Casual",
+    "description": "Elegant handbags by FashionHub. Casual style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0309",
+    "title": "Pink Fitted Watches",
+    "brand": "FashionHub",
+    "price": 12232,
+    "imageUrl": "https://picsum.photos/seed/309/600/800",
+    "category": "Watches",
+    "color": "Pink",
+    "occasionTags": [
+      "Sports"
+    ],
+    "style": "Formal",
+    "description": "High-quality watches in pink. Perfect fit for sports settings."
+  },
+  {
+    "id": "prod-0310",
+    "title": "FashionHub Premium Shirts",
+    "brand": "FashionHub",
+    "price": 12269,
+    "imageUrl": "https://picsum.photos/seed/310/600/800",
+    "category": "Shirts",
+    "color": "Purple",
+    "size": "XL",
+    "fit": "Slim",
+    "occasionTags": [
+      "Work",
+      "Beach"
+    ],
+    "style": "Minimalist",
+    "description": "Premium purple shirts from FashionHub. Perfect for work occasions."
+  },
+  {
+    "id": "prod-0311",
+    "title": "Vintage Trousers - FashionHub",
+    "brand": "FashionHub",
+    "price": 12306,
+    "imageUrl": "https://picsum.photos/seed/311/600/800",
+    "category": "Trousers",
+    "color": "Yellow",
+    "size": "XXL",
+    "fit": "Regular",
+    "occasionTags": [
+      "Work",
+      "Party",
+      "Office"
+    ],
+    "style": "Vintage",
+    "description": "Stylish trousers featuring vintage design. Made with quality materials."
+  },
+  {
+    "id": "prod-0312",
+    "title": "FashionHub Jeans - Orange",
+    "brand": "FashionHub",
+    "price": 12343,
+    "imageUrl": "https://picsum.photos/seed/312/600/800",
+    "category": "Jeans",
+    "color": "Orange",
+    "size": "XS",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Evening"
+    ],
+    "style": "Contemporary",
+    "description": "Comfortable relaxed fit jeans in orange. Ideal for evening wear."
+  },
+  {
+    "id": "prod-0313",
+    "title": "Maroon T-Shirts by FashionHub",
+    "brand": "FashionHub",
+    "price": 12380,
+    "imageUrl": "https://picsum.photos/seed/313/600/800",
+    "category": "T-Shirts",
+    "color": "Maroon",
+    "size": "S",
+    "fit": "Oversized",
+    "occasionTags": [
+      "Casual",
+      "Formal"
+    ],
+    "style": "Bohemian",
+    "description": "Elegant t-shirts by FashionHub. Bohemian style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0314",
+    "title": "FashionHub Classic Blazers",
+    "brand": "FashionHub",
+    "price": 12417,
+    "imageUrl": "https://picsum.photos/seed/314/600/800",
+    "category": "Blazers",
+    "color": "Olive",
+    "size": "M",
+    "fit": "Fitted",
+    "occasionTags": [
+      "Office",
+      "Sports",
+      "Casual"
+    ],
+    "style": "Classic",
+    "description": "High-quality blazers in olive. Perfect fit for office settings."
+  },
+  {
+    "id": "prod-0315",
+    "title": "Slim Fit Dresses - FashionHub",
+    "brand": "FashionHub",
+    "price": 12454,
+    "imageUrl": "https://picsum.photos/seed/315/600/800",
+    "category": "Dresses",
+    "color": "Black",
+    "size": "L",
+    "fit": "Slim",
+    "occasionTags": [
+      "Party"
+    ],
+    "style": "Streetwear",
+    "description": "Premium black dresses from FashionHub. Perfect for party occasions."
+  },
+  {
+    "id": "prod-0316",
+    "title": "FashionHub Sneakers Elegant Collection",
+    "brand": "FashionHub",
+    "price": 12491,
+    "imageUrl": "https://picsum.photos/seed/316/600/800",
+    "category": "Sneakers",
+    "color": "White",
+    "size": "XL",
+    "fit": "Regular",
+    "occasionTags": [
+      "Wedding",
+      "Formal"
+    ],
+    "style": "Elegant",
+    "description": "Stylish sneakers featuring elegant design. Made with quality materials."
+  },
+  {
+    "id": "prod-0317",
+    "title": "Navy Relaxed Loafers",
+    "brand": "FashionHub",
+    "price": 12528,
+    "imageUrl": "https://picsum.photos/seed/317/600/800",
+    "category": "Loafers",
+    "color": "Navy",
+    "size": "XXL",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Work",
+      "Party",
+      "Travel"
+    ],
+    "style": "Sporty",
+    "description": "Comfortable relaxed fit loafers in navy. Ideal for work and party and travel wear."
+  },
+  {
+    "id": "prod-0318",
+    "title": "FashionHub Premium Handbags",
+    "brand": "FashionHub",
+    "price": 12565,
+    "imageUrl": "https://picsum.photos/seed/318/600/800",
+    "category": "Handbags",
+    "color": "Gray",
+    "occasionTags": [
+      "Travel"
+    ],
+    "style": "Casual",
+    "description": "Elegant handbags by FashionHub. Casual style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0319",
+    "title": "Formal Watches - FashionHub",
+    "brand": "FashionHub",
+    "price": 12602,
+    "imageUrl": "https://picsum.photos/seed/319/600/800",
+    "category": "Watches",
+    "color": "Beige",
+    "occasionTags": [
+      "Casual",
+      "Formal"
+    ],
+    "style": "Formal",
+    "description": "High-quality watches in beige. Perfect fit for casual settings."
+  },
+  {
+    "id": "prod-0320",
+    "title": "DesignerWear Shirts - Brown",
+    "brand": "DesignerWear",
+    "price": 12639,
+    "imageUrl": "https://picsum.photos/seed/320/600/800",
+    "category": "Shirts",
+    "color": "Brown",
+    "size": "M",
+    "fit": "Slim",
+    "occasionTags": [
+      "Casual",
+      "Formal",
+      "Work"
+    ],
+    "style": "Minimalist",
+    "description": "Premium brown shirts from DesignerWear. Perfect for casual occasions."
+  },
+  {
+    "id": "prod-0321",
+    "title": "Blue Trousers by DesignerWear",
+    "brand": "DesignerWear",
+    "price": 12676,
+    "imageUrl": "https://picsum.photos/seed/321/600/800",
+    "category": "Trousers",
+    "color": "Blue",
+    "size": "L",
+    "fit": "Regular",
+    "occasionTags": [
+      "Wedding"
+    ],
+    "style": "Vintage",
+    "description": "Stylish trousers featuring vintage design. Made with quality materials."
+  },
+  {
+    "id": "prod-0322",
+    "title": "DesignerWear Contemporary Jeans",
+    "brand": "DesignerWear",
+    "price": 12713,
+    "imageUrl": "https://picsum.photos/seed/322/600/800",
+    "category": "Jeans",
+    "color": "Red",
+    "size": "XL",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Office",
+      "Wedding"
+    ],
+    "style": "Contemporary",
+    "description": "Comfortable relaxed fit jeans in red. Ideal for office and wedding wear."
+  },
+  {
+    "id": "prod-0323",
+    "title": "Oversized Fit T-Shirts - DesignerWear",
+    "brand": "DesignerWear",
+    "price": 12750,
+    "imageUrl": "https://picsum.photos/seed/323/600/800",
+    "category": "T-Shirts",
+    "color": "Green",
+    "size": "XXL",
+    "fit": "Oversized",
+    "occasionTags": [
+      "Formal",
+      "Sports",
+      "Beach"
+    ],
+    "style": "Bohemian",
+    "description": "Elegant t-shirts by DesignerWear. Bohemian style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0324",
+    "title": "DesignerWear Blazers Classic Collection",
+    "brand": "DesignerWear",
+    "price": 12787,
+    "imageUrl": "https://picsum.photos/seed/324/600/800",
+    "category": "Blazers",
+    "color": "Pink",
+    "size": "XS",
+    "fit": "Fitted",
+    "occasionTags": [
+      "Evening"
+    ],
+    "style": "Classic",
+    "description": "High-quality blazers in pink. Perfect fit for evening settings."
+  },
+  {
+    "id": "prod-0325",
+    "title": "Purple Slim Dresses",
+    "brand": "DesignerWear",
+    "price": 12824,
+    "imageUrl": "https://picsum.photos/seed/325/600/800",
+    "category": "Dresses",
+    "color": "Purple",
+    "size": "S",
+    "fit": "Slim",
+    "occasionTags": [
+      "Sports",
+      "Evening"
+    ],
+    "style": "Streetwear",
+    "description": "Premium purple dresses from DesignerWear. Perfect for sports occasions."
+  },
+  {
+    "id": "prod-0326",
+    "title": "DesignerWear Premium Sneakers",
+    "brand": "DesignerWear",
+    "price": 12861,
+    "imageUrl": "https://picsum.photos/seed/326/600/800",
+    "category": "Sneakers",
+    "color": "Yellow",
+    "size": "M",
+    "fit": "Regular",
+    "occasionTags": [
+      "Casual",
+      "Wedding",
+      "Travel"
+    ],
+    "style": "Elegant",
+    "description": "Stylish sneakers featuring elegant design. Made with quality materials."
+  },
+  {
+    "id": "prod-0327",
+    "title": "Sporty Loafers - DesignerWear",
+    "brand": "DesignerWear",
+    "price": 12898,
+    "imageUrl": "https://picsum.photos/seed/327/600/800",
+    "category": "Loafers",
+    "color": "Orange",
+    "size": "L",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Sports"
+    ],
+    "style": "Sporty",
+    "description": "Comfortable relaxed fit loafers in orange. Ideal for sports wear."
+  },
+  {
+    "id": "prod-0328",
+    "title": "DesignerWear Handbags - Maroon",
+    "brand": "DesignerWear",
+    "price": 12935,
+    "imageUrl": "https://picsum.photos/seed/328/600/800",
+    "category": "Handbags",
+    "color": "Maroon",
+    "occasionTags": [
+      "Wedding",
+      "Evening"
+    ],
+    "style": "Casual",
+    "description": "Elegant handbags by DesignerWear. Casual style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0329",
+    "title": "Olive Watches by DesignerWear",
+    "brand": "DesignerWear",
+    "price": 12972,
+    "imageUrl": "https://picsum.photos/seed/329/600/800",
+    "category": "Watches",
+    "color": "Olive",
+    "occasionTags": [
+      "Evening",
+      "Beach",
+      "Office"
+    ],
+    "style": "Formal",
+    "description": "High-quality watches in olive. Perfect fit for evening settings."
+  },
+  {
+    "id": "prod-0330",
+    "title": "DesignerWear Minimalist Shirts",
+    "brand": "DesignerWear",
+    "price": 13009,
+    "imageUrl": "https://picsum.photos/seed/330/600/800",
+    "category": "Shirts",
+    "color": "Black",
+    "size": "XS",
+    "fit": "Slim",
+    "occasionTags": [
+      "Casual"
+    ],
+    "style": "Minimalist",
+    "description": "Premium black shirts from DesignerWear. Perfect for casual occasions."
+  },
+  {
+    "id": "prod-0331",
+    "title": "Regular Fit Trousers - DesignerWear",
+    "brand": "DesignerWear",
+    "price": 13046,
+    "imageUrl": "https://picsum.photos/seed/331/600/800",
+    "category": "Trousers",
+    "color": "White",
+    "size": "S",
+    "fit": "Regular",
+    "occasionTags": [
+      "Wedding",
+      "Formal"
+    ],
+    "style": "Vintage",
+    "description": "Stylish trousers featuring vintage design. Made with quality materials."
+  },
+  {
+    "id": "prod-0332",
+    "title": "DesignerWear Jeans Contemporary Collection",
+    "brand": "DesignerWear",
+    "price": 13083,
+    "imageUrl": "https://picsum.photos/seed/332/600/800",
+    "category": "Jeans",
+    "color": "Navy",
+    "size": "M",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Formal",
+      "Travel",
+      "Evening"
+    ],
+    "style": "Contemporary",
+    "description": "Comfortable relaxed fit jeans in navy. Ideal for formal and travel and evening wear."
+  },
+  {
+    "id": "prod-0333",
+    "title": "Gray Oversized T-Shirts",
+    "brand": "DesignerWear",
+    "price": 13120,
+    "imageUrl": "https://picsum.photos/seed/333/600/800",
+    "category": "T-Shirts",
+    "color": "Gray",
+    "size": "L",
+    "fit": "Oversized",
+    "occasionTags": [
+      "Work"
+    ],
+    "style": "Bohemian",
+    "description": "Elegant t-shirts by DesignerWear. Bohemian style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0334",
+    "title": "DesignerWear Premium Blazers",
+    "brand": "DesignerWear",
+    "price": 13157,
+    "imageUrl": "https://picsum.photos/seed/334/600/800",
+    "category": "Blazers",
+    "color": "Beige",
+    "size": "XL",
+    "fit": "Fitted",
+    "occasionTags": [
+      "Office",
+      "Beach"
+    ],
+    "style": "Classic",
+    "description": "High-quality blazers in beige. Perfect fit for office settings."
+  },
+  {
+    "id": "prod-0335",
+    "title": "Streetwear Dresses - DesignerWear",
+    "brand": "DesignerWear",
+    "price": 13194,
+    "imageUrl": "https://picsum.photos/seed/335/600/800",
+    "category": "Dresses",
+    "color": "Brown",
+    "size": "XXL",
+    "fit": "Slim",
+    "occasionTags": [
+      "Work",
+      "Party",
+      "Evening"
+    ],
+    "style": "Streetwear",
+    "description": "Premium brown dresses from DesignerWear. Perfect for work occasions."
+  },
+  {
+    "id": "prod-0336",
+    "title": "DesignerWear Sneakers - Blue",
+    "brand": "DesignerWear",
+    "price": 13231,
+    "imageUrl": "https://picsum.photos/seed/336/600/800",
+    "category": "Sneakers",
+    "color": "Blue",
+    "size": "XS",
+    "fit": "Regular",
+    "occasionTags": [
+      "Formal"
+    ],
+    "style": "Elegant",
+    "description": "Stylish sneakers featuring elegant design. Made with quality materials."
+  },
+  {
+    "id": "prod-0337",
+    "title": "Red Loafers by DesignerWear",
+    "brand": "DesignerWear",
+    "price": 13268,
+    "imageUrl": "https://picsum.photos/seed/337/600/800",
+    "category": "Loafers",
+    "color": "Red",
+    "size": "S",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Beach",
+      "Casual"
+    ],
+    "style": "Sporty",
+    "description": "Comfortable relaxed fit loafers in red. Ideal for beach and casual wear."
+  },
+  {
+    "id": "prod-0338",
+    "title": "DesignerWear Casual Handbags",
+    "brand": "DesignerWear",
+    "price": 13305,
+    "imageUrl": "https://picsum.photos/seed/338/600/800",
+    "category": "Handbags",
+    "color": "Green",
+    "occasionTags": [
+      "Work",
+      "Sports",
+      "Beach"
+    ],
+    "style": "Casual",
+    "description": "Elegant handbags by DesignerWear. Casual style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0339",
+    "title": "Fitted Fit Watches - DesignerWear",
+    "brand": "DesignerWear",
+    "price": 13342,
+    "imageUrl": "https://picsum.photos/seed/339/600/800",
+    "category": "Watches",
+    "color": "Pink",
+    "occasionTags": [
+      "Casual"
+    ],
+    "style": "Formal",
+    "description": "High-quality watches in pink. Perfect fit for casual settings."
+  },
+  {
+    "id": "prod-0340",
+    "title": "DesignerWear Shirts Minimalist Collection",
+    "brand": "DesignerWear",
+    "price": 13379,
+    "imageUrl": "https://picsum.photos/seed/340/600/800",
+    "category": "Shirts",
+    "color": "Purple",
+    "size": "XL",
+    "fit": "Slim",
+    "occasionTags": [
+      "Evening",
+      "Casual"
+    ],
+    "style": "Minimalist",
+    "description": "Premium purple shirts from DesignerWear. Perfect for evening occasions."
+  },
+  {
+    "id": "prod-0341",
+    "title": "Yellow Regular Trousers",
+    "brand": "DesignerWear",
+    "price": 13416,
+    "imageUrl": "https://picsum.photos/seed/341/600/800",
+    "category": "Trousers",
+    "color": "Yellow",
+    "size": "XXL",
+    "fit": "Regular",
+    "occasionTags": [
+      "Evening",
+      "Casual",
+      "Formal"
+    ],
+    "style": "Vintage",
+    "description": "Stylish trousers featuring vintage design. Made with quality materials."
+  },
+  {
+    "id": "prod-0342",
+    "title": "DesignerWear Premium Jeans",
+    "brand": "DesignerWear",
+    "price": 13453,
+    "imageUrl": "https://picsum.photos/seed/342/600/800",
+    "category": "Jeans",
+    "color": "Orange",
+    "size": "XS",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Work"
+    ],
+    "style": "Contemporary",
+    "description": "Comfortable relaxed fit jeans in orange. Ideal for work wear."
+  },
+  {
+    "id": "prod-0343",
+    "title": "Bohemian T-Shirts - DesignerWear",
+    "brand": "DesignerWear",
+    "price": 13490,
+    "imageUrl": "https://picsum.photos/seed/343/600/800",
+    "category": "T-Shirts",
+    "color": "Maroon",
+    "size": "S",
+    "fit": "Oversized",
+    "occasionTags": [
+      "Sports",
+      "Work"
+    ],
+    "style": "Bohemian",
+    "description": "Elegant t-shirts by DesignerWear. Bohemian style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0344",
+    "title": "DesignerWear Blazers - Olive",
+    "brand": "DesignerWear",
+    "price": 13527,
+    "imageUrl": "https://picsum.photos/seed/344/600/800",
+    "category": "Blazers",
+    "color": "Olive",
+    "size": "M",
+    "fit": "Fitted",
+    "occasionTags": [
+      "Sports",
+      "Formal",
+      "Wedding"
+    ],
+    "style": "Classic",
+    "description": "High-quality blazers in olive. Perfect fit for sports settings."
+  },
+  {
+    "id": "prod-0345",
+    "title": "Black Dresses by DesignerWear",
+    "brand": "DesignerWear",
+    "price": 13564,
+    "imageUrl": "https://picsum.photos/seed/345/600/800",
+    "category": "Dresses",
+    "color": "Black",
+    "size": "L",
+    "fit": "Slim",
+    "occasionTags": [
+      "Wedding"
+    ],
+    "style": "Streetwear",
+    "description": "Premium black dresses from DesignerWear. Perfect for wedding occasions."
+  },
+  {
+    "id": "prod-0346",
+    "title": "DesignerWear Elegant Sneakers",
+    "brand": "DesignerWear",
+    "price": 13601,
+    "imageUrl": "https://picsum.photos/seed/346/600/800",
+    "category": "Sneakers",
+    "color": "White",
+    "size": "XL",
+    "fit": "Regular",
+    "occasionTags": [
+      "Wedding",
+      "Casual"
+    ],
+    "style": "Elegant",
+    "description": "Stylish sneakers featuring elegant design. Made with quality materials."
+  },
+  {
+    "id": "prod-0347",
+    "title": "Relaxed Fit Loafers - DesignerWear",
+    "brand": "DesignerWear",
+    "price": 13638,
+    "imageUrl": "https://picsum.photos/seed/347/600/800",
+    "category": "Loafers",
+    "color": "Navy",
+    "size": "XXL",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Evening",
+      "Office",
+      "Wedding"
+    ],
+    "style": "Sporty",
+    "description": "Comfortable relaxed fit loafers in navy. Ideal for evening and office and wedding wear."
+  },
+  {
+    "id": "prod-0348",
+    "title": "DesignerWear Handbags Casual Collection",
+    "brand": "DesignerWear",
+    "price": 13675,
+    "imageUrl": "https://picsum.photos/seed/348/600/800",
+    "category": "Handbags",
+    "color": "Gray",
+    "occasionTags": [
+      "Casual"
+    ],
+    "style": "Casual",
+    "description": "Elegant handbags by DesignerWear. Casual style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0349",
+    "title": "Beige Fitted Watches",
+    "brand": "DesignerWear",
+    "price": 13712,
+    "imageUrl": "https://picsum.photos/seed/349/600/800",
+    "category": "Watches",
+    "color": "Beige",
+    "occasionTags": [
+      "Beach",
+      "Wedding"
+    ],
+    "style": "Formal",
+    "description": "High-quality watches in beige. Perfect fit for beach settings."
+  },
+  {
+    "id": "prod-0350",
+    "title": "DesignerWear Premium Shirts",
+    "brand": "DesignerWear",
+    "price": 13749,
+    "imageUrl": "https://picsum.photos/seed/350/600/800",
+    "category": "Shirts",
+    "color": "Brown",
+    "size": "M",
+    "fit": "Slim",
+    "occasionTags": [
+      "Casual",
+      "Work",
+      "Evening"
+    ],
+    "style": "Minimalist",
+    "description": "Premium brown shirts from DesignerWear. Perfect for casual occasions."
+  },
+  {
+    "id": "prod-0351",
+    "title": "Vintage Trousers - DesignerWear",
+    "brand": "DesignerWear",
+    "price": 13786,
+    "imageUrl": "https://picsum.photos/seed/351/600/800",
+    "category": "Trousers",
+    "color": "Blue",
+    "size": "L",
+    "fit": "Regular",
+    "occasionTags": [
+      "Party"
+    ],
+    "style": "Vintage",
+    "description": "Stylish trousers featuring vintage design. Made with quality materials."
+  },
+  {
+    "id": "prod-0352",
+    "title": "DesignerWear Jeans - Red",
+    "brand": "DesignerWear",
+    "price": 13823,
+    "imageUrl": "https://picsum.photos/seed/352/600/800",
+    "category": "Jeans",
+    "color": "Red",
+    "size": "XL",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Beach",
+      "Casual"
+    ],
+    "style": "Contemporary",
+    "description": "Comfortable relaxed fit jeans in red. Ideal for beach and casual wear."
+  },
+  {
+    "id": "prod-0353",
+    "title": "Green T-Shirts by DesignerWear",
+    "brand": "DesignerWear",
+    "price": 13860,
+    "imageUrl": "https://picsum.photos/seed/353/600/800",
+    "category": "T-Shirts",
+    "color": "Green",
+    "size": "XXL",
+    "fit": "Oversized",
+    "occasionTags": [
+      "Work",
+      "Office",
+      "Sports"
+    ],
+    "style": "Bohemian",
+    "description": "Elegant t-shirts by DesignerWear. Bohemian style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0354",
+    "title": "DesignerWear Classic Blazers",
+    "brand": "DesignerWear",
+    "price": 13897,
+    "imageUrl": "https://picsum.photos/seed/354/600/800",
+    "category": "Blazers",
+    "color": "Pink",
+    "size": "XS",
+    "fit": "Fitted",
+    "occasionTags": [
+      "Travel"
+    ],
+    "style": "Classic",
+    "description": "High-quality blazers in pink. Perfect fit for travel settings."
+  },
+  {
+    "id": "prod-0355",
+    "title": "Slim Fit Dresses - DesignerWear",
+    "brand": "DesignerWear",
+    "price": 13934,
+    "imageUrl": "https://picsum.photos/seed/355/600/800",
+    "category": "Dresses",
+    "color": "Purple",
+    "size": "S",
+    "fit": "Slim",
+    "occasionTags": [
+      "Party",
+      "Evening"
+    ],
+    "style": "Streetwear",
+    "description": "Premium purple dresses from DesignerWear. Perfect for party occasions."
+  },
+  {
+    "id": "prod-0356",
+    "title": "DesignerWear Sneakers Elegant Collection",
+    "brand": "DesignerWear",
+    "price": 13971,
+    "imageUrl": "https://picsum.photos/seed/356/600/800",
+    "category": "Sneakers",
+    "color": "Yellow",
+    "size": "M",
+    "fit": "Regular",
+    "occasionTags": [
+      "Beach",
+      "Casual",
+      "Wedding"
+    ],
+    "style": "Elegant",
+    "description": "Stylish sneakers featuring elegant design. Made with quality materials."
+  },
+  {
+    "id": "prod-0357",
+    "title": "Orange Relaxed Loafers",
+    "brand": "DesignerWear",
+    "price": 14008,
+    "imageUrl": "https://picsum.photos/seed/357/600/800",
+    "category": "Loafers",
+    "color": "Orange",
+    "size": "L",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Work"
+    ],
+    "style": "Sporty",
+    "description": "Comfortable relaxed fit loafers in orange. Ideal for work wear."
+  },
+  {
+    "id": "prod-0358",
+    "title": "DesignerWear Premium Handbags",
+    "brand": "DesignerWear",
+    "price": 14045,
+    "imageUrl": "https://picsum.photos/seed/358/600/800",
+    "category": "Handbags",
+    "color": "Maroon",
+    "occasionTags": [
+      "Evening",
+      "Work"
+    ],
+    "style": "Casual",
+    "description": "Elegant handbags by DesignerWear. Casual style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0359",
+    "title": "Formal Watches - DesignerWear",
+    "brand": "DesignerWear",
+    "price": 14082,
+    "imageUrl": "https://picsum.photos/seed/359/600/800",
+    "category": "Watches",
+    "color": "Olive",
+    "occasionTags": [
+      "Casual",
+      "Office",
+      "Party"
+    ],
+    "style": "Formal",
+    "description": "High-quality watches in olive. Perfect fit for casual settings."
+  },
+  {
+    "id": "prod-0360",
+    "title": "LuxuryBrand Shirts - Black",
+    "brand": "LuxuryBrand",
+    "price": 14119,
+    "imageUrl": "https://picsum.photos/seed/360/600/800",
+    "category": "Shirts",
+    "color": "Black",
+    "size": "XS",
+    "fit": "Slim",
+    "occasionTags": [
+      "Sports"
+    ],
+    "style": "Minimalist",
+    "description": "Premium black shirts from LuxuryBrand. Perfect for sports occasions."
+  },
+  {
+    "id": "prod-0361",
+    "title": "White Trousers by LuxuryBrand",
+    "brand": "LuxuryBrand",
+    "price": 14156,
+    "imageUrl": "https://picsum.photos/seed/361/600/800",
+    "category": "Trousers",
+    "color": "White",
+    "size": "S",
+    "fit": "Regular",
+    "occasionTags": [
+      "Wedding",
+      "Beach"
+    ],
+    "style": "Vintage",
+    "description": "Stylish trousers featuring vintage design. Made with quality materials."
+  },
+  {
+    "id": "prod-0362",
+    "title": "LuxuryBrand Contemporary Jeans",
+    "brand": "LuxuryBrand",
+    "price": 14193,
+    "imageUrl": "https://picsum.photos/seed/362/600/800",
+    "category": "Jeans",
+    "color": "Navy",
+    "size": "M",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Office",
+      "Work",
+      "Travel"
+    ],
+    "style": "Contemporary",
+    "description": "Comfortable relaxed fit jeans in navy. Ideal for office and work and travel wear."
+  },
+  {
+    "id": "prod-0363",
+    "title": "Oversized Fit T-Shirts - LuxuryBrand",
+    "brand": "LuxuryBrand",
+    "price": 14230,
+    "imageUrl": "https://picsum.photos/seed/363/600/800",
+    "category": "T-Shirts",
+    "color": "Gray",
+    "size": "L",
+    "fit": "Oversized",
+    "occasionTags": [
+      "Party"
+    ],
+    "style": "Bohemian",
+    "description": "Elegant t-shirts by LuxuryBrand. Bohemian style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0364",
+    "title": "LuxuryBrand Blazers Classic Collection",
+    "brand": "LuxuryBrand",
+    "price": 14267,
+    "imageUrl": "https://picsum.photos/seed/364/600/800",
+    "category": "Blazers",
+    "color": "Beige",
+    "size": "XL",
+    "fit": "Fitted",
+    "occasionTags": [
+      "Sports",
+      "Work"
+    ],
+    "style": "Classic",
+    "description": "High-quality blazers in beige. Perfect fit for sports settings."
+  },
+  {
+    "id": "prod-0365",
+    "title": "Brown Slim Dresses",
+    "brand": "LuxuryBrand",
+    "price": 14304,
+    "imageUrl": "https://picsum.photos/seed/365/600/800",
+    "category": "Dresses",
+    "color": "Brown",
+    "size": "XXL",
+    "fit": "Slim",
+    "occasionTags": [
+      "Evening",
+      "Casual",
+      "Beach"
+    ],
+    "style": "Streetwear",
+    "description": "Premium brown dresses from LuxuryBrand. Perfect for evening occasions."
+  },
+  {
+    "id": "prod-0366",
+    "title": "LuxuryBrand Premium Sneakers",
+    "brand": "LuxuryBrand",
+    "price": 14341,
+    "imageUrl": "https://picsum.photos/seed/366/600/800",
+    "category": "Sneakers",
+    "color": "Blue",
+    "size": "XS",
+    "fit": "Regular",
+    "occasionTags": [
+      "Casual"
+    ],
+    "style": "Elegant",
+    "description": "Stylish sneakers featuring elegant design. Made with quality materials."
+  },
+  {
+    "id": "prod-0367",
+    "title": "Sporty Loafers - LuxuryBrand",
+    "brand": "LuxuryBrand",
+    "price": 14378,
+    "imageUrl": "https://picsum.photos/seed/367/600/800",
+    "category": "Loafers",
+    "color": "Red",
+    "size": "S",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Office",
+      "Beach"
+    ],
+    "style": "Sporty",
+    "description": "Comfortable relaxed fit loafers in red. Ideal for office and beach wear."
+  },
+  {
+    "id": "prod-0368",
+    "title": "LuxuryBrand Handbags - Green",
+    "brand": "LuxuryBrand",
+    "price": 14415,
+    "imageUrl": "https://picsum.photos/seed/368/600/800",
+    "category": "Handbags",
+    "color": "Green",
+    "occasionTags": [
+      "Casual",
+      "Formal",
+      "Sports"
+    ],
+    "style": "Casual",
+    "description": "Elegant handbags by LuxuryBrand. Casual style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0369",
+    "title": "Pink Watches by LuxuryBrand",
+    "brand": "LuxuryBrand",
+    "price": 14452,
+    "imageUrl": "https://picsum.photos/seed/369/600/800",
+    "category": "Watches",
+    "color": "Pink",
+    "occasionTags": [
+      "Sports"
+    ],
+    "style": "Formal",
+    "description": "High-quality watches in pink. Perfect fit for sports settings."
+  },
+  {
+    "id": "prod-0370",
+    "title": "LuxuryBrand Minimalist Shirts",
+    "brand": "LuxuryBrand",
+    "price": 14489,
+    "imageUrl": "https://picsum.photos/seed/370/600/800",
+    "category": "Shirts",
+    "color": "Purple",
+    "size": "XL",
+    "fit": "Slim",
+    "occasionTags": [
+      "Travel",
+      "Sports"
+    ],
+    "style": "Minimalist",
+    "description": "Premium purple shirts from LuxuryBrand. Perfect for travel occasions."
+  },
+  {
+    "id": "prod-0371",
+    "title": "Regular Fit Trousers - LuxuryBrand",
+    "brand": "LuxuryBrand",
+    "price": 14526,
+    "imageUrl": "https://picsum.photos/seed/371/600/800",
+    "category": "Trousers",
+    "color": "Yellow",
+    "size": "XXL",
+    "fit": "Regular",
+    "occasionTags": [
+      "Wedding",
+      "Casual",
+      "Office"
+    ],
+    "style": "Vintage",
+    "description": "Stylish trousers featuring vintage design. Made with quality materials."
+  },
+  {
+    "id": "prod-0372",
+    "title": "LuxuryBrand Jeans Contemporary Collection",
+    "brand": "LuxuryBrand",
+    "price": 14563,
+    "imageUrl": "https://picsum.photos/seed/372/600/800",
+    "category": "Jeans",
+    "color": "Orange",
+    "size": "XS",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Sports"
+    ],
+    "style": "Contemporary",
+    "description": "Comfortable relaxed fit jeans in orange. Ideal for sports wear."
+  },
+  {
+    "id": "prod-0373",
+    "title": "Maroon Oversized T-Shirts",
+    "brand": "LuxuryBrand",
+    "price": 14600,
+    "imageUrl": "https://picsum.photos/seed/373/600/800",
+    "category": "T-Shirts",
+    "color": "Maroon",
+    "size": "S",
+    "fit": "Oversized",
+    "occasionTags": [
+      "Party",
+      "Formal"
+    ],
+    "style": "Bohemian",
+    "description": "Elegant t-shirts by LuxuryBrand. Bohemian style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0374",
+    "title": "LuxuryBrand Premium Blazers",
+    "brand": "LuxuryBrand",
+    "price": 14637,
+    "imageUrl": "https://picsum.photos/seed/374/600/800",
+    "category": "Blazers",
+    "color": "Olive",
+    "size": "M",
+    "fit": "Fitted",
+    "occasionTags": [
+      "Casual",
+      "Beach",
+      "Formal"
+    ],
+    "style": "Classic",
+    "description": "High-quality blazers in olive. Perfect fit for casual settings."
+  },
+  {
+    "id": "prod-0375",
+    "title": "Streetwear Dresses - LuxuryBrand",
+    "brand": "LuxuryBrand",
+    "price": 14674,
+    "imageUrl": "https://picsum.photos/seed/375/600/800",
+    "category": "Dresses",
+    "color": "Black",
+    "size": "L",
+    "fit": "Slim",
+    "occasionTags": [
+      "Casual"
+    ],
+    "style": "Streetwear",
+    "description": "Premium black dresses from LuxuryBrand. Perfect for casual occasions."
+  },
+  {
+    "id": "prod-0376",
+    "title": "LuxuryBrand Sneakers - White",
+    "brand": "LuxuryBrand",
+    "price": 14711,
+    "imageUrl": "https://picsum.photos/seed/376/600/800",
+    "category": "Sneakers",
+    "color": "White",
+    "size": "XL",
+    "fit": "Regular",
+    "occasionTags": [
+      "Office",
+      "Casual"
+    ],
+    "style": "Elegant",
+    "description": "Stylish sneakers featuring elegant design. Made with quality materials."
+  },
+  {
+    "id": "prod-0377",
+    "title": "Navy Loafers by LuxuryBrand",
+    "brand": "LuxuryBrand",
+    "price": 14748,
+    "imageUrl": "https://picsum.photos/seed/377/600/800",
+    "category": "Loafers",
+    "color": "Navy",
+    "size": "XXL",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Work",
+      "Travel",
+      "Formal"
+    ],
+    "style": "Sporty",
+    "description": "Comfortable relaxed fit loafers in navy. Ideal for work and travel and formal wear."
+  },
+  {
+    "id": "prod-0378",
+    "title": "LuxuryBrand Casual Handbags",
+    "brand": "LuxuryBrand",
+    "price": 14785,
+    "imageUrl": "https://picsum.photos/seed/378/600/800",
+    "category": "Handbags",
+    "color": "Gray",
+    "occasionTags": [
+      "Evening"
+    ],
+    "style": "Casual",
+    "description": "Elegant handbags by LuxuryBrand. Casual style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0379",
+    "title": "Fitted Fit Watches - LuxuryBrand",
+    "brand": "LuxuryBrand",
+    "price": 14822,
+    "imageUrl": "https://picsum.photos/seed/379/600/800",
+    "category": "Watches",
+    "color": "Beige",
+    "occasionTags": [
+      "Evening",
+      "Wedding"
+    ],
+    "style": "Formal",
+    "description": "High-quality watches in beige. Perfect fit for evening settings."
+  },
+  {
+    "id": "prod-0380",
+    "title": "LuxuryBrand Shirts Minimalist Collection",
+    "brand": "LuxuryBrand",
+    "price": 14859,
+    "imageUrl": "https://picsum.photos/seed/380/600/800",
+    "category": "Shirts",
+    "color": "Brown",
+    "size": "M",
+    "fit": "Slim",
+    "occasionTags": [
+      "Travel",
+      "Party",
+      "Office"
+    ],
+    "style": "Minimalist",
+    "description": "Premium brown shirts from LuxuryBrand. Perfect for travel occasions."
+  },
+  {
+    "id": "prod-0381",
+    "title": "Blue Regular Trousers",
+    "brand": "LuxuryBrand",
+    "price": 14896,
+    "imageUrl": "https://picsum.photos/seed/381/600/800",
+    "category": "Trousers",
+    "color": "Blue",
+    "size": "L",
+    "fit": "Regular",
+    "occasionTags": [
+      "Casual"
+    ],
+    "style": "Vintage",
+    "description": "Stylish trousers featuring vintage design. Made with quality materials."
+  },
+  {
+    "id": "prod-0382",
+    "title": "LuxuryBrand Premium Jeans",
+    "brand": "LuxuryBrand",
+    "price": 14933,
+    "imageUrl": "https://picsum.photos/seed/382/600/800",
+    "category": "Jeans",
+    "color": "Red",
+    "size": "XL",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Work",
+      "Travel"
+    ],
+    "style": "Contemporary",
+    "description": "Comfortable relaxed fit jeans in red. Ideal for work and travel wear."
+  },
+  {
+    "id": "prod-0383",
+    "title": "Bohemian T-Shirts - LuxuryBrand",
+    "brand": "LuxuryBrand",
+    "price": 14970,
+    "imageUrl": "https://picsum.photos/seed/383/600/800",
+    "category": "T-Shirts",
+    "color": "Green",
+    "size": "XXL",
+    "fit": "Oversized",
+    "occasionTags": [
+      "Sports",
+      "Casual",
+      "Formal"
+    ],
+    "style": "Bohemian",
+    "description": "Elegant t-shirts by LuxuryBrand. Bohemian style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0384",
+    "title": "LuxuryBrand Blazers - Pink",
+    "brand": "LuxuryBrand",
+    "price": 807,
+    "imageUrl": "https://picsum.photos/seed/384/600/800",
+    "category": "Blazers",
+    "color": "Pink",
+    "size": "XS",
+    "fit": "Fitted",
+    "occasionTags": [
+      "Evening"
+    ],
+    "style": "Classic",
+    "description": "High-quality blazers in pink. Perfect fit for evening settings."
+  },
+  {
+    "id": "prod-0385",
+    "title": "Purple Dresses by LuxuryBrand",
+    "brand": "LuxuryBrand",
+    "price": 844,
+    "imageUrl": "https://picsum.photos/seed/385/600/800",
+    "category": "Dresses",
+    "color": "Purple",
+    "size": "S",
+    "fit": "Slim",
+    "occasionTags": [
+      "Casual",
+      "Party"
+    ],
+    "style": "Streetwear",
+    "description": "Premium purple dresses from LuxuryBrand. Perfect for casual occasions."
+  },
+  {
+    "id": "prod-0386",
+    "title": "LuxuryBrand Elegant Sneakers",
+    "brand": "LuxuryBrand",
+    "price": 881,
+    "imageUrl": "https://picsum.photos/seed/386/600/800",
+    "category": "Sneakers",
+    "color": "Yellow",
+    "size": "M",
+    "fit": "Regular",
+    "occasionTags": [
+      "Travel",
+      "Office",
+      "Wedding"
+    ],
+    "style": "Elegant",
+    "description": "Stylish sneakers featuring elegant design. Made with quality materials."
+  },
+  {
+    "id": "prod-0387",
+    "title": "Relaxed Fit Loafers - LuxuryBrand",
+    "brand": "LuxuryBrand",
+    "price": 918,
+    "imageUrl": "https://picsum.photos/seed/387/600/800",
+    "category": "Loafers",
+    "color": "Orange",
+    "size": "L",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Evening"
+    ],
+    "style": "Sporty",
+    "description": "Comfortable relaxed fit loafers in orange. Ideal for evening wear."
+  },
+  {
+    "id": "prod-0388",
+    "title": "LuxuryBrand Handbags Casual Collection",
+    "brand": "LuxuryBrand",
+    "price": 955,
+    "imageUrl": "https://picsum.photos/seed/388/600/800",
+    "category": "Handbags",
+    "color": "Maroon",
+    "occasionTags": [
+      "Work",
+      "Beach"
+    ],
+    "style": "Casual",
+    "description": "Elegant handbags by LuxuryBrand. Casual style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0389",
+    "title": "Olive Fitted Watches",
+    "brand": "LuxuryBrand",
+    "price": 992,
+    "imageUrl": "https://picsum.photos/seed/389/600/800",
+    "category": "Watches",
+    "color": "Olive",
+    "occasionTags": [
+      "Office",
+      "Beach",
+      "Evening"
+    ],
+    "style": "Formal",
+    "description": "High-quality watches in olive. Perfect fit for office settings."
+  },
+  {
+    "id": "prod-0390",
+    "title": "LuxuryBrand Premium Shirts",
+    "brand": "LuxuryBrand",
+    "price": 1029,
+    "imageUrl": "https://picsum.photos/seed/390/600/800",
+    "category": "Shirts",
+    "color": "Black",
+    "size": "XS",
+    "fit": "Slim",
+    "occasionTags": [
+      "Casual"
+    ],
+    "style": "Minimalist",
+    "description": "Premium black shirts from LuxuryBrand. Perfect for casual occasions."
+  },
+  {
+    "id": "prod-0391",
+    "title": "Vintage Trousers - LuxuryBrand",
+    "brand": "LuxuryBrand",
+    "price": 1066,
+    "imageUrl": "https://picsum.photos/seed/391/600/800",
+    "category": "Trousers",
+    "color": "White",
+    "size": "S",
+    "fit": "Regular",
+    "occasionTags": [
+      "Work",
+      "Travel"
+    ],
+    "style": "Vintage",
+    "description": "Stylish trousers featuring vintage design. Made with quality materials."
+  },
+  {
+    "id": "prod-0392",
+    "title": "LuxuryBrand Jeans - Navy",
+    "brand": "LuxuryBrand",
+    "price": 1103,
+    "imageUrl": "https://picsum.photos/seed/392/600/800",
+    "category": "Jeans",
+    "color": "Navy",
+    "size": "M",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Casual",
+      "Formal",
+      "Beach"
+    ],
+    "style": "Contemporary",
+    "description": "Comfortable relaxed fit jeans in navy. Ideal for casual and formal and beach wear."
+  },
+  {
+    "id": "prod-0393",
+    "title": "Gray T-Shirts by LuxuryBrand",
+    "brand": "LuxuryBrand",
+    "price": 1140,
+    "imageUrl": "https://picsum.photos/seed/393/600/800",
+    "category": "T-Shirts",
+    "color": "Gray",
+    "size": "L",
+    "fit": "Oversized",
+    "occasionTags": [
+      "Work"
+    ],
+    "style": "Bohemian",
+    "description": "Elegant t-shirts by LuxuryBrand. Bohemian style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0394",
+    "title": "LuxuryBrand Classic Blazers",
+    "brand": "LuxuryBrand",
+    "price": 1177,
+    "imageUrl": "https://picsum.photos/seed/394/600/800",
+    "category": "Blazers",
+    "color": "Beige",
+    "size": "XL",
+    "fit": "Fitted",
+    "occasionTags": [
+      "Evening",
+      "Travel"
+    ],
+    "style": "Classic",
+    "description": "High-quality blazers in beige. Perfect fit for evening settings."
+  },
+  {
+    "id": "prod-0395",
+    "title": "Slim Fit Dresses - LuxuryBrand",
+    "brand": "LuxuryBrand",
+    "price": 1214,
+    "imageUrl": "https://picsum.photos/seed/395/600/800",
+    "category": "Dresses",
+    "color": "Brown",
+    "size": "XXL",
+    "fit": "Slim",
+    "occasionTags": [
+      "Evening",
+      "Formal",
+      "Office"
+    ],
+    "style": "Streetwear",
+    "description": "Premium brown dresses from LuxuryBrand. Perfect for evening occasions."
+  },
+  {
+    "id": "prod-0396",
+    "title": "LuxuryBrand Sneakers Elegant Collection",
+    "brand": "LuxuryBrand",
+    "price": 1251,
+    "imageUrl": "https://picsum.photos/seed/396/600/800",
+    "category": "Sneakers",
+    "color": "Blue",
+    "size": "XS",
+    "fit": "Regular",
+    "occasionTags": [
+      "Party"
+    ],
+    "style": "Elegant",
+    "description": "Stylish sneakers featuring elegant design. Made with quality materials."
+  },
+  {
+    "id": "prod-0397",
+    "title": "Red Relaxed Loafers",
+    "brand": "LuxuryBrand",
+    "price": 1288,
+    "imageUrl": "https://picsum.photos/seed/397/600/800",
+    "category": "Loafers",
+    "color": "Red",
+    "size": "S",
+    "fit": "Relaxed",
+    "occasionTags": [
+      "Work",
+      "Party"
+    ],
+    "style": "Sporty",
+    "description": "Comfortable relaxed fit loafers in red. Ideal for work and party wear."
+  },
+  {
+    "id": "prod-0398",
+    "title": "LuxuryBrand Premium Handbags",
+    "brand": "LuxuryBrand",
+    "price": 1325,
+    "imageUrl": "https://picsum.photos/seed/398/600/800",
+    "category": "Handbags",
+    "color": "Green",
+    "occasionTags": [
+      "Casual",
+      "Work",
+      "Formal"
+    ],
+    "style": "Casual",
+    "description": "Elegant handbags by LuxuryBrand. Casual style that suits multiple occasions."
+  },
+  {
+    "id": "prod-0399",
+    "title": "Formal Watches - LuxuryBrand",
+    "brand": "LuxuryBrand",
+    "price": 1362,
+    "imageUrl": "https://picsum.photos/seed/399/600/800",
+    "category": "Watches",
+    "color": "Pink",
+    "occasionTags": [
+      "Sports"
+    ],
+    "style": "Formal",
+    "description": "High-quality watches in pink. Perfect fit for sports settings."
+  },
+  {
+    "id": "prod-0400",
+    "title": "StyleCraft Shirts - Purple",
+    "brand": "StyleCraft",
+    "price": 1399,
+    "imageUrl": "https://picsum.photos/seed/400/600/800",
+    "category": "Shirts",
+    "color": "Purple",
+    "size": "XL",
+    "fit": "Slim",
+    "occasionTags": [
+      "Sports",
+      "Casual"
+    ],
+    "style": "Minimalist",
+    "description": "Premium purple shirts from StyleCraft. Perfect for sports occasions."
+  }
+]
