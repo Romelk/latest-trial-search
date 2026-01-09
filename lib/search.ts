@@ -1,4 +1,5 @@
 import type { Product } from "./catalog";
+import { AUDIENCE_CATEGORIES } from "./catalog";
 
 export type SearchConstraints = {
   budgetMax?: number;
@@ -10,7 +11,143 @@ export type SearchConstraints = {
   style?: string;
   includeKeywords?: string[];
   excludeKeywords?: string[];
+  excludeCategories?: string[] | null;
+  sortBy?: "relevance" | "price_asc" | "price_desc";
 };
+
+/**
+ * Synonym dictionary for common fashion terms
+ */
+const SYNONYMS: Record<string, string[]> = {
+  "shoe": ["sneaker", "loafer", "derby", "heel", "flat", "footwear"],
+  "shoes": ["sneakers", "trainers", "athletic shoes", "runners", "footwear"],
+  "sneaker": ["sneakers", "trainers", "athletic shoes", "runners"],
+  "snikers": ["sneakers", "sneaker"], // Common typo
+  "sneakers": ["sneaker", "trainers", "athletic shoes", "runners"],
+  "shirt": ["shirts", "blouse", "top", "tee", "t-shirt"],
+  "shirts": ["shirt", "blouse", "top", "tee", "t-shirt"],
+  "pants": ["trousers", "chinos", "jeans", "slacks"],
+  "trousers": ["pants", "chinos", "jeans", "slacks"],
+  "jacket": ["blazer", "coat", "outerwear"],
+  "blazer": ["jacket", "coat", "blazers"],
+  "bag": ["handbag", "purse", "clutch", "tote"],
+  "handbag": ["bag", "purse", "clutch", "tote"],
+  "purse": ["handbag", "bag", "clutch", "tote"],
+};
+
+/**
+ * Common typo corrections
+ */
+const TYPO_CORRECTIONS: Record<string, string> = {
+  "snikers": "sneakers",
+  "sniker": "sneaker",
+  "trainers": "sneakers",
+  "trainer": "sneaker",
+};
+
+/**
+ * Expand query tokens using synonyms
+ */
+function expandSynonyms(tokens: string[]): string[] {
+  const expanded = new Set<string>();
+  
+  for (const token of tokens) {
+    expanded.add(token); // Always include original token
+    
+    // Apply typo correction first
+    const corrected = TYPO_CORRECTIONS[token.toLowerCase()] || token.toLowerCase();
+    if (corrected !== token.toLowerCase()) {
+      expanded.add(corrected);
+    }
+    
+    // Add synonyms
+    const synonyms = SYNONYMS[token.toLowerCase()] || SYNONYMS[corrected] || [];
+    for (const synonym of synonyms) {
+      expanded.add(synonym.toLowerCase());
+      // Also add singular/plural variations
+      if (synonym.endsWith("s") && synonym.length > 1) {
+        expanded.add(synonym.slice(0, -1).toLowerCase());
+      } else if (!synonym.endsWith("s")) {
+        expanded.add((synonym + "s").toLowerCase());
+      }
+    }
+    
+    // Handle plural/singular variations
+    if (token.endsWith("s") && token.length > 1) {
+      const singular = token.slice(0, -1).toLowerCase();
+      expanded.add(singular);
+      const singularSynonyms = SYNONYMS[singular] || [];
+      for (const synonym of singularSynonyms) {
+        expanded.add(synonym.toLowerCase());
+      }
+    } else if (!token.endsWith("s")) {
+      const plural = (token + "s").toLowerCase();
+      expanded.add(plural);
+      const pluralSynonyms = SYNONYMS[plural] || [];
+      for (const synonym of pluralSynonyms) {
+        expanded.add(synonym.toLowerCase());
+      }
+    }
+  }
+  
+  return Array.from(expanded);
+}
+
+/**
+ * Calculate Levenshtein distance between two strings (simple version)
+ */
+function levenshteinDistance(str1: string, str2: string): number {
+  const m = str1.length;
+  const n = str2.length;
+  const dp: number[][] = [];
+  
+  for (let i = 0; i <= m; i++) {
+    dp[i] = [i];
+  }
+  for (let j = 0; j <= n; j++) {
+    dp[0][j] = j;
+  }
+  
+  for (let i = 1; i <= m; i++) {
+    for (let j = 1; j <= n; j++) {
+      if (str1[i - 1] === str2[j - 1]) {
+        dp[i][j] = dp[i - 1][j - 1];
+      } else {
+        dp[i][j] = Math.min(
+          dp[i - 1][j] + 1,     // deletion
+          dp[i][j - 1] + 1,     // insertion
+          dp[i - 1][j - 1] + 1  // substitution
+        );
+      }
+    }
+  }
+  
+  return dp[m][n];
+}
+
+/**
+ * Fuzzy match category/color with typo tolerance
+ */
+function fuzzyMatchCategory(category: string, query: string, threshold: number = 2): boolean {
+  const categoryLower = category.toLowerCase();
+  const queryLower = query.toLowerCase();
+  
+  // Exact match first
+  if (categoryLower.includes(queryLower) || queryLower.includes(categoryLower)) {
+    return true;
+  }
+  
+  // Fuzzy match using Levenshtein distance
+  const distance = levenshteinDistance(categoryLower, queryLower);
+  const maxLength = Math.max(categoryLower.length, queryLower.length);
+  
+  // Only use fuzzy if the distance is small relative to length
+  if (maxLength > 0 && distance <= threshold && distance / maxLength < 0.3) {
+    return true;
+  }
+  
+  return false;
+}
 
 export type SearchResult = {
   product: Product;
@@ -75,9 +212,15 @@ export function inferAudience(query: string): "men" | "women" | "unisex" | null 
 /**
  * Extract constraints from search query using heuristics
  */
-export function extractConstraints(query: string): SearchConstraints {
+export function extractConstraints(query: string, audience?: "men" | "women" | "unisex" | null): SearchConstraints {
   const constraints: SearchConstraints = {};
-  const lowerQuery = query.toLowerCase();
+  
+  // Apply typo correction to query BEFORE extracting constraints
+  let correctedQuery = query.toLowerCase();
+  for (const [typo, correction] of Object.entries(TYPO_CORRECTIONS)) {
+    correctedQuery = correctedQuery.replace(new RegExp(`\\b${typo}\\b`, 'gi'), correction);
+  }
+  const lowerQuery = correctedQuery; // Use corrected query for all checks
 
   // Budget extraction (USD) - handle various formats
   const budgetPatterns = [
@@ -95,43 +238,45 @@ export function extractConstraints(query: string): SearchConstraints {
     }
   }
 
-  // Category extraction
+  // Category extraction with typo correction
   const categories = [
-    "shirts",
-    "trousers",
-    "jeans",
-    "t-shirts",
-    "t shirts",
-    "blazers",
-    "dresses",
-    "sneakers",
-    "loafers",
-    "derbies",
-    "heels",
-    "flats",
-    "handbags",
-    "watches",
+    "shirts", "trousers", "jeans", "t-shirts", "t shirts", "blazers",
+    "dresses", "sneakers", "loafers", "derbies", "heels", "flats",
+    "handbags", "watches", "polos", "chinos", "blouses", "skirts",
+    "clutches", "overshirts", "hoodies", "jackets", "backpacks",
+    "sunglasses", "beanies", "tees"
   ];
 
-  // Special handling for "shoes" - it's a general term for footwear
-  if (lowerQuery.includes("shoe")) {
-    // Map "shoes" to a special keyword that will match all footwear categories
-    constraints.includeKeywords = ["Sneakers", "Loafers", "Derbies", "Heels", "Flats"];
-  } else {
-    for (const category of categories) {
-      if (lowerQuery.includes(category)) {
-        // Map to proper category name
-        const properCategory =
-          category === "t-shirts" || category === "t shirts"
-            ? "T-Shirts"
-            : category.charAt(0).toUpperCase() + category.slice(1);
-        constraints.category = properCategory;
-        break;
-      }
+  // Check for specific category matches (after typo correction)
+  let foundSpecificCategory = false;
+  for (const category of categories) {
+    // Use word boundary to match whole words only
+    const categoryRegex = new RegExp(`\\b${category}\\b`, 'i');
+    if (categoryRegex.test(lowerQuery)) {
+      const properCategory = 
+        category === "t-shirts" || category === "t shirts" ? "T-Shirts" :
+        category.charAt(0).toUpperCase() + category.slice(1);
+      constraints.category = properCategory; // Hard filter
+      foundSpecificCategory = true;
+      break;
     }
   }
 
+  // Only if no specific category found, check for general "shoe" term
+  if (!foundSpecificCategory && lowerQuery.includes("shoe")) {
+    let footwear = ["Sneakers", "Loafers", "Derbies", "Heels", "Flats"];
+    if (audience === "men") {
+      footwear = footwear.filter(c => ["Sneakers", "Loafers", "Derbies"].includes(c));
+    } else if (audience === "women") {
+      footwear = footwear.filter(c => ["Sneakers", "Flats", "Heels"].includes(c));
+    } else if (audience === "unisex") {
+      footwear = ["Sneakers"];
+    }
+    constraints.includeKeywords = footwear;
+  }
+
   // Color exclusion extraction (check first for "no black", "exclude black", etc.)
+  // Use corrected query for color extraction too
   const excludeColorPatterns = [
     /no\s+(\w+)/i,
     /exclude\s+(\w+)/i,
@@ -170,6 +315,7 @@ export function extractConstraints(query: string): SearchConstraints {
   }
 
   // Color inclusion extraction (only if no exclusion found)
+  // Use corrected query for color extraction
   if (!foundExclude) {
     for (const color of colors) {
       if (lowerQuery.includes(color)) {
@@ -237,14 +383,19 @@ export function extractConstraints(query: string): SearchConstraints {
 }
 
 /**
- * Tokenize query into search terms
+ * Tokenize query into search terms and expand with synonyms
  */
 function tokenizeQuery(query: string): string[] {
-  return query
+  const baseTokens = query
     .toLowerCase()
     .split(/\s+/)
     .filter((token) => token.length > 2) // Filter out very short tokens
     .filter((token) => !/^(the|and|or|for|with|under|below|max)$/i.test(token)); // Filter common words
+  
+  // Expand with synonyms
+  const expanded = expandSynonyms(baseTokens);
+  
+  return Array.from(expanded);
 }
 
 /**
@@ -253,7 +404,8 @@ function tokenizeQuery(query: string): string[] {
 function calculateScore(
   product: Product,
   tokens: string[],
-  constraints: SearchConstraints
+  constraints: SearchConstraints,
+  originalQuery: string = ""
 ): number {
   let score = 0;
 
@@ -293,30 +445,44 @@ function calculateScore(
     }
   }
 
+  // Track original query tokens (before synonym expansion) for exact match bonus
+  const originalQueryLower = originalQuery.toLowerCase();
+  const originalTokens = originalQueryLower
+    .split(/\s+/)
+    .filter((token) => token.length > 2)
+    .filter((token) => !/^(the|and|or|for|with|under|below|max)$/i.test(token));
+
   for (const token of tokens) {
+    const isOriginalToken = originalTokens.some(orig => orig === token || orig.includes(token) || token.includes(orig));
+    const matchBonus = isOriginalToken ? 2 : 0; // Bonus for exact query matches
+    
     // Title matches (highest weight)
     if (product.title.toLowerCase().includes(token)) {
-      score += 10;
+      score += 10 + matchBonus;
     }
 
     // Brand matches
     if (product.brand.toLowerCase().includes(token)) {
-      score += 8;
+      score += 8 + matchBonus;
     }
 
-    // Category matches
+    // Category matches (with fuzzy matching fallback)
     if (product.category.toLowerCase().includes(token)) {
-      score += 7;
+      score += 7 + matchBonus;
+    } else if (fuzzyMatchCategory(product.category, token)) {
+      score += 5; // Lower score for fuzzy matches
     }
 
-    // Color matches
+    // Color matches (with fuzzy matching fallback)
     if (product.color.toLowerCase().includes(token)) {
-      score += 6;
+      score += 6 + matchBonus;
+    } else if (fuzzyMatchCategory(product.color, token)) {
+      score += 4; // Lower score for fuzzy matches
     }
 
     // Style matches
     if (product.style.toLowerCase().includes(token)) {
-      score += 5;
+      score += 5 + matchBonus;
     }
 
     // Occasion tag matches
@@ -325,7 +491,7 @@ function calculateScore(
         tag.toLowerCase().includes(token)
       )
     ) {
-      score += 4;
+      score += 4 + matchBonus;
     }
 
     // Description matches (lower weight)
@@ -379,7 +545,15 @@ function calculateScore(
 /**
  * Quick pre-filter based on hard constraints (before expensive scoring)
  */
-function preFilter(product: Product, constraints: SearchConstraints): boolean {
+function preFilter(product: Product, constraints: SearchConstraints, audience?: "men" | "women" | "unisex" | null): boolean {
+  // Audience-based category filtering
+  if (audience && AUDIENCE_CATEGORIES[audience]) {
+    const allowedCategories = AUDIENCE_CATEGORIES[audience];
+    if (!allowedCategories.includes(product.category)) {
+      return false;
+    }
+  }
+
   // Budget filter
   if (constraints.budgetMax && product.price > constraints.budgetMax) {
     return false;
@@ -409,6 +583,13 @@ function preFilter(product: Product, constraints: SearchConstraints): boolean {
     if (!matches) {
       return false;
     }
+    // Additional check: ensure keyword is valid for audience
+    if (audience && AUDIENCE_CATEGORIES[audience]) {
+      const allowedCategories = AUDIENCE_CATEGORIES[audience];
+      if (!allowedCategories.includes(product.category)) {
+        return false;
+      }
+    }
   }
 
   // Exclude keywords filter
@@ -420,6 +601,13 @@ function preFilter(product: Product, constraints: SearchConstraints): boolean {
       product.color,
     ].join(" ").toLowerCase();
     if (constraints.excludeKeywords.some((keyword) => productText.includes(keyword.toLowerCase()))) {
+      return false;
+    }
+  }
+
+  // Category exclusion filter
+  if (constraints.excludeCategories && constraints.excludeCategories.length > 0) {
+    if (constraints.excludeCategories.includes(product.category)) {
       return false;
     }
   }
@@ -448,36 +636,45 @@ function preFilter(product: Product, constraints: SearchConstraints): boolean {
 export function searchProducts(
   products: Product[],
   query: string,
-  limit: number = 24
+  limit: number = 24,
+  audience?: "men" | "women" | "unisex" | null,
+  sortBy: "relevance" | "price_asc" | "price_desc" = "relevance"
 ): SearchResult[] {
   if (!query.trim()) {
     return [];
   }
 
   const tokens = tokenizeQuery(query);
-  const constraints = extractConstraints(query);
+  const constraints = extractConstraints(query, audience);
+  constraints.sortBy = sortBy;
 
   // Step 1: Quick pre-filter to reduce the number of products we need to score
-  const preFiltered = products.filter((product) => preFilter(product, constraints));
+  const preFiltered = products.filter((product) => preFilter(product, constraints, audience));
 
   // Step 2: Score only the pre-filtered products
   let scored: SearchResult[] = preFiltered
     .map((product) => ({
       product,
-      score: calculateScore(product, tokens, constraints),
+      score: calculateScore(product, tokens, constraints, query),
     }))
     .filter((result) => result.score >= 0) // Remove any that failed scoring
     .sort((a, b) => b.score - a.score); // Sort by score descending
 
   // Apply sorting if specified
-  if ((constraints as any).sortBy === "price_asc") {
+  if (sortBy === "price_asc") {
     scored = scored.sort((a, b) => {
-      if (a.score !== b.score) return b.score - a.score; // Keep score as primary
+      if (a.score !== b.score && Math.abs(a.score - b.score) > 5) {
+        // Only use price as primary sort if scores are very close
+        return b.score - a.score;
+      }
       return a.product.price - b.product.price;
     });
-  } else if ((constraints as any).sortBy === "price_desc") {
+  } else if (sortBy === "price_desc") {
     scored = scored.sort((a, b) => {
-      if (a.score !== b.score) return b.score - a.score; // Keep score as primary
+      if (a.score !== b.score && Math.abs(a.score - b.score) > 5) {
+        // Only use price as primary sort if scores are very close
+        return b.score - a.score;
+      }
       return b.product.price - a.product.price;
     });
   }
@@ -503,6 +700,9 @@ export function getConstraintChips(constraints: SearchConstraints): string[] {
   if (constraints.colorExclude) {
     chips.push(`Exclude ${constraints.colorExclude}`);
   }
+  if (constraints.excludeCategories && constraints.excludeCategories.length > 0) {
+    chips.push(...constraints.excludeCategories.map((cat) => `Exclude ${cat}`));
+  }
   if (constraints.occasion) {
     chips.push(constraints.occasion);
   }
@@ -521,4 +721,5 @@ export function getConstraintChips(constraints: SearchConstraints): string[] {
 
   return chips;
 }
+
 

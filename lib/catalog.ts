@@ -26,7 +26,7 @@ export type Product = {
 };
 
 // Audience-specific category definitions
-const AUDIENCE_CATEGORIES = {
+export const AUDIENCE_CATEGORIES = {
   men: ["Shirts", "Polos", "Chinos", "Jeans", "Tees", "Blazers", "Sneakers", "Loafers", "Derbies"],
   women: ["Dresses", "Blouses", "Trousers", "Skirts", "Tees", "Blazers", "Sneakers", "Flats", "Heels", "Clutches"],
   unisex: ["Tees", "Overshirts", "Hoodies", "Jackets", "Trousers", "Sneakers", "Backpacks", "Sunglasses", "Beanies"],

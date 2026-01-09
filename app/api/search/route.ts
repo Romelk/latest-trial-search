@@ -85,7 +85,7 @@ function detectIntent(query: string): Intent {
 
 export async function POST(request: NextRequest) {
   try {
-    const { query, provider = "openai", userAnswer, session, followUp, constraintsOverride, audience } = await request.json();
+    const { query, provider = "openai", userAnswer, session, followUp, constraintsOverride, audience, sortBy = "relevance" } = await request.json();
 
     if (!query || typeof query !== "string") {
       return NextResponse.json(
@@ -98,7 +98,10 @@ export async function POST(request: NextRequest) {
     
     // Handle follow-up refinement
     if (followUp && session) {
-      const existingConstraints = constraintsOverride || extractConstraints(session.originalQuery);
+      // Get audience from session or use provided
+      const currentAudience = session.audience || audience || null;
+      
+      const existingConstraints = constraintsOverride || extractConstraints(session.originalQuery, currentAudience);
       
       // Generate constraint delta from follow-up
       const delta = await generateConstraintDelta(
@@ -114,13 +117,14 @@ export async function POST(request: NextRequest) {
         // Handle color exclude
         color: delta.colorExclude ? undefined : (delta.colorInclude || existingConstraints.color),
         colorExclude: delta.colorExclude || existingConstraints.colorExclude,
+        // Merge excludeCategories arrays
+        excludeCategories: delta.excludeCategories 
+          ? [...(existingConstraints.excludeCategories || []), ...delta.excludeCategories].filter((v, i, a) => a.indexOf(v) === i) // Remove duplicates
+          : existingConstraints.excludeCategories || null,
       };
 
-      // Get audience from session or use provided
-      const currentAudience = session.audience || audience || null;
-
       // Re-run search with merged constraints - first get candidates
-      const searchResults = searchProducts(catalog, session.originalQuery, 100);
+      const searchResults = searchProducts(catalog, session.originalQuery, 100, currentAudience, sortBy as "relevance" | "price_asc" | "price_desc");
       
       // Apply merged constraints and audience filter to filter results
       const filteredProducts = searchResults
@@ -171,6 +175,13 @@ export async function POST(request: NextRequest) {
             }
           }
           
+          // Apply category exclusion filter
+          if (mergedConstraints.excludeCategories && mergedConstraints.excludeCategories.length > 0) {
+            if (mergedConstraints.excludeCategories.includes(r.product.category)) {
+              return false;
+            }
+          }
+          
           // Apply include keywords filter
           if (mergedConstraints.includeKeywords && mergedConstraints.includeKeywords.length > 0) {
             const productText = [r.product.title, r.product.description].join(" ").toLowerCase();
@@ -184,22 +195,7 @@ export async function POST(request: NextRequest) {
           
           return true;
         })
-        .sort((a, b) => {
-          // Apply sorting
-          if ((mergedConstraints as any).sortBy === "price_asc") {
-            if (a.product.price !== b.product.price) {
-              return a.product.price - b.product.price;
-            }
-            return b.score - a.score; // Secondary sort by score
-          } else if ((mergedConstraints as any).sortBy === "price_desc") {
-            if (a.product.price !== b.product.price) {
-              return b.product.price - a.product.price;
-            }
-            return b.score - a.score; // Secondary sort by score
-          }
-          return b.score - a.score; // Default: sort by score
-        })
-        .slice(0, 24);
+        .slice(0, 24); // Sorting is already handled by searchProducts
 
       const productSummaries = filteredProducts.map((r) => ({
         id: r.product.id,
@@ -239,7 +235,9 @@ export async function POST(request: NextRequest) {
           colorExclude: mergedConstraints.colorExclude ?? null,
           occasion: mergedConstraints.occasion ?? null,
           style: mergedConstraints.style ?? null,
+          excludeCategories: mergedConstraints.excludeCategories ?? null,
         },
+        resultCount: filteredProducts.length,
         results,
       });
     }
@@ -307,11 +305,11 @@ export async function POST(request: NextRequest) {
     }
 
     // Extract constraints from query first
-    let constraints = extractConstraints(query);
+    let constraints = extractConstraints(query, currentAudience);
     
     // Get local search results (top 30 candidates) from filtered catalog
     // searchProducts already applies constraints internally, but we pass the query
-    const searchResults = searchProducts(filteredCatalog, query, 100); // Get more candidates
+    const searchResults = searchProducts(filteredCatalog, query, 100, currentAudience, sortBy as "relevance" | "price_asc" | "price_desc"); // Get more candidates
     
     // Apply additional filters that might not be in searchProducts
     let filteredResults = searchResults
@@ -351,11 +349,11 @@ export async function POST(request: NextRequest) {
       };
 
       // Re-search with merged constraints
-      const refinedResults = searchProducts(catalog, query, 24);
+      const refinedResults = searchProducts(catalog, query, 24, currentAudience, sortBy as "relevance" | "price_asc" | "price_desc");
       finalProducts = refinedResults.map((r) => r.product);
     }
 
-    // Get top 24 products
+    // Get top 24 products (already sorted by searchProducts)
     const topProducts = finalProducts.slice(0, 24);
 
     // Generate reasons using LLM (only if we have API keys, otherwise use local)
@@ -390,12 +388,16 @@ export async function POST(request: NextRequest) {
     // Extract scenarioId from first result (if available)
     const detectedScenarioId = topProducts[0]?.scenarioId || null;
 
+    // Calculate total result count before limiting to 24
+    const totalResultCount = searchResults.length;
+
     return NextResponse.json({
       intent,
       assistantQuestion,
       session: assistantQuestion || newSession.asked ? newSession : null,
       audience: currentAudience,
       scenarioId: detectedScenarioId,
+      resultCount: totalResultCount,
       constraints: {
         budgetMax: constraints.budgetMax ?? null,
         category: constraints.category ?? null,
@@ -403,6 +405,7 @@ export async function POST(request: NextRequest) {
         colorExclude: (constraints as any).colorExclude ?? null,
         occasion: constraints.occasion ?? null,
         style: constraints.style ?? null,
+        excludeCategories: (constraints as any).excludeCategories ?? null,
       },
       results,
     });

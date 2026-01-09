@@ -15,6 +15,8 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "sonner";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { highlightMatches } from "@/lib/highlight";
 // Scenarios for the tile grid
 const SCENARIOS = [
   {
@@ -76,6 +78,9 @@ type AssistantMessage = {
   role: "assistant" | "user";
   content: string;
   timestamp: Date;
+  productId?: string;
+  product?: Product;
+  actions?: Array<{ label: string; action: string; productId?: string }>;
 };
 
 type SearchSession = {
@@ -128,6 +133,9 @@ export default function Home() {
   const [isLoadingVerdict, setIsLoadingVerdict] = useState(false);
   const [scenarioId, setScenarioId] = useState<string | null>(null);
   const [assistantOpen, setAssistantOpen] = useState(false);
+  const [resultCount, setResultCount] = useState<number>(0);
+  const [sortBy, setSortBy] = useState<"relevance" | "price_asc" | "price_desc">("relevance");
+  const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
 
   // Handle follow-up refinement
   const handleFollowUp = async (followUpText: string) => {
@@ -147,6 +155,7 @@ export default function Home() {
           provider: provider as "openai" | "anthropic" | "gemini",
           session: session,
           followUp: followUpText.trim(),
+          sortBy: sortBy,
         }),
       });
 
@@ -156,6 +165,7 @@ export default function Home() {
 
       const data = await response.json();
       setResults(data.results || []);
+      setResultCount(data.resultCount || data.results?.length || 0);
       const newConstraints = data.constraints || {};
       
       // Show toast if constraints changed
@@ -173,6 +183,9 @@ export default function Home() {
       if (newConstraints.category) briefParts.push(newConstraints.category);
       if (newConstraints.color) briefParts.push(newConstraints.color);
       if (newConstraints.colorExclude) briefParts.push(`Exclude ${newConstraints.colorExclude}`);
+      if (newConstraints.excludeCategories && newConstraints.excludeCategories.length > 0) {
+        briefParts.push(...newConstraints.excludeCategories.map((cat: string) => `Exclude ${cat}`));
+      }
       if (newConstraints.occasion) briefParts.push(newConstraints.occasion);
       if (newConstraints.style) briefParts.push(newConstraints.style);
       setShoppingBrief(briefParts.length > 0 ? briefParts.join(" • ") : null);
@@ -217,6 +230,7 @@ export default function Home() {
           userAnswer: userAnswer || null,
           session: session || null,
           audience: audienceOverride || null,
+          sortBy: sortBy,
         }),
       });
 
@@ -226,6 +240,7 @@ export default function Home() {
 
       const data = await response.json();
       setResults(data.results || []);
+      setResultCount(data.resultCount || data.results?.length || 0);
       setConstraints(data.constraints || {});
       setAssistantQuestion(data.assistantQuestion || null);
       setSession(data.session || null);
@@ -257,6 +272,10 @@ export default function Home() {
       if (data.constraints.budgetMax) briefParts.push(`Budget: $${data.constraints.budgetMax}`);
       if (data.constraints.category) briefParts.push(data.constraints.category);
       if (data.constraints.color) briefParts.push(data.constraints.color);
+      if (data.constraints.colorExclude) briefParts.push(`Exclude ${data.constraints.colorExclude}`);
+      if (data.constraints.excludeCategories && data.constraints.excludeCategories.length > 0) {
+        briefParts.push(...data.constraints.excludeCategories.map((cat: string) => `Exclude ${cat}`));
+      }
       if (data.constraints.occasion) briefParts.push(data.constraints.occasion);
       if (data.constraints.style) briefParts.push(data.constraints.style);
       setShoppingBrief(briefParts.length > 0 ? briefParts.join(" • ") : null);
@@ -553,6 +572,7 @@ export default function Home() {
   const handleHomeClick = () => {
     setQuery("");
     setResults([]);
+    setResultCount(0);
     setConstraints({});
     setAssistantMessages([]);
     setSession(null);
@@ -562,6 +582,214 @@ export default function Home() {
     setOriginalQuery("");
     setScenarioId(null);
     setAssistantOpen(false);
+    setSortBy("relevance");
+    setSelectedProducts([]);
+  };
+
+  // Handle Find Similar
+  const handleFindSimilar = async (product: Product) => {
+    // Search for similar products based on category, color, style
+    const similarQuery = `${product.category} ${product.color} ${product.style || ""}`.trim();
+    
+    // Add message to chat first
+    const findingMessageId = `similar-${Date.now()}`;
+    setAssistantMessages((prev) => [...prev, {
+      id: findingMessageId,
+      role: "assistant" as const,
+      content: `Finding similar products to ${product.title}...`,
+      timestamp: new Date(),
+    }]);
+    
+    setIsLoading(true);
+    setResults([]);
+    setConstraints({});
+    
+    try {
+      // Preserve audience from current session if available
+      const currentAudience = session?.audience || null;
+      
+      const response = await fetch("/api/search", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          query: similarQuery,
+          provider: provider as "openai" | "anthropic" | "gemini",
+          userAnswer: null,
+          session: null, // Start fresh session
+          audience: currentAudience,
+          sortBy: sortBy,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Search failed");
+      }
+
+      const data = await response.json();
+      setResults(data.results || []);
+      setResultCount(data.resultCount || data.results?.length || 0);
+      setConstraints(data.constraints || {});
+      setAssistantQuestion(data.assistantQuestion || null);
+      setSession(data.session || null);
+      setScenarioId(data.scenarioId || null);
+      setQuery(similarQuery); // Update query state
+      setOriginalQuery(similarQuery);
+      
+      // Auto-open assistant if closed
+      if (!assistantOpen) {
+        setAssistantOpen(true);
+      }
+      
+      // Extract shopping brief from constraints
+      const briefParts: string[] = [];
+      if (data.constraints.budgetMax) briefParts.push(`Budget: $${data.constraints.budgetMax}`);
+      if (data.constraints.category) briefParts.push(data.constraints.category);
+      if (data.constraints.color) briefParts.push(data.constraints.color);
+      if (data.constraints.colorExclude) briefParts.push(`Exclude ${data.constraints.colorExclude}`);
+      if (data.constraints.excludeCategories && data.constraints.excludeCategories.length > 0) {
+        briefParts.push(...data.constraints.excludeCategories.map((cat: string) => `Exclude ${cat}`));
+      }
+      if (data.constraints.occasion) briefParts.push(data.constraints.occasion);
+      if (data.constraints.style) briefParts.push(data.constraints.style);
+      setShoppingBrief(briefParts.length > 0 ? briefParts.join(" • ") : null);
+
+      // Update assistant message with results
+      if (data.results?.length > 0) {
+        setIsAssistantTyping(true);
+        setTimeout(() => {
+          setAssistantMessages((prev) => prev.map(msg => 
+            msg.id === findingMessageId 
+              ? { ...msg, content: `Found ${data.results.length} similar products` }
+              : msg
+          ));
+          setIsAssistantTyping(false);
+        }, 500);
+      } else {
+        setAssistantMessages((prev) => prev.map(msg => 
+          msg.id === findingMessageId 
+            ? { ...msg, content: `No similar products found for ${product.title}` }
+            : msg
+        ));
+      }
+    } catch (error) {
+      console.error("Find Similar error:", error);
+      toast.error("Failed to find similar products. Please try again.");
+      setAssistantMessages((prev) => prev.map(msg => 
+        msg.id === findingMessageId 
+          ? { ...msg, content: `Sorry, couldn't find similar products right now. Please try again.` }
+          : msg
+      ));
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Handle Complete Look
+  const handleCompleteLook = async (product: Product) => {
+    // Add message to chat first
+    setAssistantMessages((prev) => [...prev, {
+      id: `complete-${Date.now()}`,
+      role: "assistant" as const,
+      content: `Building complete look with ${product.title}...`,
+      timestamp: new Date(),
+    }]);
+    
+    // Call bundle builder with anchor product
+    setIsBuildingCarts(true);
+    setCartsDialogOpen(true);
+    
+    try {
+      // Use current session or query, or build from product context
+      const currentSession = session;
+      const searchQuery = currentSession?.originalQuery || query || `Complete look with ${product.category}`;
+      const response = await fetch("/api/cart/build", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          query: searchQuery,
+          provider: provider as "openai" | "anthropic" | "gemini",
+          audience: currentSession?.audience || null,
+          scenarioId: scenarioId || null,
+          anchorProductId: product.id,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to build carts");
+      }
+
+      const data = await response.json();
+      setCarts(data.carts || []);
+      toast.success("Complete look built successfully!");
+    } catch (error) {
+      console.error("Cart build error:", error);
+      toast.error("Failed to build complete look. Please try again.");
+    } finally {
+      setIsBuildingCarts(false);
+    }
+  };
+
+  // Handle action button click
+  const handleActionClick = async (action: string, productId?: string) => {
+    if (!productId) return;
+    
+    const product = selectedProducts.find(p => p.id === productId) || results.find(r => r.id === productId);
+    if (!product) return;
+    
+    if (action === "find_similar") {
+      await handleFindSimilar(product);
+    } else if (action === "complete_look") {
+      await handleCompleteLook(product);
+    }
+  };
+
+  // Handle sort change
+  const handleSortChange = async (value: "relevance" | "price_asc" | "price_desc") => {
+    setSortBy(value);
+    // Re-run search with new sort
+    const searchQuery = session?.originalQuery || query;
+    if (searchQuery.trim()) {
+      setIsLoading(true);
+      try {
+        const response = await fetch("/api/search", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            query: searchQuery,
+            provider: provider as "openai" | "anthropic" | "gemini",
+            session: session,
+            audience: session?.audience || null,
+            sortBy: value,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error("Search failed");
+        }
+
+        const data = await response.json();
+        setResults(data.results || []);
+        setResultCount(data.resultCount || data.results?.length || 0);
+      } catch (error) {
+        console.error("Sort error:", error);
+        toast.error("Failed to sort results. Please try again.");
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  };
+
+  // Highlighted text component
+  const HighlightedText = ({ text, query }: { text: string; query: string }) => {
+    if (!query || !text) return <>{text}</>;
+    const highlighted = highlightMatches(text, query);
+    return <span dangerouslySetInnerHTML={{ __html: highlighted }} />;
   };
 
   return (
@@ -637,6 +865,41 @@ export default function Home() {
               >
                 {Object.entries(constraints).map(([key, value], idx) => {
                   if (value === null) return null;
+                  // Handle array values (excludeCategories)
+                  if (Array.isArray(value) && value.length > 0) {
+                    return value.map((item, itemIdx) => (
+                      <motion.div
+                        key={`${key}-${itemIdx}`}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.8 }}
+                      >
+                        <Badge
+                          variant="secondary"
+                          className="px-3 py-1 text-sm font-medium cursor-pointer hover:bg-secondary/80 transition-colors"
+                        >
+                          Exclude {item}
+                          <button
+                            onClick={() => {
+                              const newValue = (value as string[]).filter((v: string) => v !== item);
+                              const newConstraints = { ...constraints, [key]: newValue.length > 0 ? newValue : null };
+                              setConstraints(newConstraints);
+                              // Trigger search refresh if needed
+                              const searchQuery = session?.originalQuery || query;
+                              if (searchQuery) {
+                                setSession(null);
+                                setQuery(searchQuery);
+                                setTimeout(() => handleSearch(), 100);
+                              }
+                            }}
+                            className="ml-2 hover:bg-muted rounded-full p-0.5 transition-colors"
+                          >
+                            <X className="h-3 w-3" />
+                          </button>
+                        </Badge>
+                      </motion.div>
+                    ));
+                  }
                   const label = key === "budgetMax" ? `Under $${value}` : String(value);
                   return (
                     <motion.div
@@ -687,11 +950,28 @@ export default function Home() {
                 ))}
               </div>
             ) : results.length > 0 ? (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className={`grid grid-cols-1 sm:grid-cols-2 gap-4 ${assistantOpen ? 'xl:grid-cols-3' : 'xl:grid-cols-4'}`}
-              >
+              <>
+                {/* Result Count and Sorting */}
+                <div className="flex justify-between items-center mb-4">
+                  <p className="text-sm text-muted-foreground">
+                    {resultCount} {resultCount === 1 ? 'result' : 'results'} found for "{query || session?.originalQuery || 'your search'}"
+                  </p>
+                  <Select value={sortBy} onValueChange={(value) => handleSortChange(value as "relevance" | "price_asc" | "price_desc")}>
+                    <SelectTrigger className="w-[180px]">
+                      <SelectValue placeholder="Sort by" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="relevance">Relevance</SelectItem>
+                      <SelectItem value="price_asc">Price: Low to High</SelectItem>
+                      <SelectItem value="price_desc">Price: High to Low</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className={`grid grid-cols-1 sm:grid-cols-2 gap-4 ${assistantOpen ? 'xl:grid-cols-3' : 'xl:grid-cols-4'}`}
+                >
                 {results.map((result, idx) => (
                   <motion.div
                     key={result.id}
@@ -704,6 +984,39 @@ export default function Home() {
                         setSelectedProduct(result);
                         setProductDetailOpen(true);
                         handleLoadProductInsight(result);
+                        
+                        // Add to selected products and chat
+                        if (!selectedProducts.find((p) => p.id === result.id)) {
+                          setSelectedProducts((prev) => [...prev, result]);
+                          setAssistantMessages((prev) => [...prev, {
+                            id: `product-${result.id}`,
+                            role: "user" as const,
+                            content: `Selected: ${result.title} (${result.brand}) - $${result.price}`,
+                            timestamp: new Date(),
+                            productId: result.id,
+                            product: result,
+                          }]);
+                          
+                          // Auto-open assistant if closed
+                          if (!assistantOpen) {
+                            setAssistantOpen(true);
+                          }
+                          
+                          // Add assistant response with actions
+                          setTimeout(() => {
+                            setAssistantMessages((prev) => [...prev, {
+                              id: `assistant-${result.id}-${Date.now()}`,
+                              role: "assistant" as const,
+                              content: `Great choice! This ${result.category} looks perfect. What would you like to do next?`,
+                              timestamp: new Date(),
+                              productId: result.id,
+                              actions: [
+                                { label: "Find Similar", action: "find_similar", productId: result.id },
+                                { label: "Complete the Look", action: "complete_look", productId: result.id },
+                              ],
+                            }]);
+                          }, 500);
+                        }
                       }}
                     >
                       <div className="relative h-64 bg-gradient-to-b from-muted/50 to-muted overflow-hidden flex items-center justify-center p-4">
@@ -736,10 +1049,10 @@ export default function Home() {
                       </div>
                       <CardContent className="p-4">
                         <h3 className="font-semibold text-sm leading-tight line-clamp-2 mb-1">
-                          {result.title}
+                          <HighlightedText text={result.title} query={query || session?.originalQuery || ""} />
                         </h3>
                         <p className="text-xs text-muted-foreground mb-2">
-                          {result.brand}
+                          <HighlightedText text={result.brand} query={query || session?.originalQuery || ""} />
                         </p>
                         <p className="text-lg font-bold text-primary mb-3">
                           ${result.price.toLocaleString()}
@@ -769,6 +1082,73 @@ export default function Home() {
                     </Card>
                   </motion.div>
                 ))}
+                </motion.div>
+              </>
+            ) : query.trim() || session ? (
+              // No results state
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="py-12"
+              >
+                <div className="text-center mb-8">
+                  <Search className="h-16 w-16 mx-auto mb-4 text-muted-foreground opacity-40" />
+                  <h3 className="text-2xl font-semibold mb-2">No products found</h3>
+                  <p className="text-muted-foreground mb-6">
+                    No products found matching "{query || session?.originalQuery || 'your search'}"
+                  </p>
+                  
+                  {/* Suggestions */}
+                  <div className="max-w-md mx-auto space-y-4">
+                    <div className="bg-muted/50 rounded-lg p-4 text-left">
+                      <p className="text-sm font-medium mb-2">Try:</p>
+                      <ul className="text-sm text-muted-foreground space-y-1">
+                        <li>• Try a different search term</li>
+                        <li>• Check spelling</li>
+                        {Object.keys(constraints).some((k) => constraints[k] !== null) && (
+                          <>
+                            <li>• Remove some filters</li>
+                            <li className="pt-2">
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => {
+                                  setConstraints({});
+                                  handleSearch();
+                                }}
+                                className="w-full"
+                              >
+                                Clear all filters
+                              </Button>
+                            </li>
+                          </>
+                        )}
+                      </ul>
+                    </div>
+                    
+                    {/* Popular categories */}
+                    <div className="bg-muted/50 rounded-lg p-4 text-left">
+                      <p className="text-sm font-medium mb-2">Popular categories:</p>
+                      <div className="flex flex-wrap gap-2">
+                        {["Sneakers", "Shirts", "Dresses", "Blazers", "Handbags"].map((cat) => (
+                          <Button
+                            key={cat}
+                            variant="outline"
+                            size="sm"
+                            onClick={() => {
+                              setQuery(cat);
+                              setSortBy("relevance");
+                              setTimeout(() => handleSearch(), 100);
+                            }}
+                            className="text-xs"
+                          >
+                            {cat}
+                          </Button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </motion.div>
             ) : (
               <motion.div
@@ -986,8 +1366,32 @@ export default function Home() {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
-                        className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
+                        className={`flex flex-col gap-2 ${message.role === "user" ? "items-end" : "items-start"}`}
                       >
+                        {/* Product Card for selected products */}
+                        {message.product && (
+                          <Card className="max-w-[85%] border overflow-hidden">
+                            <div className="flex gap-3 p-3">
+                              <div className="relative h-16 w-16 bg-muted rounded overflow-hidden flex-shrink-0">
+                                <img
+                                  src={message.product.imageUrl}
+                                  alt={message.product.title}
+                                  className="w-full h-full object-contain"
+                                  onError={(e) => {
+                                    (e.target as HTMLImageElement).src = `https://picsum.photos/seed/${message.product!.id}/200/200`;
+                                  }}
+                                />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <h4 className="font-semibold text-xs mb-1 line-clamp-1">{message.product.title}</h4>
+                                <p className="text-xs text-muted-foreground mb-1">{message.product.brand}</p>
+                                <p className="text-sm font-bold text-primary">${message.product.price.toLocaleString()}</p>
+                              </div>
+                            </div>
+                          </Card>
+                        )}
+                        
+                        {/* Message Content */}
                         <div
                           className={`max-w-[85%] rounded-lg px-3 py-2 text-sm ${
                             message.role === "user"
@@ -997,6 +1401,24 @@ export default function Home() {
                         >
                           {message.content}
                         </div>
+                        
+                        {/* Action Buttons */}
+                        {message.actions && message.actions.length > 0 && (
+                          <div className="flex gap-2 flex-wrap max-w-[85%]">
+                            {message.actions.map((action, idx) => (
+                              <Button
+                                key={idx}
+                                variant="outline"
+                                size="sm"
+                                className="text-xs h-7"
+                                onClick={() => handleActionClick(action.action, action.productId)}
+                                disabled={isLoading}
+                              >
+                                {action.label}
+                              </Button>
+                            ))}
+                          </div>
+                        )}
                       </motion.div>
                     ))}
                 </AnimatePresence>

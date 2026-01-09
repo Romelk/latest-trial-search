@@ -11,6 +11,7 @@ export type ConstraintDelta = {
   occasion?: string | null;
   includeKeywords?: string[] | null;
   excludeKeywords?: string[] | null;
+  excludeCategories?: string[] | null;
   sortBy?: "price_asc" | "price_desc" | null;
 };
 
@@ -40,12 +41,15 @@ Extract only the NEW or CHANGED constraints from the follow-up. Return ONLY a JS
   "occasion": string or null,
   "includeKeywords": string[] or null,
   "excludeKeywords": string[] or null,
+  "excludeCategories": string[] or null,
   "sortBy": "price_asc" | "price_desc" | null
 }
 
 Rules:
+- If user says "exclude sneakers", set excludeCategories: ["Sneakers"]
 - If user says "exclude black", set colorExclude: "Black"
-- If user says "under 4000", set budgetMax: 4000
+- If user says "no heels", set excludeCategories: ["Heels"]
+- If user says "under 4000" or "cost below 4000", set budgetMax: 4000
 - If user says "only linen", set includeKeywords: ["linen"]
 - If user says "show sneakers", set category: "Sneakers"
 - If user says "more formal", set style: "Formal" and occasion: "Formal"
@@ -109,12 +113,15 @@ Extract only the NEW or CHANGED constraints from the follow-up. Return ONLY a JS
   "occasion": string or null,
   "includeKeywords": string[] or null,
   "excludeKeywords": string[] or null,
+  "excludeCategories": string[] or null,
   "sortBy": "price_asc" | "price_desc" | null
 }
 
 Rules:
+- If user says "exclude sneakers", set excludeCategories: ["Sneakers"]
 - If user says "exclude black", set colorExclude: "Black"
-- If user says "under 4000", set budgetMax: 4000
+- If user says "no heels", set excludeCategories: ["Heels"]
+- If user says "under 4000" or "cost below 4000", set budgetMax: 4000
 - If user says "only linen", set includeKeywords: ["linen"]
 - If user says "show sneakers", set category: "Sneakers"
 - If user says "more formal", set style: "Formal" and occasion: "Formal"
@@ -157,15 +164,66 @@ function parseConstraintDeltaLocal(followUp: string): ConstraintDelta {
   const lower = followUp.toLowerCase();
 
   // Budget
-  const budgetMatch = lower.match(/(?:under|below|less than|upto|up to)\s*(?:\$|usd|dollars?)?\s*(\d+)/);
+  const budgetMatch = lower.match(/(?:under|below|less than|upto|up to|cost below)\s*(?:\$|usd|dollars?)?\s*(\d+)/);
   if (budgetMatch) {
     delta.budgetMax = parseInt(budgetMatch[1], 10);
   }
 
-  // Exclude colors
-  const excludeColorMatch = lower.match(/exclude\s+(\w+)/);
-  if (excludeColorMatch) {
-    delta.colorExclude = excludeColorMatch[1].charAt(0).toUpperCase() + excludeColorMatch[1].slice(1);
+  // Category exclusion (e.g., "exclude sneakers", "no heels")
+  const categoryExcludePatterns = [
+    /(?:exclude|no|without)\s+(sneakers?|loafers?|derbies?|heels?|flats?|dresses?|blouses?|shirts?|trousers?|jeans?|chinos?|blazers?)/i,
+  ];
+  const categoryMap: Record<string, string> = {
+    sneaker: "Sneakers",
+    sneakers: "Sneakers",
+    loafer: "Loafers",
+    loafers: "Loafers",
+    derby: "Derbies",
+    derbies: "Derbies",
+    heel: "Heels",
+    heels: "Heels",
+    flat: "Flats",
+    flats: "Flats",
+    dress: "Dresses",
+    dresses: "Dresses",
+    blouse: "Blouses",
+    blouses: "Blouses",
+    shirt: "Shirts",
+    shirts: "Shirts",
+    trouser: "Trousers",
+    trousers: "Trousers",
+    jean: "Jeans",
+    jeans: "Jeans",
+    chino: "Chinos",
+    chinos: "Chinos",
+    blazer: "Blazers",
+    blazers: "Blazers",
+  };
+
+  for (const pattern of categoryExcludePatterns) {
+    const match = lower.match(pattern);
+    if (match) {
+      const excludedCategory = match[1].toLowerCase();
+      const properCategory = categoryMap[excludedCategory];
+      if (properCategory) {
+        if (!delta.excludeCategories) delta.excludeCategories = [];
+        if (!delta.excludeCategories.includes(properCategory)) {
+          delta.excludeCategories.push(properCategory);
+        }
+      }
+    }
+  }
+
+  // Exclude colors (only if not a category)
+  if (!delta.excludeCategories) {
+    const excludeColorMatch = lower.match(/(?:exclude|no|without)\s+(\w+)/);
+    if (excludeColorMatch) {
+      const colors = ["black", "white", "navy", "gray", "blue", "red", "green", "pink", "purple", "yellow", "orange"];
+      const excludedTerm = excludeColorMatch[1].toLowerCase();
+      if (colors.includes(excludedTerm)) {
+        delta.colorExclude = excludedTerm.charAt(0).toUpperCase() + excludedTerm.slice(1);
+      }
+    }
   }
 
   // Include colors
@@ -175,10 +233,10 @@ function parseConstraintDeltaLocal(followUp: string): ConstraintDelta {
     delta.colorInclude = includeColorMatch[1].charAt(0).toUpperCase() + includeColorMatch[1].slice(1);
   }
 
-  // Category
+  // Category (only if not excluding)
   const categories = ["shirts", "trousers", "jeans", "t-shirts", "blazers", "dresses", "sneakers", "loafers", "handbags", "watches"];
   for (const cat of categories) {
-    if (lower.includes(cat)) {
+    if (lower.includes(cat) && !lower.includes("exclude") && !lower.includes("no") && !lower.includes("without")) {
       delta.category = cat === "t-shirts" ? "T-Shirts" : cat.charAt(0).toUpperCase() + cat.slice(1);
       break;
     }
@@ -231,8 +289,15 @@ Return JSON with only changed fields:
   "occasion": string or null,
   "includeKeywords": string[] or null,
   "excludeKeywords": string[] or null,
+  "excludeCategories": string[] or null,
   "sortBy": "price_asc" | "price_desc" | null
 }
+
+Rules:
+- If user says "exclude sneakers", set excludeCategories: ["Sneakers"]
+- If user says "no heels", set excludeCategories: ["Heels"]
+- If user says "exclude black", set colorExclude: "Black"
+- If user says "under 4000" or "cost below 4000", set budgetMax: 4000
 Keep minimal - only what changed.`;
 
     const result = await model.generateContent({

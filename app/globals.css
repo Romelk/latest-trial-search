@@ -122,4 +122,10 @@
   body {
     @apply bg-background text-foreground;
   }
+  
+  /* Highlight matching terms in search results */
+  mark {
+    @apply bg-yellow-200 dark:bg-yellow-900/50 px-0.5 rounded;
+    font-weight: 600;
+  }
 }

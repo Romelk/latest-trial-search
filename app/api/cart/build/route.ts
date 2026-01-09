@@ -350,7 +350,8 @@ function buildCarts(
   preference: string | null | undefined,
   audience: "men" | "women" | "unisex" | null,
   scenarioId: string | null,
-  allowUnisexMix: boolean = false
+  allowUnisexMix: boolean = false,
+  anchorProductId?: string | null
 ): { budget: CartItem[]; balanced: CartItem[]; premium: CartItem[] } {
   // Filter candidates by audience category whitelist and other constraints
   let products = candidates.map((c: { product: Product; score: number }) => c.product);
@@ -436,7 +437,17 @@ function buildCarts(
     tier: "budget" | "balanced" | "premium",
     query: string
   ): CartItem[] | null => {
+    // If anchor product is provided, ensure it's included in the bundle
+    let anchorProduct: Product | null = null;
+    if (anchorProductId) {
+      anchorProduct = pool.find(p => p.id === anchorProductId) || null;
+    }
+    
+    // Filter pool by price tier, but exclude anchor product (anchor always included regardless of price)
     const filteredPool = pool.filter((p) => {
+      // Always exclude anchor product from price tier filtering - it will be added separately
+      if (anchorProduct && p.id === anchorProduct.id) return false;
+      
       if (tier === "budget") return p.price <= budgetMax;
       if (tier === "balanced") return p.price >= balancedMin && p.price <= balancedMax;
       if (tier === "premium") return p.price >= premiumMin;
@@ -446,9 +457,58 @@ function buildCarts(
     const bundle: CartItem[] = [];
     const usedProductIds = new Set<string>();
     const priceTiers = { budgetMax, balancedMin, balancedMax, premiumMin };
+    
+    // Always include anchor product first with its dynamically determined role
+    if (anchorProduct) {
+      const anchorClassification = classifyProductRole(anchorProduct);
+      // Determine anchor's role: use first matching role from template, or first role candidate
+      let anchorRole: string | null = null;
+      
+      // First, try to match anchor's role candidates with template roles
+      for (const roleCandidate of anchorClassification.roleCandidates) {
+        if (template.roles[roleCandidate]) {
+          anchorRole = roleCandidate;
+          break;
+        }
+      }
+      
+      // If no direct match, check if anchor's category matches any template role's allowed categories
+      if (!anchorRole) {
+        for (const [role, allowedCategories] of Object.entries(template.roles)) {
+          if (allowedCategories.includes(anchorProduct.category)) {
+            anchorRole = role;
+            break;
+          }
+        }
+      }
+      
+      // If still no match, use first role candidate (shouldn't happen for valid products)
+      if (!anchorRole && anchorClassification.roleCandidates.length > 0) {
+        anchorRole = anchorClassification.roleCandidates[0];
+      }
+      
+      // Add anchor product to bundle with its determined role
+      if (anchorRole) {
+        bundle.push({
+          id: anchorProduct.id,
+          title: anchorProduct.title,
+          brand: anchorProduct.brand,
+          price: anchorProduct.price,
+          imageUrl: anchorProduct.imageUrl,
+          category: anchorProduct.category,
+          color: anchorProduct.color,
+          why: "", // Will be filled by LLM
+          role: anchorRole,
+        });
+        usedProductIds.add(anchorProduct.id);
+      }
+    }
 
     // Try to fill each role with scoring
     for (const [role, allowedCategories] of Object.entries(template.roles)) {
+      // Skip if role already filled (e.g., by anchor product)
+      if (bundle.some(b => b.role === role)) continue;
+      
       // Get already selected products for scoring context
       const selectedProducts = bundle.map(b => pool.find(pp => pp.id === b.id)).filter((p): p is Product => p !== undefined);
       
@@ -525,27 +585,55 @@ function buildCarts(
     tier: "budget" | "balanced" | "premium",
     query: string
   ): CartItem[] => {
+    // If anchor product is provided, ensure it's included in the bundle
+    let anchorProduct: Product | null = null;
+    if (anchorProductId) {
+      anchorProduct = pool.find(p => p.id === anchorProductId) || null;
+    }
+    
+    // Filter pool by price tier, but exclude anchor product (anchor always included regardless of price)
     const filteredPool = pool.filter((p) => {
+      // Always exclude anchor product from price tier filtering - it will be added separately
+      if (anchorProduct && p.id === anchorProduct.id) return false;
+      
       if (tier === "budget") return p.price <= budgetMax;
       if (tier === "balanced") return p.price >= balancedMin && p.price <= balancedMax;
       if (tier === "premium") return p.price >= premiumMin;
       return true;
     });
 
-    if (filteredPool.length < 3) {
-      return [];
-    }
-
     // Try to build a diverse bundle with different roles
     const bundle: CartItem[] = [];
     const usedProductIds = new Set<string>();
     const usedRoles = new Set<string>();
+
+    // Always include anchor product first with its dynamically determined role
+    if (anchorProduct) {
+      const classification = classifyProductRole(anchorProduct);
+      // Use first role candidate (footwear for shoes, top for shirts, etc.)
+      const role = classification.roleCandidates[0] || 'item';
+      bundle.push({
+        id: anchorProduct.id,
+        title: anchorProduct.title,
+        brand: anchorProduct.brand,
+        price: anchorProduct.price,
+        imageUrl: anchorProduct.imageUrl,
+        category: anchorProduct.category,
+        color: anchorProduct.color,
+        why: "",
+        role: role,
+      });
+      usedProductIds.add(anchorProduct.id);
+      usedRoles.add(role);
+    }
 
     // Priority order: primary/top, bottom, footwear, addOn
     const rolePriority = ['primary', 'top', 'bottom', 'footwear', 'addOn'];
     
     for (const role of rolePriority) {
       if (bundle.length >= 3) break;
+      // Skip role already filled by anchor product
+      if (usedRoles.has(role)) continue;
       
       const candidates = filteredPool
         .filter(p => {
@@ -714,7 +802,7 @@ async function generateCartNotes(
 
 export async function POST(request: NextRequest) {
   try {
-    const { query, provider = "openai", preference, audience, scenarioId, allowUnisexMix = false } = await request.json();
+    const { query, provider = "openai", preference, audience, scenarioId, allowUnisexMix = false, anchorProductId } = await request.json();
 
     if (!query || typeof query !== "string") {
       return NextResponse.json(
@@ -736,7 +824,61 @@ export async function POST(request: NextRequest) {
       filteredCatalog = filteredCatalog.filter((p) => p.scenarioId === scenarioId);
     }
     
-    const searchResults = searchProducts(filteredCatalog, query, 100); // Get more candidates for filtering
+    // Find anchor product if provided
+    let anchorProduct: Product | null = null;
+    if (anchorProductId) {
+      anchorProduct = catalog.find(p => p.id === anchorProductId) || null;
+    }
+    
+    let searchResults: Array<{ product: Product; score: number }>;
+
+    if (anchorProductId && anchorProduct) {
+      // "Complete the look" mode: expand pool to all products in scenario/audience
+      // This allows finding complementary items (top, bottom, addOn) even if original query was specific
+      
+      // Ensure anchor product is in filteredCatalog (it should be, but add it if missing)
+      const anchorInFiltered = filteredCatalog.some(p => p.id === anchorProductId);
+      if (!anchorInFiltered) {
+        // Add anchor product to filteredCatalog if it matches the filters
+        if ((!audience || anchorProduct.audience === audience) && 
+            (!scenarioId || anchorProduct.scenarioId === scenarioId)) {
+          filteredCatalog = [anchorProduct, ...filteredCatalog];
+        }
+      }
+      
+      searchResults = filteredCatalog.map(p => ({
+        product: p,
+        score: p.id === anchorProductId ? 1000 : 50 // Boost anchor, give others baseline score
+      }));
+      
+      // Ensure anchor is first
+      const anchorIdx = searchResults.findIndex(r => r.product.id === anchorProductId);
+      if (anchorIdx > 0) {
+        const anchor = searchResults.splice(anchorIdx, 1)[0];
+        searchResults.unshift(anchor);
+      }
+    } else {
+      // Normal search mode: use query-based search
+      searchResults = searchProducts(filteredCatalog, query, 100); // Get more candidates for filtering
+      
+      // If anchor product is provided and not in results, add it to the pool
+      if (anchorProduct) {
+        const anchorInResults = searchResults.find(r => r.product.id === anchorProductId);
+        if (!anchorInResults) {
+          // Add anchor product to search results with high score
+          searchResults.unshift({ product: anchorProduct, score: 1000 });
+        } else {
+          // Boost anchor product score
+          const idx = searchResults.findIndex(r => r.product.id === anchorProductId);
+          if (idx >= 0) {
+            searchResults[idx].score = 1000;
+            // Move to front
+            const anchor = searchResults.splice(idx, 1)[0];
+            searchResults.unshift(anchor);
+          }
+        }
+      }
+    }
 
     if (searchResults.length < 3) {
       return NextResponse.json(
@@ -753,7 +895,8 @@ export async function POST(request: NextRequest) {
       preference,
       audience || null,
       scenarioId || null,
-      allowUnisexMix
+      allowUnisexMix,
+      anchorProductId
     );
 
     // Generate notes and "why" using LLM
