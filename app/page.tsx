@@ -24,6 +24,8 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "sonner";
+import CompareArrowsIcon from "@mui/icons-material/CompareArrows";
+
 import {
   Select,
   SelectContent,
@@ -1968,14 +1970,14 @@ export default function Home() {
       <Dialog open={productDetailOpen} onOpenChange={setProductDetailOpen}>
         {/* <DialogContent className="w-7xl max-h-[90vh] overflow-hidden flex flex-col p-0"> */}
         {/* <DialogContent className="w-[1400px] max-w-none  max-h-[90vh] overflow-hidden flex flex-col p-0"> */}
-        <DialogContent className="w-[1000px] !max-w-none sm:!max-w-none max-h-[90vh] overflow-hidden flex flex-col p-0">
+        <DialogContent className="w-[1000px] !max-w-none sm:!max-w-none max-h-[90vh] overflow-hidden flex flex-row p-3">
           {selectedProduct ? (
             <>
               {/* Sticky Header */}
               <DialogHeader className="px-6 pt-6 pb-4 border-b bg-white sticky top-0 z-10">
                 <DialogTitle>{selectedProduct.title}</DialogTitle>
                 <DialogDescription>{selectedProduct.brand}</DialogDescription>
-                <div className="relative h-90 bg-gradient-to-b from-muted/50 to-muted rounded-lg overflow-hidden flex items-center justify-center p-6">
+                <div className="relative h-60 bg-gradient-to-b from-muted/50 to-muted rounded-lg overflow-hidden flex items-center justify-center p-6">
                   <img
                     src={selectedProduct.imageUrl}
                     alt={selectedProduct.title}
@@ -1987,11 +1989,37 @@ export default function Home() {
                     }}
                   />
                 </div>
+                 <div className="flex gap-2 pt-4 border-t">
+                    <Button
+                      variant="outline"
+                      className="flex-1"
+                      onClick={() => {
+                        handlePinProduct(selectedProduct);
+                        if (compareProducts.length === 1) {
+                          setProductDetailOpen(false);
+                        }
+                      }}
+                    >
+                      {compareProducts.find(
+                        (p) => p.id === selectedProduct.id
+                      ) ? (
+                        <>
+                          <CompareArrowsIcon className="h-4 w-4 mr-2" />
+                          Remove from compare
+                        </>
+                      ) : (
+                        <>
+                          <CompareArrowsIcon className="h-4 w-4 mr-2" />
+                          Add to compare
+                        </>
+                      )}
+                    </Button>
+                  </div>
               </DialogHeader>
 
               {/* Scrollable Content */}
               <div className="overflow-y-auto px-6 pb-6">
-                <div className="mt-6 space-y-6">
+                <div className="mt-1 space-y-6">
                   {/* Large Image */}
 
                   {/* Price */}
@@ -2008,7 +2036,7 @@ export default function Home() {
                   </div>
 
                   {/* Fit for your brief */}
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-3 gap-4">
                     {isLoadingInsight ? (
                       <div className="space-y-2">
                         <Skeleton className="h-4 w-32" />
@@ -2093,8 +2121,8 @@ export default function Home() {
                     </div>
                   ) : productInsight?.alternatives &&
                     productInsight.alternatives.length > 0 ? (
-                    <Card className="p-4">
-                      <h4 className="font-semibold text-sm mb-3">
+                    <Card className="p-4 gap-2">
+                      <h4 className="font-semibold text-sm mb-0">
                         2 Alternatives
                       </h4>
                       <div className="grid grid-cols-2 gap-3">
@@ -2107,7 +2135,7 @@ export default function Home() {
                             return (
                               <Card
                                 key={alt.id}
-                                className="overflow-hidden border"
+                                className="overflow-hidden border py-1"
                               >
                                 <div className="relative h-32 bg-gradient-to-b from-muted/50 to-muted overflow-hidden flex items-center justify-center p-2">
                                   <img
@@ -2121,7 +2149,7 @@ export default function Home() {
                                     }}
                                   />
                                 </div>
-                                <CardContent className="p-3">
+                                <CardContent className="p-2">
                                   <h5 className="font-semibold text-xs mb-1 line-clamp-1">
                                     {altProduct.title}
                                   </h5>
@@ -2151,32 +2179,7 @@ export default function Home() {
                   ) : null}
 
                   {/* Actions */}
-                  <div className="flex gap-2 pt-4 border-t">
-                    <Button
-                      variant="outline"
-                      className="flex-1"
-                      onClick={() => {
-                        handlePinProduct(selectedProduct);
-                        if (compareProducts.length === 1) {
-                          setProductDetailOpen(false);
-                        }
-                      }}
-                    >
-                      {compareProducts.find(
-                        (p) => p.id === selectedProduct.id
-                      ) ? (
-                        <>
-                          <PinOff className="h-4 w-4 mr-2" />
-                          Remove from compare
-                        </>
-                      ) : (
-                        <>
-                          <Pin className="h-4 w-4 mr-2" />
-                          Add to compare
-                        </>
-                      )}
-                    </Button>
-                  </div>
+                 
                 </div>
               </div>
             </>
