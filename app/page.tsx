@@ -1826,7 +1826,9 @@ export default function Home() {
 
       {/* Cart Building Dialog */}
       <Dialog open={cartsDialogOpen} onOpenChange={setCartsDialogOpen}>
-        <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">
+        {/* <DialogContent className="max-w-12xl max-h-[90vh] overflow-y-auto"> */}
+        <DialogContent className="w-[1000px] !max-w-none sm:!max-w-none max-h-[90vh] overflow-scroll flex flex-col ">
+
           <DialogHeader>
             <DialogTitle className="text-2xl">
               Your Shopping Bundles
