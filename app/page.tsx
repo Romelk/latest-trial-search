@@ -2123,7 +2123,7 @@ export default function Home() {
                     productInsight.alternatives.length > 0 ? (
                     <Card className="p-4 gap-2">
                       <h4 className="font-semibold text-sm mb-0">
-                        2 Alternatives
+                        2 Get-Alongs
                       </h4>
                       <div className="grid grid-cols-2 gap-3">
                         {productInsight.alternatives.map(
