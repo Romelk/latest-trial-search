@@ -1066,7 +1066,7 @@ export default function Home() {
       {/* Main Content */}
       <main className="container mx-auto px-4 py-6">
         {/* Results and Assistant Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-1 gap-6">
+        <div className="grid grid-cols-[7fr_3fr] lg:grid-cols-[7fr_3fr] gap-6">
           {/* Results Grid */}
           <div>
             {isLoading ? (
@@ -1270,12 +1270,12 @@ export default function Home() {
                   ))}
                 </motion.div>
               </>
-            ) : (query.trim() && session && !isLoading && resultCount === 0) ? (
+            ) : query.trim() && session && !isLoading && resultCount === 0 ? (
               // No results state
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="py-12"
+                className="py-12 absolute left-0 right-0 w-full"
               >
                 <div className="text-center mb-8">
                   <Search className="h-16 w-16 mx-auto mb-4 text-muted-foreground opacity-40" />
@@ -1355,16 +1355,8 @@ export default function Home() {
                 animate={{ opacity: 1 }}
                 className="py-12"
               >
-                <div className="text-center mb-8">
-                  {/* <Search className="h-16 w-16 mx-auto mb-4 text-muted-foreground opacity-40" /> */}
-                  <h3 className="text-2xl font-semibold mb-2">
-                    Start your search
-                  </h3>
-                  <p className="text-muted-foreground">
-                    Choose a scenario to get started
-                  </p>
-                </div>
-                <div className="max-w-6xl mx-auto">
+              
+                <div className="max-w-6xl mx-auto   absolute left-0 right-0 w-full">
                   {/* Row 1: 3 tiles */}
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
                     {SCENARIOS.slice(0, 3).map((scenario, idx) => (
@@ -1440,7 +1432,7 @@ export default function Home() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 20 }}
                 transition={{ duration: 0.3 }}
-                className="lg:sticky lg:top-[145px] lg:h-[calc(100vh-145px)] order-first lg:order-last"
+                className="lg:sticky lg:top-[200px] lg:h-[calc(100vh-230px)] order-first lg:order-last"
               >
                 <Card className="h-full flex flex-col shadow-lg border">
                   <div className="p-4 border-b flex items-center justify-between">
@@ -2009,76 +2001,78 @@ export default function Home() {
                   </div>
 
                   {/* Fit for your brief */}
-                   <div className="grid grid-cols-2 gap-4">
-                  {isLoadingInsight ? (
-                    <div className="space-y-2">
-                      <Skeleton className="h-4 w-32" />
-                      <Skeleton className="h-16 w-full" />
-                    </div>
-                  ) : productInsight?.fitSummary ? (
-                    <Card className="p-4">
-                      <h4 className="font-semibold text-sm mb-2">
-                        Fit for your brief
-                      </h4>
-                      <p className="text-sm text-muted-foreground leading-relaxed">
-                        {productInsight.fitSummary}
-                      </p>
-                    </Card>
-                  ) : null}
+                  <div className="grid grid-cols-2 gap-4">
+                    {isLoadingInsight ? (
+                      <div className="space-y-2">
+                        <Skeleton className="h-4 w-32" />
+                        <Skeleton className="h-16 w-full" />
+                      </div>
+                    ) : productInsight?.fitSummary ? (
+                      <Card className="p-4">
+                        <h4 className="font-semibold text-sm mb-2">
+                          Fit for your brief
+                        </h4>
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          {productInsight.fitSummary}
+                        </p>
+                      </Card>
+                    ) : null}
 
-                  {/* Tradeoffs */}
-                  {isLoadingInsight ? (
-                    <div className="space-y-2">
-                      <Skeleton className="h-4 w-32" />
-                      <Skeleton className="h-20 w-full" />
-                    </div>
-                  ) : productInsight?.tradeoffs &&
-                    productInsight.tradeoffs.length > 0 ? (
-                    <Card className="p-4">
-                      <h4 className="font-semibold text-sm mb-3">Tradeoffs</h4>
-                      <ul className="space-y-2">
-                        {productInsight.tradeoffs.map(
-                          (tradeoff: string, idx: number) => (
-                            <li
-                              key={idx}
-                              className="text-sm text-muted-foreground flex items-start gap-2"
-                            >
-                              <span className="text-primary mt-1">•</span>
-                              <span>{tradeoff}</span>
-                            </li>
-                          )
-                        )}
-                      </ul>
-                    </Card>
-                  ) : null}
+                    {/* Tradeoffs */}
+                    {isLoadingInsight ? (
+                      <div className="space-y-2">
+                        <Skeleton className="h-4 w-32" />
+                        <Skeleton className="h-20 w-full" />
+                      </div>
+                    ) : productInsight?.tradeoffs &&
+                      productInsight.tradeoffs.length > 0 ? (
+                      <Card className="p-4">
+                        <h4 className="font-semibold text-sm mb-3">
+                          Tradeoffs
+                        </h4>
+                        <ul className="space-y-2">
+                          {productInsight.tradeoffs.map(
+                            (tradeoff: string, idx: number) => (
+                              <li
+                                key={idx}
+                                className="text-sm text-muted-foreground flex items-start gap-2"
+                              >
+                                <span className="text-primary mt-1">•</span>
+                                <span>{tradeoff}</span>
+                              </li>
+                            )
+                          )}
+                        </ul>
+                      </Card>
+                    ) : null}
 
-                  {/* How to style it */}
-                  {isLoadingInsight ? (
-                    <div className="space-y-2">
-                      <Skeleton className="h-4 w-32" />
-                      <Skeleton className="h-20 w-full" />
-                    </div>
-                  ) : productInsight?.styling &&
-                    productInsight.styling.length > 0 ? (
-                    <Card className="p-4">
-                      <h4 className="font-semibold text-sm mb-3">
-                        How to style it
-                      </h4>
-                      <ul className="space-y-2">
-                        {productInsight.styling.map(
-                          (tip: string, idx: number) => (
-                            <li
-                              key={idx}
-                              className="text-sm text-muted-foreground flex items-start gap-2"
-                            >
-                              <span className="text-primary mt-1">•</span>
-                              <span>{tip}</span>
-                            </li>
-                          )
-                        )}
-                      </ul>
-                    </Card>
-                  ) : null}
+                    {/* How to style it */}
+                    {isLoadingInsight ? (
+                      <div className="space-y-2">
+                        <Skeleton className="h-4 w-32" />
+                        <Skeleton className="h-20 w-full" />
+                      </div>
+                    ) : productInsight?.styling &&
+                      productInsight.styling.length > 0 ? (
+                      <Card className="p-4">
+                        <h4 className="font-semibold text-sm mb-3">
+                          How to style it
+                        </h4>
+                        <ul className="space-y-2">
+                          {productInsight.styling.map(
+                            (tip: string, idx: number) => (
+                              <li
+                                key={idx}
+                                className="text-sm text-muted-foreground flex items-start gap-2"
+                              >
+                                <span className="text-primary mt-1">•</span>
+                                <span>{tip}</span>
+                              </li>
+                            )
+                          )}
+                        </ul>
+                      </Card>
+                    ) : null}
                   </div>
 
                   {/* 2 Alternatives */}
