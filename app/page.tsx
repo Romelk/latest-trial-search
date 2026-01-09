@@ -1440,7 +1440,7 @@ export default function Home() {
                 transition={{ duration: 0.3 }}
                 className="lg:sticky lg:top-[200px] lg:h-[calc(100vh-230px)] order-first lg:order-last"
               >
-                <Card className="h-full flex flex-col shadow-lg border">
+                <Card className="h-full flex flex-col shadow-lg border gap-1 py-1">
                   <div className="p-4 border-b flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <Sparkles className="h-4 w-4 text-primary" />
@@ -1875,7 +1875,7 @@ export default function Home() {
                       </Button>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                       {cart.items.map((item, idx) => (
                         <motion.div
                           key={item.id}
@@ -2192,7 +2192,7 @@ export default function Home() {
       <Sheet open={compareOpen} onOpenChange={setCompareOpen}>
         <SheetContent
           side="right"
-          className="w-full sm:max-w-3xl overflow-y-auto"
+          className="w-full sm:max-w-3xl overflow-y-auto p-5"
         >
           <SheetHeader>
             <SheetTitle>Compare Products</SheetTitle>
