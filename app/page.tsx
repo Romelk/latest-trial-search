@@ -1066,6 +1066,7 @@ export default function Home() {
       {/* Main Content */}
       <main className="container mx-auto px-4 py-6">
         {/* Results and Assistant Layout */}
+
         <div className="grid grid-cols-[7fr_3fr] lg:grid-cols-[7fr_3fr] gap-6">
           {/* Results Grid */}
           <div>
@@ -1355,7 +1356,11 @@ export default function Home() {
                 animate={{ opacity: 1 }}
                 className="py-12"
               >
-              
+                <div className="text-center mb-8 fixed left-0 right-0 w-full -mt-12">
+                  <p className="text-muted-foreground">
+                    Have a vision? Type it in. Need a spark? Click a tile.
+                  </p>
+                </div>
                 <div className="max-w-6xl mx-auto   absolute left-0 right-0 w-full">
                   {/* Row 1: 3 tiles */}
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
@@ -1367,7 +1372,7 @@ export default function Home() {
                         transition={{ delay: idx * 0.1 }}
                       >
                         <Card
-                          className="h-full cursor-pointer hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/50 group bg-gradient-to-br from-white to-slate-50/50"
+                          className="h-full cursor-pointer shadow-md hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/50 group bg-gradient-to-br from-white to-slate-50/50"
                           onClick={() => handleScenarioClick(scenario.id)}
                         >
                           <CardContent className="p-8 flex flex-col items-center text-center h-full min-h-[220px] justify-center">
@@ -1376,10 +1381,11 @@ export default function Home() {
                                 <scenario.icon sx={{ fontSize: 48 }} />
                               )}
                             </div>
-                            <h4 className="font-semibold text-xl mb-3 group-hover:text-primary transition-colors">
+                            <h4 className="font-semibold text-xl mb-3 group-hover:text-primary group-hover:scale-105 transition-all duration-300">
                               {scenario.name}
                             </h4>
-                            <p className="text-sm text-muted-foreground leading-relaxed">
+                            {/* <p className="text-sm text-muted-foreground leading-relaxed"> */}
+                            <p className="text-sm text-muted-foreground leading-relaxed group-hover:scale-105 transition-transform duration-300">
                               {scenario.description}
                             </p>
                           </CardContent>
@@ -1407,10 +1413,10 @@ export default function Home() {
                                 <scenario.icon sx={{ fontSize: 48 }} />
                               )}
                             </div>
-                            <h4 className="font-semibold text-xl mb-3 group-hover:text-primary transition-colors">
+                            <h4 className="font-semibold text-xl mb-3 group-hover:text-primary group-hover:scale-105 transition-all duration-300">
                               {scenario.name}
                             </h4>
-                            <p className="text-sm text-muted-foreground leading-relaxed">
+                            <p className="text-sm text-muted-foreground leading-relaxed group-hover:scale-105 transition-transform duration-300">
                               {scenario.description}
                             </p>
                           </CardContent>
@@ -1828,7 +1834,6 @@ export default function Home() {
       <Dialog open={cartsDialogOpen} onOpenChange={setCartsDialogOpen}>
         {/* <DialogContent className="max-w-12xl max-h-[90vh] overflow-y-auto"> */}
         <DialogContent className="w-[1000px] !max-w-none sm:!max-w-none max-h-[90vh] overflow-scroll flex flex-col ">
-
           <DialogHeader>
             <DialogTitle className="text-2xl">
               Your Shopping Bundles
