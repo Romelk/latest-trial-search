@@ -1,7 +1,16 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { Search, Sparkles, X, Loader2, Pin, PinOff, Copy, Send } from "lucide-react";
+import {
+  Search,
+  Sparkles,
+  X,
+  Loader2,
+  Pin,
+  PinOff,
+  Copy,
+  Send,
+} from "lucide-react";
 import RestaurantIcon from "@mui/icons-material/Restaurant";
 import LocalFloristIcon from "@mui/icons-material/LocalFlorist";
 import FlightIcon from "@mui/icons-material/Flight";
@@ -15,7 +24,13 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "sonner";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { highlightMatches } from "@/lib/highlight";
 // Scenarios for the tile grid
 const SCENARIOS = [
@@ -50,7 +65,13 @@ const SCENARIOS = [
     icon: SchoolIcon,
   },
 ];
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import {
   Sheet,
   SheetContent,
@@ -112,11 +133,17 @@ export default function Home() {
   const [provider, setProvider] = useState<Provider>("openai");
   const [results, setResults] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [constraints, setConstraints] = useState<Record<string, string | number | null>>({});
-  const [assistantMessages, setAssistantMessages] = useState<AssistantMessage[]>([]);
+  const [constraints, setConstraints] = useState<
+    Record<string, string | number | null>
+  >({});
+  const [assistantMessages, setAssistantMessages] = useState<
+    AssistantMessage[]
+  >([]);
   const [isAssistantTyping, setIsAssistantTyping] = useState(false);
   const [session, setSession] = useState<SearchSession | null>(null);
-  const [assistantQuestion, setAssistantQuestion] = useState<string | null>(null);
+  const [assistantQuestion, setAssistantQuestion] = useState<string | null>(
+    null
+  );
   const [cartsDialogOpen, setCartsDialogOpen] = useState(false);
   const [carts, setCarts] = useState<Cart[]>([]);
   const [isBuildingCarts, setIsBuildingCarts] = useState(false);
@@ -134,7 +161,9 @@ export default function Home() {
   const [scenarioId, setScenarioId] = useState<string | null>(null);
   const [assistantOpen, setAssistantOpen] = useState(false);
   const [resultCount, setResultCount] = useState<number>(0);
-  const [sortBy, setSortBy] = useState<"relevance" | "price_asc" | "price_desc">("relevance");
+  const [sortBy, setSortBy] = useState<
+    "relevance" | "price_asc" | "price_desc"
+  >("relevance");
   const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
 
   // Handle follow-up refinement
@@ -167,24 +196,34 @@ export default function Home() {
       setResults(data.results || []);
       setResultCount(data.resultCount || data.results?.length || 0);
       const newConstraints = data.constraints || {};
-      
+
       // Show toast if constraints changed
-      const constraintsChanged = JSON.stringify(previousConstraints) !== JSON.stringify(newConstraints);
+      const constraintsChanged =
+        JSON.stringify(previousConstraints) !== JSON.stringify(newConstraints);
       if (constraintsChanged) {
         toast.success("Applied", { duration: 2000 });
       }
-      
+
       setConstraints(newConstraints);
       setSession(data.session || session);
 
       // Update shopping brief
       const briefParts: string[] = [];
-      if (newConstraints.budgetMax) briefParts.push(`Budget: $${newConstraints.budgetMax}`);
+      if (newConstraints.budgetMax)
+        briefParts.push(`Budget: $${newConstraints.budgetMax}`);
       if (newConstraints.category) briefParts.push(newConstraints.category);
       if (newConstraints.color) briefParts.push(newConstraints.color);
-      if (newConstraints.colorExclude) briefParts.push(`Exclude ${newConstraints.colorExclude}`);
-      if (newConstraints.excludeCategories && newConstraints.excludeCategories.length > 0) {
-        briefParts.push(...newConstraints.excludeCategories.map((cat: string) => `Exclude ${cat}`));
+      if (newConstraints.colorExclude)
+        briefParts.push(`Exclude ${newConstraints.colorExclude}`);
+      if (
+        newConstraints.excludeCategories &&
+        newConstraints.excludeCategories.length > 0
+      ) {
+        briefParts.push(
+          ...newConstraints.excludeCategories.map(
+            (cat: string) => `Exclude ${cat}`
+          )
+        );
       }
       if (newConstraints.occasion) briefParts.push(newConstraints.occasion);
       if (newConstraints.style) briefParts.push(newConstraints.style);
@@ -201,7 +240,11 @@ export default function Home() {
   };
 
   // Search using API
-  const handleSearch = async (userAnswer?: string | null, updatedConstraints?: Record<string, string | number | null>, audienceOverride?: "men" | "women" | "unisex" | null) => {
+  const handleSearch = async (
+    userAnswer?: string | null,
+    updatedConstraints?: Record<string, string | number | null>,
+    audienceOverride?: "men" | "women" | "unisex" | null
+  ) => {
     const searchQuery = session?.originalQuery || query;
     if (!searchQuery.trim() && !session) return;
 
@@ -218,7 +261,7 @@ export default function Home() {
     try {
       // Merge constraints if provided
       const finalConstraints = updatedConstraints || constraints;
-      
+
       const response = await fetch("/api/search", {
         method: "POST",
         headers: {
@@ -245,23 +288,23 @@ export default function Home() {
       setAssistantQuestion(data.assistantQuestion || null);
       setSession(data.session || null);
       setScenarioId(data.scenarioId || null);
-      
+
       // Auto-open assistant if there's a question or results
       if (data.assistantQuestion || (data.results && data.results.length > 0)) {
         setAssistantOpen(true);
       }
-      
+
       // Debug: Log when question is set
       if (data.assistantQuestion) {
         console.log("Assistant question set:", data.assistantQuestion);
         console.log("Session:", data.session);
       }
-      
+
       // Store original query when starting a new search
       if (!userAnswer && !session) {
         setOriginalQuery(query);
       }
-      
+
       // Clear reply text after sending answer
       if (userAnswer) {
         setReplyText("");
@@ -269,12 +312,21 @@ export default function Home() {
 
       // Extract shopping brief from constraints
       const briefParts: string[] = [];
-      if (data.constraints.budgetMax) briefParts.push(`Budget: $${data.constraints.budgetMax}`);
+      if (data.constraints.budgetMax)
+        briefParts.push(`Budget: $${data.constraints.budgetMax}`);
       if (data.constraints.category) briefParts.push(data.constraints.category);
       if (data.constraints.color) briefParts.push(data.constraints.color);
-      if (data.constraints.colorExclude) briefParts.push(`Exclude ${data.constraints.colorExclude}`);
-      if (data.constraints.excludeCategories && data.constraints.excludeCategories.length > 0) {
-        briefParts.push(...data.constraints.excludeCategories.map((cat: string) => `Exclude ${cat}`));
+      if (data.constraints.colorExclude)
+        briefParts.push(`Exclude ${data.constraints.colorExclude}`);
+      if (
+        data.constraints.excludeCategories &&
+        data.constraints.excludeCategories.length > 0
+      ) {
+        briefParts.push(
+          ...data.constraints.excludeCategories.map(
+            (cat: string) => `Exclude ${cat}`
+          )
+        );
       }
       if (data.constraints.occasion) briefParts.push(data.constraints.occasion);
       if (data.constraints.style) briefParts.push(data.constraints.style);
@@ -374,20 +426,23 @@ export default function Home() {
   }, [query, originalQuery]);
 
   // Handle constraint removal
-  const handleRemoveConstraint = useCallback((key: string) => {
-    const newConstraints = { ...constraints, [key]: null };
-    setConstraints(newConstraints);
-    
-    // Clear session and trigger new search to refresh results
-    const searchQuery = session?.originalQuery || query;
-    if (searchQuery) {
-      setSession(null);
-      setQuery(searchQuery);
-      setTimeout(() => {
-        handleSearch();
-      }, 100);
-    }
-  }, [constraints, session, query]);
+  const handleRemoveConstraint = useCallback(
+    (key: string) => {
+      const newConstraints = { ...constraints, [key]: null };
+      setConstraints(newConstraints);
+
+      // Clear session and trigger new search to refresh results
+      const searchQuery = session?.originalQuery || query;
+      if (searchQuery) {
+        setSession(null);
+        setQuery(searchQuery);
+        setTimeout(() => {
+          handleSearch();
+        }, 100);
+      }
+    },
+    [constraints, session, query]
+  );
 
   // Keyboard shortcuts
   useEffect(() => {
@@ -410,7 +465,10 @@ export default function Home() {
   const handlePinProduct = (product: Product) => {
     if (compareProducts.find((p) => p.id === product.id)) {
       setCompareProducts(compareProducts.filter((p) => p.id !== product.id));
-      if (compareProducts.length === 2 && compareProducts[0].id === product.id) {
+      if (
+        compareProducts.length === 2 &&
+        compareProducts[0].id === product.id
+      ) {
         setCompareVerdict(null);
       }
     } else if (compareProducts.length < 2) {
@@ -432,7 +490,7 @@ export default function Home() {
 
     try {
       const candidateIds = results.slice(0, 10).map((r) => r.id);
-      
+
       const response = await fetch("/api/product/insight", {
         method: "POST",
         headers: {
@@ -461,7 +519,10 @@ export default function Home() {
   };
 
   // Load compare verdict
-  const handleLoadCompareVerdict = async (productA: Product, productB: Product) => {
+  const handleLoadCompareVerdict = async (
+    productA: Product,
+    productB: Product
+  ) => {
     setIsLoadingVerdict(true);
     setCompareVerdict(null);
 
@@ -531,7 +592,11 @@ export default function Home() {
           query: session?.originalQuery || query,
           provider: provider as "openai" | "anthropic" | "gemini",
           audience: session?.audience || null,
-          scenarioId: scenarioId || (results.length > 0 && results[0].scenarioId ? results[0].scenarioId : null),
+          scenarioId:
+            scenarioId ||
+            (results.length > 0 && results[0].scenarioId
+              ? results[0].scenarioId
+              : null),
         }),
       });
 
@@ -551,18 +616,30 @@ export default function Home() {
   };
 
   const handleCopySummary = (cart: Cart) => {
-    const summary = `${cart.name} Bundle ($${cart.items.reduce((sum, item) => sum + item.price, 0).toLocaleString()})\n\n${cart.items.map((item, idx) => `${idx + 1}. ${item.title} - $${item.price}\n   ${item.why}`).join("\n\n")}\n\n${cart.notes.join("\n")}`;
+    const summary = `${cart.name} Bundle ($${cart.items
+      .reduce((sum, item) => sum + item.price, 0)
+      .toLocaleString()})\n\n${cart.items
+      .map(
+        (item, idx) =>
+          `${idx + 1}. ${item.title} - $${item.price}\n   ${item.why}`
+      )
+      .join("\n\n")}\n\n${cart.notes.join("\n")}`;
     navigator.clipboard.writeText(summary);
     toast.success("Summary copied to clipboard!");
   };
 
   const handleScenarioClick = (scenarioId: string) => {
     const scenarioQueries: Record<string, string> = {
-      nyc_dinner: "I have a work dinner in NYC. I need something smart casual and polished.",
-      summer_wedding: "I'm attending a summer outdoor wedding. I want something breathable and photo friendly.",
-      biz_travel: "I'm traveling for business. I need a capsule wardrobe that's wrinkle-free and versatile.",
-      chi_winter: "I need winter office wear for Chicago. Something warm but professional.",
-      campus: "I need back-to-school essentials. Comfortable and casual for campus life.",
+      nyc_dinner:
+        "I have a work dinner in NYC. I need something smart casual and polished.",
+      summer_wedding:
+        "I'm attending a summer outdoor wedding. I want something breathable and photo friendly.",
+      biz_travel:
+        "I'm traveling for business. I need a capsule wardrobe that's wrinkle-free and versatile.",
+      chi_winter:
+        "I need winter office wear for Chicago. Something warm but professional.",
+      campus:
+        "I need back-to-school essentials. Comfortable and casual for campus life.",
     };
     const query = scenarioQueries[scenarioId] || "";
     setQuery(query);
@@ -589,25 +666,30 @@ export default function Home() {
   // Handle Find Similar
   const handleFindSimilar = async (product: Product) => {
     // Search for similar products based on category, color, style
-    const similarQuery = `${product.category} ${product.color} ${product.style || ""}`.trim();
-    
+    const similarQuery = `${product.category} ${product.color} ${
+      product.style || ""
+    }`.trim();
+
     // Add message to chat first
     const findingMessageId = `similar-${Date.now()}`;
-    setAssistantMessages((prev) => [...prev, {
-      id: findingMessageId,
-      role: "assistant" as const,
-      content: `Finding similar products to ${product.title}...`,
-      timestamp: new Date(),
-    }]);
-    
+    setAssistantMessages((prev) => [
+      ...prev,
+      {
+        id: findingMessageId,
+        role: "assistant" as const,
+        content: `Finding similar products to ${product.title}...`,
+        timestamp: new Date(),
+      },
+    ]);
+
     setIsLoading(true);
     setResults([]);
     setConstraints({});
-    
+
     try {
       // Preserve audience from current session if available
       const currentAudience = session?.audience || null;
-      
+
       const response = await fetch("/api/search", {
         method: "POST",
         headers: {
@@ -636,20 +718,29 @@ export default function Home() {
       setScenarioId(data.scenarioId || null);
       setQuery(similarQuery); // Update query state
       setOriginalQuery(similarQuery);
-      
+
       // Auto-open assistant if closed
       if (!assistantOpen) {
         setAssistantOpen(true);
       }
-      
+
       // Extract shopping brief from constraints
       const briefParts: string[] = [];
-      if (data.constraints.budgetMax) briefParts.push(`Budget: $${data.constraints.budgetMax}`);
+      if (data.constraints.budgetMax)
+        briefParts.push(`Budget: $${data.constraints.budgetMax}`);
       if (data.constraints.category) briefParts.push(data.constraints.category);
       if (data.constraints.color) briefParts.push(data.constraints.color);
-      if (data.constraints.colorExclude) briefParts.push(`Exclude ${data.constraints.colorExclude}`);
-      if (data.constraints.excludeCategories && data.constraints.excludeCategories.length > 0) {
-        briefParts.push(...data.constraints.excludeCategories.map((cat: string) => `Exclude ${cat}`));
+      if (data.constraints.colorExclude)
+        briefParts.push(`Exclude ${data.constraints.colorExclude}`);
+      if (
+        data.constraints.excludeCategories &&
+        data.constraints.excludeCategories.length > 0
+      ) {
+        briefParts.push(
+          ...data.constraints.excludeCategories.map(
+            (cat: string) => `Exclude ${cat}`
+          )
+        );
       }
       if (data.constraints.occasion) briefParts.push(data.constraints.occasion);
       if (data.constraints.style) briefParts.push(data.constraints.style);
@@ -659,28 +750,43 @@ export default function Home() {
       if (data.results?.length > 0) {
         setIsAssistantTyping(true);
         setTimeout(() => {
-          setAssistantMessages((prev) => prev.map(msg => 
-            msg.id === findingMessageId 
-              ? { ...msg, content: `Found ${data.results.length} similar products` }
-              : msg
-          ));
+          setAssistantMessages((prev) =>
+            prev.map((msg) =>
+              msg.id === findingMessageId
+                ? {
+                    ...msg,
+                    content: `Found ${data.results.length} similar products`,
+                  }
+                : msg
+            )
+          );
           setIsAssistantTyping(false);
         }, 500);
       } else {
-        setAssistantMessages((prev) => prev.map(msg => 
-          msg.id === findingMessageId 
-            ? { ...msg, content: `No similar products found for ${product.title}` }
-            : msg
-        ));
+        setAssistantMessages((prev) =>
+          prev.map((msg) =>
+            msg.id === findingMessageId
+              ? {
+                  ...msg,
+                  content: `No similar products found for ${product.title}`,
+                }
+              : msg
+          )
+        );
       }
     } catch (error) {
       console.error("Find Similar error:", error);
       toast.error("Failed to find similar products. Please try again.");
-      setAssistantMessages((prev) => prev.map(msg => 
-        msg.id === findingMessageId 
-          ? { ...msg, content: `Sorry, couldn't find similar products right now. Please try again.` }
-          : msg
-      ));
+      setAssistantMessages((prev) =>
+        prev.map((msg) =>
+          msg.id === findingMessageId
+            ? {
+                ...msg,
+                content: `Sorry, couldn't find similar products right now. Please try again.`,
+              }
+            : msg
+        )
+      );
     } finally {
       setIsLoading(false);
     }
@@ -689,21 +795,27 @@ export default function Home() {
   // Handle Complete Look
   const handleCompleteLook = async (product: Product) => {
     // Add message to chat first
-    setAssistantMessages((prev) => [...prev, {
-      id: `complete-${Date.now()}`,
-      role: "assistant" as const,
-      content: `Building complete look with ${product.title}...`,
-      timestamp: new Date(),
-    }]);
-    
+    setAssistantMessages((prev) => [
+      ...prev,
+      {
+        id: `complete-${Date.now()}`,
+        role: "assistant" as const,
+        content: `Building complete look with ${product.title}...`,
+        timestamp: new Date(),
+      },
+    ]);
+
     // Call bundle builder with anchor product
     setIsBuildingCarts(true);
     setCartsDialogOpen(true);
-    
+
     try {
       // Use current session or query, or build from product context
       const currentSession = session;
-      const searchQuery = currentSession?.originalQuery || query || `Complete look with ${product.category}`;
+      const searchQuery =
+        currentSession?.originalQuery ||
+        query ||
+        `Complete look with ${product.category}`;
       const response = await fetch("/api/cart/build", {
         method: "POST",
         headers: {
@@ -736,10 +848,12 @@ export default function Home() {
   // Handle action button click
   const handleActionClick = async (action: string, productId?: string) => {
     if (!productId) return;
-    
-    const product = selectedProducts.find(p => p.id === productId) || results.find(r => r.id === productId);
+
+    const product =
+      selectedProducts.find((p) => p.id === productId) ||
+      results.find((r) => r.id === productId);
     if (!product) return;
-    
+
     if (action === "find_similar") {
       await handleFindSimilar(product);
     } else if (action === "complete_look") {
@@ -748,7 +862,9 @@ export default function Home() {
   };
 
   // Handle sort change
-  const handleSortChange = async (value: "relevance" | "price_asc" | "price_desc") => {
+  const handleSortChange = async (
+    value: "relevance" | "price_asc" | "price_desc"
+  ) => {
     setSortBy(value);
     // Re-run search with new sort
     const searchQuery = session?.originalQuery || query;
@@ -786,7 +902,13 @@ export default function Home() {
   };
 
   // Highlighted text component
-  const HighlightedText = ({ text, query }: { text: string; query: string }) => {
+  const HighlightedText = ({
+    text,
+    query,
+  }: {
+    text: string;
+    query: string;
+  }) => {
     if (!query || !text) return <>{text}</>;
     const highlighted = highlightMatches(text, query);
     return <span dangerouslySetInnerHTML={{ __html: highlighted }} />;
@@ -803,11 +925,16 @@ export default function Home() {
               className="flex items-center gap-3 hover:opacity-80 transition-opacity cursor-pointer"
             >
               <Sparkles className="h-7 w-7 text-primary" />
-              <h1 className="text-2xl font-bold tracking-tight">Premium Search</h1>
+              <h1 className="text-2xl font-bold tracking-tight">
+                Premium Search
+              </h1>
             </button>
             {/* Provider toggle - only show on home page (no results) */}
             {results.length === 0 && !isLoading && (
-              <Tabs value={provider} onValueChange={(v) => setProvider(v as Provider)}>
+              <Tabs
+                value={provider}
+                onValueChange={(v) => setProvider(v as Provider)}
+              >
                 <TabsList>
                   <TabsTrigger value="openai">OpenAI</TabsTrigger>
                   <TabsTrigger value="anthropic">Claude</TabsTrigger>
@@ -830,11 +957,11 @@ export default function Home() {
                 placeholder="Search products..."
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    handleSearch();
-                  }
-                }}
+                // onKeyDown={(e) => {
+                //   if (e.key === "Enter") {
+                //     handleSearch();
+                //   }
+                // }}
                 className="pl-12 h-12 text-base shadow-sm border-2 focus:border-primary/50"
               />
             </div>
@@ -881,11 +1008,17 @@ export default function Home() {
                           Exclude {item}
                           <button
                             onClick={() => {
-                              const newValue = (value as string[]).filter((v: string) => v !== item);
-                              const newConstraints = { ...constraints, [key]: newValue.length > 0 ? newValue : null };
+                              const newValue = (value as string[]).filter(
+                                (v: string) => v !== item
+                              );
+                              const newConstraints = {
+                                ...constraints,
+                                [key]: newValue.length > 0 ? newValue : null,
+                              };
                               setConstraints(newConstraints);
                               // Trigger search refresh if needed
-                              const searchQuery = session?.originalQuery || query;
+                              const searchQuery =
+                                session?.originalQuery || query;
                               if (searchQuery) {
                                 setSession(null);
                                 setQuery(searchQuery);
@@ -900,7 +1033,8 @@ export default function Home() {
                       </motion.div>
                     ));
                   }
-                  const label = key === "budgetMax" ? `Under $${value}` : String(value);
+                  const label =
+                    key === "budgetMax" ? `Under $${value}` : String(value);
                   return (
                     <motion.div
                       key={idx}
@@ -931,9 +1065,8 @@ export default function Home() {
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-6">
-
         {/* Results and Assistant Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-1 gap-6">
           {/* Results Grid */}
           <div>
             {isLoading ? (
@@ -954,137 +1087,190 @@ export default function Home() {
                 {/* Result Count and Sorting */}
                 <div className="flex justify-between items-center mb-4">
                   <p className="text-sm text-muted-foreground">
-                    {resultCount} {resultCount === 1 ? 'result' : 'results'} found for "{query || session?.originalQuery || 'your search'}"
+                    {resultCount} {resultCount === 1 ? "result" : "results"}{" "}
+                    found for "
+                    {query || session?.originalQuery || "your search"}"
                   </p>
-                  <Select value={sortBy} onValueChange={(value) => handleSortChange(value as "relevance" | "price_asc" | "price_desc")}>
+                  <Select
+                    value={sortBy}
+                    onValueChange={(value) =>
+                      handleSortChange(
+                        value as "relevance" | "price_asc" | "price_desc"
+                      )
+                    }
+                  >
                     <SelectTrigger className="w-[180px]">
                       <SelectValue placeholder="Sort by" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="relevance">Relevance</SelectItem>
-                      <SelectItem value="price_asc">Price: Low to High</SelectItem>
-                      <SelectItem value="price_desc">Price: High to Low</SelectItem>
+                      <SelectItem value="price_asc">
+                        Price: Low to High
+                      </SelectItem>
+                      <SelectItem value="price_desc">
+                        Price: High to Low
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className={`grid grid-cols-1 sm:grid-cols-2 gap-4 ${assistantOpen ? 'xl:grid-cols-3' : 'xl:grid-cols-4'}`}
+                  className={`grid grid-cols-1 sm:grid-cols-2 gap-4 ${
+                    assistantOpen ? "xl:grid-cols-3" : "xl:grid-cols-4"
+                  }`}
                 >
-                {results.map((result, idx) => (
-                  <motion.div
-                    key={result.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: idx * 0.05 }}
-                  >
-                    <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 h-full border hover:border-primary/20 group cursor-pointer"
-                      onClick={() => {
-                        setSelectedProduct(result);
-                        setProductDetailOpen(true);
-                        handleLoadProductInsight(result);
-                        
-                        // Add to selected products and chat
-                        if (!selectedProducts.find((p) => p.id === result.id)) {
-                          setSelectedProducts((prev) => [...prev, result]);
-                          setAssistantMessages((prev) => [...prev, {
-                            id: `product-${result.id}`,
-                            role: "user" as const,
-                            content: `Selected: ${result.title} (${result.brand}) - $${result.price}`,
-                            timestamp: new Date(),
-                            productId: result.id,
-                            product: result,
-                          }]);
-                          
-                          // Auto-open assistant if closed
-                          if (!assistantOpen) {
-                            setAssistantOpen(true);
-                          }
-                          
-                          // Add assistant response with actions
-                          setTimeout(() => {
-                            setAssistantMessages((prev) => [...prev, {
-                              id: `assistant-${result.id}-${Date.now()}`,
-                              role: "assistant" as const,
-                              content: `Great choice! This ${result.category} looks perfect. What would you like to do next?`,
-                              timestamp: new Date(),
-                              productId: result.id,
-                              actions: [
-                                { label: "Find Similar", action: "find_similar", productId: result.id },
-                                { label: "Complete the Look", action: "complete_look", productId: result.id },
-                              ],
-                            }]);
-                          }, 500);
-                        }
-                      }}
+                  {results.map((result, idx) => (
+                    <motion.div
+                      key={result.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: idx * 0.05 }}
                     >
-                      <div className="relative h-64 bg-gradient-to-b from-muted/50 to-muted overflow-hidden flex items-center justify-center p-4">
-                        <img
-                          src={result.imageUrl}
-                          alt={result.title}
-                          className="max-w-full max-h-full object-contain transition-transform duration-300 group-hover:scale-105"
-                          onError={(e) => {
-                            // Fallback to picsum if local image fails
-                            const img = e.target as HTMLImageElement;
-                            if (!img.src.includes('picsum.photos')) {
-                              img.src = `https://picsum.photos/seed/${result.id}/600/800`;
+                      <Card
+                        className="overflow-hidden hover:shadow-xl transition-all duration-300 h-full border hover:border-primary/20 group cursor-pointer"
+                        onClick={() => {
+                          setSelectedProduct(result);
+                          setProductDetailOpen(true);
+                          handleLoadProductInsight(result);
+
+                          // Add to selected products and chat
+                          if (
+                            !selectedProducts.find((p) => p.id === result.id)
+                          ) {
+                            setSelectedProducts((prev) => [...prev, result]);
+                            setAssistantMessages((prev) => [
+                              ...prev,
+                              {
+                                id: `product-${result.id}`,
+                                role: "user" as const,
+                                content: `Selected: ${result.title} (${result.brand}) - $${result.price}`,
+                                timestamp: new Date(),
+                                productId: result.id,
+                                product: result,
+                              },
+                            ]);
+
+                            // Auto-open assistant if closed
+                            if (!assistantOpen) {
+                              setAssistantOpen(true);
                             }
-                          }}
-                        />
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handlePinProduct(result);
-                          }}
-                          className="absolute top-2 right-2 p-2 rounded-full bg-white/90 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white shadow-sm z-10"
-                          title={compareProducts.find((p) => p.id === result.id) ? "Remove from compare" : "Add to compare"}
-                        >
-                          {compareProducts.find((p) => p.id === result.id) ? (
-                            <Pin className="h-4 w-4 text-primary fill-primary" />
-                          ) : (
-                            <PinOff className="h-4 w-4 text-muted-foreground" />
-                          )}
-                        </button>
-                      </div>
-                      <CardContent className="p-4">
-                        <h3 className="font-semibold text-sm leading-tight line-clamp-2 mb-1">
-                          <HighlightedText text={result.title} query={query || session?.originalQuery || ""} />
-                        </h3>
-                        <p className="text-xs text-muted-foreground mb-2">
-                          <HighlightedText text={result.brand} query={query || session?.originalQuery || ""} />
-                        </p>
-                        <p className="text-lg font-bold text-primary mb-3">
-                          ${result.price.toLocaleString()}
-                        </p>
-                        <div className="flex flex-wrap gap-1.5 mb-3">
-                          <Badge variant="secondary" className="text-xs">
-                            {result.category}
-                          </Badge>
-                          <Badge variant="outline" className="text-xs">
-                            {result.color}
-                          </Badge>
+
+                            // Add assistant response with actions
+                            setTimeout(() => {
+                              setAssistantMessages((prev) => [
+                                ...prev,
+                                {
+                                  id: `assistant-${result.id}-${Date.now()}`,
+                                  role: "assistant" as const,
+                                  content: `Great choice! This ${result.category} looks perfect. What would you like to do next?`,
+                                  timestamp: new Date(),
+                                  productId: result.id,
+                                  actions: [
+                                    {
+                                      label: "Find Similar",
+                                      action: "find_similar",
+                                      productId: result.id,
+                                    },
+                                    {
+                                      label: "Complete the Look",
+                                      action: "complete_look",
+                                      productId: result.id,
+                                    },
+                                  ],
+                                },
+                              ]);
+                            }, 500);
+                          }
+                        }}
+                      >
+                        <div className="relative h-64 bg-gradient-to-b from-muted/50 to-muted overflow-hidden flex items-center justify-center p-4">
+                          <img
+                            src={result.imageUrl}
+                            alt={result.title}
+                            className="max-w-full max-h-full object-contain transition-transform duration-300 group-hover:scale-105"
+                            onError={(e) => {
+                              // Fallback to picsum if local image fails
+                              const img = e.target as HTMLImageElement;
+                              if (!img.src.includes("picsum.photos")) {
+                                img.src = `https://picsum.photos/seed/${result.id}/600/800`;
+                              }
+                            }}
+                          />
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handlePinProduct(result);
+                            }}
+                            className="absolute top-2 right-2 p-2 rounded-full bg-white/90 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white shadow-sm z-10"
+                            title={
+                              compareProducts.find((p) => p.id === result.id)
+                                ? "Remove from compare"
+                                : "Add to compare"
+                            }
+                          >
+                            {compareProducts.find((p) => p.id === result.id) ? (
+                              <Pin className="h-4 w-4 text-primary fill-primary" />
+                            ) : (
+                              <PinOff className="h-4 w-4 text-muted-foreground" />
+                            )}
+                          </button>
                         </div>
-                        {result.reasons && result.reasons.length > 0 && (
-                          <div className="pt-3 border-t">
-                            <p className="text-xs font-medium mb-1.5 text-muted-foreground">Why:</p>
-                            <ul className="text-xs text-muted-foreground space-y-1">
-                              {result.reasons.slice(0, 2).map((reason, idx) => (
-                                <li key={idx} className="flex items-start gap-1.5">
-                                  <span className="text-primary mt-0.5">•</span>
-                                  <span className="leading-relaxed">{reason}</span>
-                                </li>
-                              ))}
-                            </ul>
+                        <CardContent className="p-4">
+                          <h3 className="font-semibold text-sm leading-tight line-clamp-2 mb-1">
+                            <HighlightedText
+                              text={result.title}
+                              query={query || session?.originalQuery || ""}
+                            />
+                          </h3>
+                          <p className="text-xs text-muted-foreground mb-2">
+                            <HighlightedText
+                              text={result.brand}
+                              query={query || session?.originalQuery || ""}
+                            />
+                          </p>
+                          <p className="text-lg font-bold text-primary mb-3">
+                            ${result.price.toLocaleString()}
+                          </p>
+                          <div className="flex flex-wrap gap-1.5 mb-3">
+                            <Badge variant="secondary" className="text-xs">
+                              {result.category}
+                            </Badge>
+                            <Badge variant="outline" className="text-xs">
+                              {result.color}
+                            </Badge>
                           </div>
-                        )}
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                ))}
+                          {result.reasons && result.reasons.length > 0 && (
+                            <div className="pt-3 border-t">
+                              <p className="text-xs font-medium mb-1.5 text-muted-foreground">
+                                Why:
+                              </p>
+                              <ul className="text-xs text-muted-foreground space-y-1">
+                                {result.reasons
+                                  .slice(0, 2)
+                                  .map((reason, idx) => (
+                                    <li
+                                      key={idx}
+                                      className="flex items-start gap-1.5"
+                                    >
+                                      <span className="text-primary mt-0.5">
+                                        •
+                                      </span>
+                                      <span className="leading-relaxed">
+                                        {reason}
+                                      </span>
+                                    </li>
+                                  ))}
+                              </ul>
+                            </div>
+                          )}
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  ))}
                 </motion.div>
               </>
-            ) : query.trim() || session ? (
+            ) : (query.trim() && session && !isLoading && resultCount === 0) ? (
               // No results state
               <motion.div
                 initial={{ opacity: 0 }}
@@ -1093,11 +1279,14 @@ export default function Home() {
               >
                 <div className="text-center mb-8">
                   <Search className="h-16 w-16 mx-auto mb-4 text-muted-foreground opacity-40" />
-                  <h3 className="text-2xl font-semibold mb-2">No products found</h3>
+                  <h3 className="text-2xl font-semibold mb-2">
+                    No products found
+                  </h3>
                   <p className="text-muted-foreground mb-6">
-                    No products found matching "{query || session?.originalQuery || 'your search'}"
+                    No products found matching "
+                    {query || session?.originalQuery || "your search"}"
                   </p>
-                  
+
                   {/* Suggestions */}
                   <div className="max-w-md mx-auto space-y-4">
                     <div className="bg-muted/50 rounded-lg p-4 text-left">
@@ -1105,7 +1294,9 @@ export default function Home() {
                       <ul className="text-sm text-muted-foreground space-y-1">
                         <li>• Try a different search term</li>
                         <li>• Check spelling</li>
-                        {Object.keys(constraints).some((k) => constraints[k] !== null) && (
+                        {Object.keys(constraints).some(
+                          (k) => constraints[k] !== null
+                        ) && (
                           <>
                             <li>• Remove some filters</li>
                             <li className="pt-2">
@@ -1125,12 +1316,20 @@ export default function Home() {
                         )}
                       </ul>
                     </div>
-                    
+
                     {/* Popular categories */}
                     <div className="bg-muted/50 rounded-lg p-4 text-left">
-                      <p className="text-sm font-medium mb-2">Popular categories:</p>
+                      <p className="text-sm font-medium mb-2">
+                        Popular categories:
+                      </p>
                       <div className="flex flex-wrap gap-2">
-                        {["Sneakers", "Shirts", "Dresses", "Blazers", "Handbags"].map((cat) => (
+                        {[
+                          "Sneakers",
+                          "Shirts",
+                          "Dresses",
+                          "Blazers",
+                          "Handbags",
+                        ].map((cat) => (
                           <Button
                             key={cat}
                             variant="outline"
@@ -1157,9 +1356,13 @@ export default function Home() {
                 className="py-12"
               >
                 <div className="text-center mb-8">
-                  <Search className="h-16 w-16 mx-auto mb-4 text-muted-foreground opacity-40" />
-                  <h3 className="text-2xl font-semibold mb-2">Start your search</h3>
-                  <p className="text-muted-foreground">Choose a scenario to get started</p>
+                  {/* <Search className="h-16 w-16 mx-auto mb-4 text-muted-foreground opacity-40" /> */}
+                  <h3 className="text-2xl font-semibold mb-2">
+                    Start your search
+                  </h3>
+                  <p className="text-muted-foreground">
+                    Choose a scenario to get started
+                  </p>
                 </div>
                 <div className="max-w-6xl mx-auto">
                   {/* Row 1: 3 tiles */}
@@ -1177,7 +1380,9 @@ export default function Home() {
                         >
                           <CardContent className="p-8 flex flex-col items-center text-center h-full min-h-[220px] justify-center">
                             <div className="mb-4 group-hover:scale-110 transition-transform duration-300 text-primary">
-                              {scenario.icon && <scenario.icon sx={{ fontSize: 48 }} />}
+                              {scenario.icon && (
+                                <scenario.icon sx={{ fontSize: 48 }} />
+                              )}
                             </div>
                             <h4 className="font-semibold text-xl mb-3 group-hover:text-primary transition-colors">
                               {scenario.name}
@@ -1191,8 +1396,8 @@ export default function Home() {
                     ))}
                   </div>
                   {/* Row 2: 2 tiles centered */}
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div className="hidden md:block"></div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+                    {/* <div className="hidden md:block"></div> */}
                     {SCENARIOS.slice(3, 5).map((scenario, idx) => (
                       <motion.div
                         key={scenario.id}
@@ -1206,7 +1411,9 @@ export default function Home() {
                         >
                           <CardContent className="p-8 flex flex-col items-center text-center h-full min-h-[220px] justify-center">
                             <div className="mb-4 group-hover:scale-110 transition-transform duration-300 text-primary">
-                              {scenario.icon && <scenario.icon sx={{ fontSize: 48 }} />}
+                              {scenario.icon && (
+                                <scenario.icon sx={{ fontSize: 48 }} />
+                              )}
                             </div>
                             <h4 className="font-semibold text-xl mb-3 group-hover:text-primary transition-colors">
                               {scenario.name}
@@ -1218,7 +1425,7 @@ export default function Home() {
                         </Card>
                       </motion.div>
                     ))}
-                    <div className="hidden md:block"></div>
+                    {/* <div className="hidden md:block"></div> */}
                   </div>
                 </div>
               </motion.div>
@@ -1257,235 +1464,284 @@ export default function Home() {
                   </div>
 
                   <div className="flex-1 overflow-y-auto p-4 space-y-3 min-h-0">
-                {assistantMessages.length === 0 && !isAssistantTyping && !shoppingBrief && (
-                  <div className="text-center text-muted-foreground py-8">
-                    <Sparkles className="h-10 w-10 mx-auto mb-3 opacity-40" />
-                    <p className="text-sm">Start searching</p>
-                  </div>
-                )}
+                    {assistantMessages.length === 0 &&
+                      !isAssistantTyping &&
+                      !shoppingBrief && (
+                        <div className="text-center text-muted-foreground py-8">
+                          <Sparkles className="h-10 w-10 mx-auto mb-3 opacity-40" />
+                          <p className="text-sm">Start searching</p>
+                        </div>
+                      )}
 
-                {/* Shopping Brief Card */}
-                {shoppingBrief && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="bg-muted/50 rounded-lg p-3 border"
-                  >
-                    <p className="text-xs font-medium mb-1.5 text-muted-foreground">Understood</p>
-                    <p className="text-sm leading-relaxed">{shoppingBrief}</p>
-                  </motion.div>
-                )}
-
-                {/* Status Line */}
-                {results.length > 0 && !isLoading && (
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="text-xs text-muted-foreground pb-2 border-b"
-                  >
-                    Showing {results.length} results
-                  </motion.div>
-                )}
-
-                {/* Separator Line */}
-                {(results.length > 0 || shoppingBrief || assistantQuestion) && (
-                  <Separator className="my-2" />
-                )}
-
-                {/* Question (only when needed) */}
-                {assistantQuestion && !session?.asked && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="bg-muted rounded-lg p-3"
-                  >
-                    <p className="text-sm mb-3">{assistantQuestion}</p>
-                    {assistantQuestion.includes("Who is this for") ? (
-                      <div className="grid grid-cols-3 gap-2">
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          className="text-xs h-8"
-                          onClick={() => handleSearch(null, undefined, "men")}
-                          disabled={isLoading}
-                        >
-                          Men
-                        </Button>
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          className="text-xs h-8"
-                          onClick={() => handleSearch(null, undefined, "women")}
-                          disabled={isLoading}
-                        >
-                          Women
-                        </Button>
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          className="text-xs h-8"
-                          onClick={() => handleSearch(null, undefined, "unisex")}
-                          disabled={isLoading}
-                        >
-                          Unisex
-                        </Button>
-                      </div>
-                    ) : (
-                      <div className="space-y-2">
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          className="w-full text-xs h-8"
-                          onClick={() => handleApplyAnswer("More relaxed")}
-                        >
-                          More relaxed
-                        </Button>
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          className="w-full text-xs h-8"
-                          onClick={() => handleApplyAnswer("More formal")}
-                        >
-                          More formal
-                        </Button>
-                      </div>
-                    )}
-                    <p className="text-xs text-muted-foreground mt-3 text-center">
-                      Or type your answer below
-                    </p>
-                  </motion.div>
-                )}
-
-                {/* Messages */}
-                <AnimatePresence>
-                  {assistantMessages
-                    .filter((msg) => msg.role === "user" || (!assistantQuestion || session?.asked))
-                    .map((message) => (
+                    {/* Shopping Brief Card */}
+                    {shoppingBrief && (
                       <motion.div
-                        key={message.id}
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        className={`flex flex-col gap-2 ${message.role === "user" ? "items-end" : "items-start"}`}
+                        className="bg-muted/50 rounded-lg p-3 border"
                       >
-                        {/* Product Card for selected products */}
-                        {message.product && (
-                          <Card className="max-w-[85%] border overflow-hidden">
-                            <div className="flex gap-3 p-3">
-                              <div className="relative h-16 w-16 bg-muted rounded overflow-hidden flex-shrink-0">
-                                <img
-                                  src={message.product.imageUrl}
-                                  alt={message.product.title}
-                                  className="w-full h-full object-contain"
-                                  onError={(e) => {
-                                    (e.target as HTMLImageElement).src = `https://picsum.photos/seed/${message.product!.id}/200/200`;
-                                  }}
-                                />
-                              </div>
-                              <div className="flex-1 min-w-0">
-                                <h4 className="font-semibold text-xs mb-1 line-clamp-1">{message.product.title}</h4>
-                                <p className="text-xs text-muted-foreground mb-1">{message.product.brand}</p>
-                                <p className="text-sm font-bold text-primary">${message.product.price.toLocaleString()}</p>
-                              </div>
-                            </div>
-                          </Card>
-                        )}
-                        
-                        {/* Message Content */}
-                        <div
-                          className={`max-w-[85%] rounded-lg px-3 py-2 text-sm ${
-                            message.role === "user"
-                              ? "bg-primary text-primary-foreground"
-                              : "bg-muted"
-                          }`}
-                        >
-                          {message.content}
-                        </div>
-                        
-                        {/* Action Buttons */}
-                        {message.actions && message.actions.length > 0 && (
-                          <div className="flex gap-2 flex-wrap max-w-[85%]">
-                            {message.actions.map((action, idx) => (
-                              <Button
-                                key={idx}
-                                variant="outline"
-                                size="sm"
-                                className="text-xs h-7"
-                                onClick={() => handleActionClick(action.action, action.productId)}
-                                disabled={isLoading}
-                              >
-                                {action.label}
-                              </Button>
-                            ))}
+                        <p className="text-xs font-medium mb-1.5 text-muted-foreground">
+                          Understood
+                        </p>
+                        <p className="text-sm leading-relaxed">
+                          {shoppingBrief}
+                        </p>
+                      </motion.div>
+                    )}
+
+                    {/* Status Line */}
+                    {results.length > 0 && !isLoading && (
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className="text-xs text-muted-foreground pb-2 border-b"
+                      >
+                        Showing {results.length} results
+                      </motion.div>
+                    )}
+
+                    {/* Separator Line */}
+                    {(results.length > 0 ||
+                      shoppingBrief ||
+                      assistantQuestion) && <Separator className="my-2" />}
+
+                    {/* Question (only when needed) */}
+                    {assistantQuestion && !session?.asked && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="bg-muted rounded-lg p-3"
+                      >
+                        <p className="text-sm mb-3">{assistantQuestion}</p>
+                        {assistantQuestion.includes("Who is this for") ? (
+                          <div className="grid grid-cols-3 gap-2">
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="text-xs h-8"
+                              onClick={() =>
+                                handleSearch(null, undefined, "men")
+                              }
+                              disabled={isLoading}
+                            >
+                              Men
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="text-xs h-8"
+                              onClick={() =>
+                                handleSearch(null, undefined, "women")
+                              }
+                              disabled={isLoading}
+                            >
+                              Women
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="text-xs h-8"
+                              onClick={() =>
+                                handleSearch(null, undefined, "unisex")
+                              }
+                              disabled={isLoading}
+                            >
+                              Unisex
+                            </Button>
+                          </div>
+                        ) : (
+                          <div className="space-y-2">
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="w-full text-xs h-8"
+                              onClick={() => handleApplyAnswer("More relaxed")}
+                            >
+                              More relaxed
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="w-full text-xs h-8"
+                              onClick={() => handleApplyAnswer("More formal")}
+                            >
+                              More formal
+                            </Button>
                           </div>
                         )}
+                        <p className="text-xs text-muted-foreground mt-3 text-center">
+                          Or type your answer below
+                        </p>
                       </motion.div>
-                    ))}
-                </AnimatePresence>
+                    )}
 
-                {isAssistantTyping && (
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="flex justify-start"
-                  >
-                    <div className="bg-muted rounded-lg px-3 py-2">
-                      <div className="flex gap-1">
-                        <motion.div
-                          className="h-1.5 w-1.5 bg-muted-foreground rounded-full"
-                          animate={{ y: [0, -6, 0] }}
-                          transition={{ duration: 0.6, repeat: Infinity, delay: 0 }}
-                        />
-                        <motion.div
-                          className="h-1.5 w-1.5 bg-muted-foreground rounded-full"
-                          animate={{ y: [0, -6, 0] }}
-                          transition={{ duration: 0.6, repeat: Infinity, delay: 0.2 }}
-                        />
-                        <motion.div
-                          className="h-1.5 w-1.5 bg-muted-foreground rounded-full"
-                          animate={{ y: [0, -6, 0] }}
-                          transition={{ duration: 0.6, repeat: Infinity, delay: 0.4 }}
-                        />
+                    {/* Messages */}
+                    <AnimatePresence>
+                      {assistantMessages
+                        .filter(
+                          (msg) =>
+                            msg.role === "user" ||
+                            !assistantQuestion ||
+                            session?.asked
+                        )
+                        .map((message) => (
+                          <motion.div
+                            key={message.id}
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
+                            className={`flex flex-col gap-2 ${
+                              message.role === "user"
+                                ? "items-end"
+                                : "items-start"
+                            }`}
+                          >
+                            {/* Product Card for selected products */}
+                            {message.product && (
+                              <Card className="max-w-[85%] border overflow-hidden">
+                                <div className="flex gap-3 p-3">
+                                  <div className="relative h-16 w-16 bg-muted rounded overflow-hidden flex-shrink-0">
+                                    <img
+                                      src={message.product.imageUrl}
+                                      alt={message.product.title}
+                                      className="w-full h-full object-contain"
+                                      onError={(e) => {
+                                        (
+                                          e.target as HTMLImageElement
+                                        ).src = `https://picsum.photos/seed/${
+                                          message.product!.id
+                                        }/200/200`;
+                                      }}
+                                    />
+                                  </div>
+                                  <div className="flex-1 min-w-0">
+                                    <h4 className="font-semibold text-xs mb-1 line-clamp-1">
+                                      {message.product.title}
+                                    </h4>
+                                    <p className="text-xs text-muted-foreground mb-1">
+                                      {message.product.brand}
+                                    </p>
+                                    <p className="text-sm font-bold text-primary">
+                                      ${message.product.price.toLocaleString()}
+                                    </p>
+                                  </div>
+                                </div>
+                              </Card>
+                            )}
+
+                            {/* Message Content */}
+                            <div
+                              className={`max-w-[85%] rounded-lg px-3 py-2 text-sm ${
+                                message.role === "user"
+                                  ? "bg-primary text-primary-foreground"
+                                  : "bg-muted"
+                              }`}
+                            >
+                              {message.content}
+                            </div>
+
+                            {/* Action Buttons */}
+                            {message.actions && message.actions.length > 0 && (
+                              <div className="flex gap-2 flex-wrap max-w-[85%]">
+                                {message.actions.map((action, idx) => (
+                                  <Button
+                                    key={idx}
+                                    variant="outline"
+                                    size="sm"
+                                    className="text-xs h-7"
+                                    onClick={() =>
+                                      handleActionClick(
+                                        action.action,
+                                        action.productId
+                                      )
+                                    }
+                                    disabled={isLoading}
+                                  >
+                                    {action.label}
+                                  </Button>
+                                ))}
+                              </div>
+                            )}
+                          </motion.div>
+                        ))}
+                    </AnimatePresence>
+
+                    {isAssistantTyping && (
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className="flex justify-start"
+                      >
+                        <div className="bg-muted rounded-lg px-3 py-2">
+                          <div className="flex gap-1">
+                            <motion.div
+                              className="h-1.5 w-1.5 bg-muted-foreground rounded-full"
+                              animate={{ y: [0, -6, 0] }}
+                              transition={{
+                                duration: 0.6,
+                                repeat: Infinity,
+                                delay: 0,
+                              }}
+                            />
+                            <motion.div
+                              className="h-1.5 w-1.5 bg-muted-foreground rounded-full"
+                              animate={{ y: [0, -6, 0] }}
+                              transition={{
+                                duration: 0.6,
+                                repeat: Infinity,
+                                delay: 0.2,
+                              }}
+                            />
+                            <motion.div
+                              className="h-1.5 w-1.5 bg-muted-foreground rounded-full"
+                              animate={{ y: [0, -6, 0] }}
+                              transition={{
+                                duration: 0.6,
+                                repeat: Infinity,
+                                delay: 0.4,
+                              }}
+                            />
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </div>
+
+                  {/* Quick Refinement Chips - Show after results */}
+                  {results.length > 0 && session && !assistantQuestion && (
+                    <div className="px-4 pt-3 pb-2 border-t">
+                      <div className="flex flex-wrap gap-2">
+                        {[
+                          "More formal",
+                          "More relaxed",
+                          "Under $200",
+                          "Under $400",
+                          "Fast delivery",
+                          "Exclude black",
+                          "Show shirts",
+                          "Show sneakers",
+                        ].map((chip) => (
+                          <Button
+                            key={chip}
+                            variant="outline"
+                            size="sm"
+                            className="text-xs h-7"
+                            onClick={() => {
+                              setReplyText(chip);
+                              setTimeout(() => handleFollowUp(chip), 100);
+                            }}
+                            disabled={isLoading}
+                          >
+                            {chip}
+                          </Button>
+                        ))}
                       </div>
                     </div>
-                  </motion.div>
-                )}
-              </div>
-
-              {/* Quick Refinement Chips - Show after results */}
-              {results.length > 0 && session && !assistantQuestion && (
-                <div className="px-4 pt-3 pb-2 border-t">
-                  <div className="flex flex-wrap gap-2">
-                    {[
-                      "More formal",
-                      "More relaxed",
-                      "Under $200",
-                      "Under $400",
-                      "Fast delivery",
-                      "Exclude black",
-                      "Show shirts",
-                      "Show sneakers",
-                    ].map((chip) => (
-                      <Button
-                        key={chip}
-                        variant="outline"
-                        size="sm"
-                        className="text-xs h-7"
-                        onClick={() => {
-                          setReplyText(chip);
-                          setTimeout(() => handleFollowUp(chip), 100);
-                        }}
-                        disabled={isLoading}
-                      >
-                        {chip}
-                      </Button>
-                    ))}
-                  </div>
-                </div>
-              )}
+                  )}
 
                   {/* Reply Input - Always show after first search, always visible at bottom */}
-                  {(assistantQuestion && !session?.asked) || (results.length > 0 && session) ? (
+                  {(assistantQuestion && !session?.asked) ||
+                  (results.length > 0 && session) ? (
                     <div className="p-4 border-t bg-background">
                       {assistantQuestion && !session?.asked && (
                         <div className="text-xs font-medium text-muted-foreground mb-2">
@@ -1580,7 +1836,9 @@ export default function Home() {
       <Dialog open={cartsDialogOpen} onOpenChange={setCartsDialogOpen}>
         <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle className="text-2xl">Your Shopping Bundles</DialogTitle>
+            <DialogTitle className="text-2xl">
+              Your Shopping Bundles
+            </DialogTitle>
           </DialogHeader>
 
           {carts.length > 0 ? (
@@ -1598,9 +1856,14 @@ export default function Home() {
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
                       <div>
-                        <h3 className="text-lg font-semibold">{cart.name} Bundle</h3>
+                        <h3 className="text-lg font-semibold">
+                          {cart.name} Bundle
+                        </h3>
                         <p className="text-sm text-muted-foreground">
-                          Total: ${cart.items.reduce((sum, item) => sum + item.price, 0).toLocaleString()}
+                          Total: $
+                          {cart.items
+                            .reduce((sum, item) => sum + item.price, 0)
+                            .toLocaleString()}
                         </p>
                       </div>
                       <Button
@@ -1628,7 +1891,9 @@ export default function Home() {
                                 alt={item.title}
                                 className="max-w-full max-h-full object-contain"
                                 onError={(e) => {
-                                  (e.target as HTMLImageElement).src = `https://picsum.photos/seed/${item.id}/600/800`;
+                                  (
+                                    e.target as HTMLImageElement
+                                  ).src = `https://picsum.photos/seed/${item.id}/600/800`;
                                 }}
                               />
                             </div>
@@ -1644,14 +1909,19 @@ export default function Home() {
                               </p>
                               {item.role && (
                                 <p className="text-xs text-muted-foreground mb-2">
-                                  Role: <span className="font-medium capitalize">{item.role}</span>
+                                  Role:{" "}
+                                  <span className="font-medium capitalize">
+                                    {item.role}
+                                  </span>
                                 </p>
                               )}
                               <div className="pt-3 border-t">
                                 <p className="text-xs font-medium mb-1 text-muted-foreground">
                                   Why this fits:
                                 </p>
-                                <p className="text-xs leading-relaxed">{item.why}</p>
+                                <p className="text-xs leading-relaxed">
+                                  {item.why}
+                                </p>
                               </div>
                             </CardContent>
                           </Card>
@@ -1660,10 +1930,15 @@ export default function Home() {
                     </div>
 
                     <Card className="p-4 bg-muted/50">
-                      <h4 className="font-semibold text-sm mb-2">Bundle Notes</h4>
+                      <h4 className="font-semibold text-sm mb-2">
+                        Bundle Notes
+                      </h4>
                       <ul className="space-y-1">
                         {cart.notes.map((note, idx) => (
-                          <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2">
+                          <li
+                            key={idx}
+                            className="text-sm text-muted-foreground flex items-start gap-2"
+                          >
                             <span className="text-primary mt-1">•</span>
                             <span>{note}</span>
                           </li>
@@ -1678,7 +1953,9 @@ export default function Home() {
             <div className="flex items-center justify-center py-12">
               <div className="text-center">
                 <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4 text-muted-foreground" />
-                <p className="text-muted-foreground">Building your bundles...</p>
+                <p className="text-muted-foreground">
+                  Building your bundles...
+                </p>
               </div>
             </div>
           )}
@@ -1686,172 +1963,219 @@ export default function Home() {
       </Dialog>
 
       {/* Product Detail Drawer */}
-      <Sheet open={productDetailOpen} onOpenChange={setProductDetailOpen}>
-        <SheetContent side="right" className="w-full sm:max-w-lg overflow-y-auto">
+      {/* Product Detail Modal */}
+      {/* Product Detail Modal */}
+      {/* Product Detail Modal */}
+      <Dialog open={productDetailOpen} onOpenChange={setProductDetailOpen}>
+        {/* <DialogContent className="w-7xl max-h-[90vh] overflow-hidden flex flex-col p-0"> */}
+        {/* <DialogContent className="w-[1400px] max-w-none  max-h-[90vh] overflow-hidden flex flex-col p-0"> */}
+        <DialogContent className="w-[1000px] !max-w-none sm:!max-w-none max-h-[90vh] overflow-hidden flex flex-col p-0">
           {selectedProduct ? (
             <>
-              <SheetHeader>
-                <SheetTitle>{selectedProduct.title}</SheetTitle>
-                <SheetDescription>{selectedProduct.brand}</SheetDescription>
-              </SheetHeader>
-
-              <div className="mt-6 space-y-6">
-                {/* Large Image */}
-                <div className="relative h-96 bg-gradient-to-b from-muted/50 to-muted rounded-lg overflow-hidden flex items-center justify-center p-6">
+              {/* Sticky Header */}
+              <DialogHeader className="px-6 pt-6 pb-4 border-b bg-white sticky top-0 z-10">
+                <DialogTitle>{selectedProduct.title}</DialogTitle>
+                <DialogDescription>{selectedProduct.brand}</DialogDescription>
+                <div className="relative h-90 bg-gradient-to-b from-muted/50 to-muted rounded-lg overflow-hidden flex items-center justify-center p-6">
                   <img
                     src={selectedProduct.imageUrl}
                     alt={selectedProduct.title}
                     className="max-w-full max-h-full object-contain"
                     onError={(e) => {
-                      (e.target as HTMLImageElement).src = `https://picsum.photos/seed/${selectedProduct.id}/600/800`;
+                      (
+                        e.target as HTMLImageElement
+                      ).src = `https://picsum.photos/seed/${selectedProduct.id}/600/800`;
                     }}
                   />
                 </div>
+              </DialogHeader>
 
-                {/* Price */}
-                <div>
-                  <p className="text-3xl font-bold text-primary">
-                    ${selectedProduct.price.toLocaleString()}
-                  </p>
-                  <div className="flex flex-wrap gap-2 mt-2">
-                    <Badge variant="secondary">{selectedProduct.category}</Badge>
-                    <Badge variant="outline">{selectedProduct.color}</Badge>
-                  </div>
-                </div>
+              {/* Scrollable Content */}
+              <div className="overflow-y-auto px-6 pb-6">
+                <div className="mt-6 space-y-6">
+                  {/* Large Image */}
 
-                {/* Fit for your brief */}
-                {isLoadingInsight ? (
-                  <div className="space-y-2">
-                    <Skeleton className="h-4 w-32" />
-                    <Skeleton className="h-16 w-full" />
-                  </div>
-                ) : productInsight?.fitSummary ? (
-                  <Card className="p-4">
-                    <h4 className="font-semibold text-sm mb-2">Fit for your brief</h4>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {productInsight.fitSummary}
+                  {/* Price */}
+                  <div>
+                    <p className="text-3xl font-bold text-primary">
+                      ${selectedProduct.price.toLocaleString()}
                     </p>
-                  </Card>
-                ) : null}
-
-                {/* Tradeoffs */}
-                {isLoadingInsight ? (
-                  <div className="space-y-2">
-                    <Skeleton className="h-4 w-32" />
-                    <Skeleton className="h-20 w-full" />
-                  </div>
-                ) : productInsight?.tradeoffs && productInsight.tradeoffs.length > 0 ? (
-                  <Card className="p-4">
-                    <h4 className="font-semibold text-sm mb-3">Tradeoffs</h4>
-                    <ul className="space-y-2">
-                      {productInsight.tradeoffs.map((tradeoff: string, idx: number) => (
-                        <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2">
-                          <span className="text-primary mt-1">•</span>
-                          <span>{tradeoff}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </Card>
-                ) : null}
-
-                {/* How to style it */}
-                {isLoadingInsight ? (
-                  <div className="space-y-2">
-                    <Skeleton className="h-4 w-32" />
-                    <Skeleton className="h-20 w-full" />
-                  </div>
-                ) : productInsight?.styling && productInsight.styling.length > 0 ? (
-                  <Card className="p-4">
-                    <h4 className="font-semibold text-sm mb-3">How to style it</h4>
-                    <ul className="space-y-2">
-                      {productInsight.styling.map((tip: string, idx: number) => (
-                        <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2">
-                          <span className="text-primary mt-1">•</span>
-                          <span>{tip}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </Card>
-                ) : null}
-
-                {/* 2 Alternatives */}
-                {isLoadingInsight ? (
-                  <div className="space-y-2">
-                    <Skeleton className="h-4 w-32" />
-                    <div className="grid grid-cols-2 gap-3">
-                      <Skeleton className="h-32 w-full" />
-                      <Skeleton className="h-32 w-full" />
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      <Badge variant="secondary">
+                        {selectedProduct.category}
+                      </Badge>
+                      <Badge variant="outline">{selectedProduct.color}</Badge>
                     </div>
                   </div>
-                ) : productInsight?.alternatives && productInsight.alternatives.length > 0 ? (
-                  <Card className="p-4">
-                    <h4 className="font-semibold text-sm mb-3">2 Alternatives</h4>
-                    <div className="grid grid-cols-2 gap-3">
-                      {productInsight.alternatives.map((alt: { id: string; reason: string }) => {
-                        const altProduct = results.find((r) => r.id === alt.id);
-                        if (!altProduct) return null;
-                        return (
-                          <Card key={alt.id} className="overflow-hidden border">
-                            <div className="relative h-32 bg-gradient-to-b from-muted/50 to-muted overflow-hidden flex items-center justify-center p-2">
-                              <img
-                                src={altProduct.imageUrl}
-                                alt={altProduct.title}
-                                className="max-w-full max-h-full object-contain"
-                                onError={(e) => {
-                                  (e.target as HTMLImageElement).src = `https://picsum.photos/seed/${altProduct.id}/600/800`;
-                                }}
-                              />
-                            </div>
-                            <CardContent className="p-3">
-                              <h5 className="font-semibold text-xs mb-1 line-clamp-1">
-                                {altProduct.title}
-                              </h5>
-                              <p className="text-xs font-bold text-primary mb-2">
-                                ${altProduct.price.toLocaleString()}
-                              </p>
-                              <p className="text-xs text-muted-foreground mb-2 line-clamp-2">
-                                {alt.reason}
-                              </p>
-                              <Button
-                                size="sm"
-                                variant="outline"
-                                className="w-full text-xs h-7"
-                                onClick={() => handleSwapAlternative(alt.id)}
+
+                  {/* Fit for your brief */}
+                   <div className="grid grid-cols-2 gap-4">
+                  {isLoadingInsight ? (
+                    <div className="space-y-2">
+                      <Skeleton className="h-4 w-32" />
+                      <Skeleton className="h-16 w-full" />
+                    </div>
+                  ) : productInsight?.fitSummary ? (
+                    <Card className="p-4">
+                      <h4 className="font-semibold text-sm mb-2">
+                        Fit for your brief
+                      </h4>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        {productInsight.fitSummary}
+                      </p>
+                    </Card>
+                  ) : null}
+
+                  {/* Tradeoffs */}
+                  {isLoadingInsight ? (
+                    <div className="space-y-2">
+                      <Skeleton className="h-4 w-32" />
+                      <Skeleton className="h-20 w-full" />
+                    </div>
+                  ) : productInsight?.tradeoffs &&
+                    productInsight.tradeoffs.length > 0 ? (
+                    <Card className="p-4">
+                      <h4 className="font-semibold text-sm mb-3">Tradeoffs</h4>
+                      <ul className="space-y-2">
+                        {productInsight.tradeoffs.map(
+                          (tradeoff: string, idx: number) => (
+                            <li
+                              key={idx}
+                              className="text-sm text-muted-foreground flex items-start gap-2"
+                            >
+                              <span className="text-primary mt-1">•</span>
+                              <span>{tradeoff}</span>
+                            </li>
+                          )
+                        )}
+                      </ul>
+                    </Card>
+                  ) : null}
+
+                  {/* How to style it */}
+                  {isLoadingInsight ? (
+                    <div className="space-y-2">
+                      <Skeleton className="h-4 w-32" />
+                      <Skeleton className="h-20 w-full" />
+                    </div>
+                  ) : productInsight?.styling &&
+                    productInsight.styling.length > 0 ? (
+                    <Card className="p-4">
+                      <h4 className="font-semibold text-sm mb-3">
+                        How to style it
+                      </h4>
+                      <ul className="space-y-2">
+                        {productInsight.styling.map(
+                          (tip: string, idx: number) => (
+                            <li
+                              key={idx}
+                              className="text-sm text-muted-foreground flex items-start gap-2"
+                            >
+                              <span className="text-primary mt-1">•</span>
+                              <span>{tip}</span>
+                            </li>
+                          )
+                        )}
+                      </ul>
+                    </Card>
+                  ) : null}
+                  </div>
+
+                  {/* 2 Alternatives */}
+                  {isLoadingInsight ? (
+                    <div className="space-y-2">
+                      <Skeleton className="h-4 w-32" />
+                      <div className="grid grid-cols-2 gap-3">
+                        <Skeleton className="h-32 w-full" />
+                        <Skeleton className="h-32 w-full" />
+                      </div>
+                    </div>
+                  ) : productInsight?.alternatives &&
+                    productInsight.alternatives.length > 0 ? (
+                    <Card className="p-4">
+                      <h4 className="font-semibold text-sm mb-3">
+                        2 Alternatives
+                      </h4>
+                      <div className="grid grid-cols-2 gap-3">
+                        {productInsight.alternatives.map(
+                          (alt: { id: string; reason: string }) => {
+                            const altProduct = results.find(
+                              (r) => r.id === alt.id
+                            );
+                            if (!altProduct) return null;
+                            return (
+                              <Card
+                                key={alt.id}
+                                className="overflow-hidden border"
                               >
-                                Swap
-                              </Button>
-                            </CardContent>
-                          </Card>
-                        );
-                      })}
-                    </div>
-                  </Card>
-                ) : null}
+                                <div className="relative h-32 bg-gradient-to-b from-muted/50 to-muted overflow-hidden flex items-center justify-center p-2">
+                                  <img
+                                    src={altProduct.imageUrl}
+                                    alt={altProduct.title}
+                                    className="max-w-full max-h-full object-contain"
+                                    onError={(e) => {
+                                      (
+                                        e.target as HTMLImageElement
+                                      ).src = `https://picsum.photos/seed/${altProduct.id}/600/800`;
+                                    }}
+                                  />
+                                </div>
+                                <CardContent className="p-3">
+                                  <h5 className="font-semibold text-xs mb-1 line-clamp-1">
+                                    {altProduct.title}
+                                  </h5>
+                                  <p className="text-xs font-bold text-primary mb-2">
+                                    ${altProduct.price.toLocaleString()}
+                                  </p>
+                                  <p className="text-xs text-muted-foreground mb-2 line-clamp-2">
+                                    {alt.reason}
+                                  </p>
+                                  <Button
+                                    size="sm"
+                                    variant="outline"
+                                    className="w-full text-xs h-7"
+                                    onClick={() =>
+                                      handleSwapAlternative(alt.id)
+                                    }
+                                  >
+                                    Swap
+                                  </Button>
+                                </CardContent>
+                              </Card>
+                            );
+                          }
+                        )}
+                      </div>
+                    </Card>
+                  ) : null}
 
-                {/* Actions */}
-                <div className="flex gap-2 pt-4 border-t">
-                  <Button
-                    variant="outline"
-                    className="flex-1"
-                    onClick={() => {
-                      handlePinProduct(selectedProduct);
-                      if (compareProducts.length === 1) {
-                        setProductDetailOpen(false);
-                      }
-                    }}
-                  >
-                    {compareProducts.find((p) => p.id === selectedProduct.id) ? (
-                      <>
-                        <PinOff className="h-4 w-4 mr-2" />
-                        Remove from compare
-                      </>
-                    ) : (
-                      <>
-                        <Pin className="h-4 w-4 mr-2" />
-                        Add to compare
-                      </>
-                    )}
-                  </Button>
+                  {/* Actions */}
+                  <div className="flex gap-2 pt-4 border-t">
+                    <Button
+                      variant="outline"
+                      className="flex-1"
+                      onClick={() => {
+                        handlePinProduct(selectedProduct);
+                        if (compareProducts.length === 1) {
+                          setProductDetailOpen(false);
+                        }
+                      }}
+                    >
+                      {compareProducts.find(
+                        (p) => p.id === selectedProduct.id
+                      ) ? (
+                        <>
+                          <PinOff className="h-4 w-4 mr-2" />
+                          Remove from compare
+                        </>
+                      ) : (
+                        <>
+                          <Pin className="h-4 w-4 mr-2" />
+                          Add to compare
+                        </>
+                      )}
+                    </Button>
+                  </div>
                 </div>
               </div>
             </>
@@ -1860,12 +2184,15 @@ export default function Home() {
               <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4 text-muted-foreground" />
             </div>
           )}
-        </SheetContent>
-      </Sheet>
+        </DialogContent>
+      </Dialog>
 
       {/* Compare Drawer */}
       <Sheet open={compareOpen} onOpenChange={setCompareOpen}>
-        <SheetContent side="right" className="w-full sm:max-w-3xl overflow-y-auto">
+        <SheetContent
+          side="right"
+          className="w-full sm:max-w-3xl overflow-y-auto"
+        >
           <SheetHeader>
             <SheetTitle>Compare Products</SheetTitle>
             <SheetDescription>
@@ -1896,39 +2223,60 @@ export default function Home() {
                 ) : compareVerdict ? (
                   <Card className="p-4 bg-primary/5 border-primary/20">
                     <div className="flex items-start justify-between mb-3">
-                      <h4 className="font-semibold text-sm">Assistant Verdict</h4>
-                      {compareVerdict.tags && compareVerdict.tags.length > 0 && (
-                        <div className="flex gap-1 flex-wrap">
-                          {compareVerdict.tags.map((tag: string, idx: number) => (
-                            <Badge key={idx} variant="outline" className="text-xs">
-                              {tag}
-                            </Badge>
-                          ))}
-                        </div>
-                      )}
+                      <h4 className="font-semibold text-sm">
+                        Assistant Verdict
+                      </h4>
+                      {compareVerdict.tags &&
+                        compareVerdict.tags.length > 0 && (
+                          <div className="flex gap-1 flex-wrap">
+                            {compareVerdict.tags.map(
+                              (tag: string, idx: number) => (
+                                <Badge
+                                  key={idx}
+                                  variant="outline"
+                                  className="text-xs"
+                                >
+                                  {tag}
+                                </Badge>
+                              )
+                            )}
+                          </div>
+                        )}
                     </div>
-                    <p className="text-sm leading-relaxed mb-4">{compareVerdict.verdict}</p>
+                    <p className="text-sm leading-relaxed mb-4">
+                      {compareVerdict.verdict}
+                    </p>
                     <div className="grid grid-cols-2 gap-4 text-xs">
                       <div>
                         <p className="font-medium mb-1.5">Product A:</p>
                         <ul className="space-y-1">
-                          {compareVerdict.bulletsA?.map((bullet: string, idx: number) => (
-                            <li key={idx} className="text-muted-foreground flex items-start gap-1.5">
-                              <span className="text-primary mt-0.5">•</span>
-                              <span>{bullet}</span>
-                            </li>
-                          ))}
+                          {compareVerdict.bulletsA?.map(
+                            (bullet: string, idx: number) => (
+                              <li
+                                key={idx}
+                                className="text-muted-foreground flex items-start gap-1.5"
+                              >
+                                <span className="text-primary mt-0.5">•</span>
+                                <span>{bullet}</span>
+                              </li>
+                            )
+                          )}
                         </ul>
                       </div>
                       <div>
                         <p className="font-medium mb-1.5">Product B:</p>
                         <ul className="space-y-1">
-                          {compareVerdict.bulletsB?.map((bullet: string, idx: number) => (
-                            <li key={idx} className="text-muted-foreground flex items-start gap-1.5">
-                              <span className="text-primary mt-0.5">•</span>
-                              <span>{bullet}</span>
-                            </li>
-                          ))}
+                          {compareVerdict.bulletsB?.map(
+                            (bullet: string, idx: number) => (
+                              <li
+                                key={idx}
+                                className="text-muted-foreground flex items-start gap-1.5"
+                              >
+                                <span className="text-primary mt-0.5">•</span>
+                                <span>{bullet}</span>
+                              </li>
+                            )
+                          )}
                         </ul>
                       </div>
                     </div>
@@ -1957,41 +2305,68 @@ export default function Home() {
                             alt={product.title}
                             className="max-w-full max-h-full object-contain"
                             onError={(e) => {
-                              (e.target as HTMLImageElement).src = `https://picsum.photos/seed/${product.id}/600/800`;
+                              (
+                                e.target as HTMLImageElement
+                              ).src = `https://picsum.photos/seed/${product.id}/600/800`;
                             }}
                           />
                         </div>
                       </div>
                       <div className="space-y-3">
                         <div>
-                          <h3 className="font-semibold text-lg mb-1">{product.title}</h3>
-                          <p className="text-sm text-muted-foreground">{product.brand}</p>
+                          <h3 className="font-semibold text-lg mb-1">
+                            {product.title}
+                          </h3>
+                          <p className="text-sm text-muted-foreground">
+                            {product.brand}
+                          </p>
                         </div>
 
                         {/* Attribute Rows */}
                         <div className="space-y-2 pt-3 border-t">
                           <div className="flex justify-between text-sm">
-                            <span className="text-muted-foreground">Category:</span>
-                            <span className="font-medium">{product.category}</span>
+                            <span className="text-muted-foreground">
+                              Category:
+                            </span>
+                            <span className="font-medium">
+                              {product.category}
+                            </span>
                           </div>
                           <div className="flex justify-between text-sm">
-                            <span className="text-muted-foreground">Color:</span>
-                            <Badge variant="outline" className="text-xs">{product.color}</Badge>
+                            <span className="text-muted-foreground">
+                              Color:
+                            </span>
+                            <Badge variant="outline" className="text-xs">
+                              {product.color}
+                            </Badge>
                           </div>
                           <div className="flex justify-between text-sm">
-                            <span className="text-muted-foreground">Price:</span>
-                            <span className="font-bold text-primary">${product.price.toLocaleString()}</span>
+                            <span className="text-muted-foreground">
+                              Price:
+                            </span>
+                            <span className="font-bold text-primary">
+                              ${product.price.toLocaleString()}
+                            </span>
                           </div>
                           {product.reasons && product.reasons.length > 0 && (
                             <div className="pt-2 border-t">
-                              <p className="text-xs font-medium mb-1.5 text-muted-foreground">Why this matches:</p>
+                              <p className="text-xs font-medium mb-1.5 text-muted-foreground">
+                                Why this matches:
+                              </p>
                               <ul className="space-y-1">
-                                {product.reasons.slice(0, 2).map((reason, rIdx) => (
-                                  <li key={rIdx} className="text-xs text-muted-foreground flex items-start gap-1.5">
-                                    <span className="text-primary mt-0.5">•</span>
-                                    <span>{reason}</span>
-                                  </li>
-                                ))}
+                                {product.reasons
+                                  .slice(0, 2)
+                                  .map((reason, rIdx) => (
+                                    <li
+                                      key={rIdx}
+                                      className="text-xs text-muted-foreground flex items-start gap-1.5"
+                                    >
+                                      <span className="text-primary mt-0.5">
+                                        •
+                                      </span>
+                                      <span>{reason}</span>
+                                    </li>
+                                  ))}
                               </ul>
                             </div>
                           )}
@@ -2005,7 +2380,9 @@ export default function Home() {
               <div className="flex items-center justify-center min-h-[400px] border-2 border-dashed rounded-lg">
                 <div className="text-center">
                   <Pin className="h-8 w-8 mx-auto mb-2 text-muted-foreground opacity-40" />
-                  <p className="text-sm text-muted-foreground">Pin another product to compare</p>
+                  <p className="text-sm text-muted-foreground">
+                    Pin another product to compare
+                  </p>
                 </div>
               </div>
             )}
